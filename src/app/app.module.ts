@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -21,7 +21,11 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
 import {
   AgmCoreModule
 } from '@agm/core';
+
+import { MatDatepickerModule } from '@angular/material';
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AddBookingComponent } from './add-booking/add-booking.component';
 
 @NgModule({
   imports: [
@@ -32,15 +36,16 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     RouterModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+      apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
     })
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-
+    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
