@@ -14,7 +14,13 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AddBookingComponent } from '../../add-booking/add-booking.component';
+import { ScheduleComponent } from '../../schedule/schedule.component';
+import { RegisterUserComponent } from '../../register-user/register-user.component'
 
+import { environment } from '../../../environments/environment'
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth'
 import {
   MatButtonModule,
   MatInputModule,
@@ -99,6 +105,9 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
     }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   declarations: [
     DashboardComponent,
@@ -109,7 +118,9 @@ import { AgmCoreModule } from '@agm/core';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    AddBookingComponent
+    AddBookingComponent,
+    ScheduleComponent,
+    RegisterUserComponent
   ]
 })
 

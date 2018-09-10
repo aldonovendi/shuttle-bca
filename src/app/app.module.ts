@@ -26,6 +26,8 @@ import { MatDatepickerModule } from '@angular/material';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AddBookingComponent } from './add-booking/add-booking.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 @NgModule({
   imports: [
