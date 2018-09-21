@@ -28,6 +28,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AddBookingComponent } from './add-booking/add-booking.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    ReportComponent,
     
   ],
   providers: [],
