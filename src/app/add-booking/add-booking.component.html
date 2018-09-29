@@ -8,38 +8,65 @@
             <p class="card-category">Complete your booking</p>
           </div>
           <div class="card-body">
-            <form id="shuttleForm">
+            <a>This booking is for round-trip from and to BCA Learning Institute</a>
+            <form #bookingForm="ngForm" id="shuttleForm" (ngSubmit)="pushBooking()">
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field>
-                    <mat-select placeholder="From">
-                      <mat-option *ngFor="let shuttlePoint of shuttlePoints" value="option">{{shuttlePoint}}</mat-option>
+                    <mat-select placeholder="Assembly Point" [(value)]="from" [formControl]="fromControl" required>
+                      <mat-option *ngFor="let shuttlePoint of pointsObservable | async" value="{{shuttlePoint.name}}">{{shuttlePoint.name}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="fromControl.hasError('required')">Please choose Your Origin</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <mat-form-field>
-                    <mat-select placeholder="To"  [formControl]="defaultOption" disabled=true>
-                      <mat-option *ngFor="let shuttlePoint of shuttlePoints" [value]="shuttlePoint">{{shuttlePoint}}</mat-option>
+                    <mat-select placeholder="To"  [(value)]="to" [formControl]="toControl" required>
+                      <mat-option *ngFor="let shuttlePoint of shuttlePoints" value="{{shuttlePoint}}" [disabled]="(from!='BCA Learning Institute' && shuttlePoint!='BCA Learning Institute') || (from=='BCA Learning Institute' && shuttlePoint=='BCA Learning Institute')">{{shuttlePoint}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="toControl.hasError('required')">Please choose Your Origin</mat-error>
+                  </mat-form-field>
+                </div> -->
+                <!-- <div class="col-md-6" [hidden]="from=='BCA Learning Institute'">
+                  <mat-form-field>
+                    <mat-select [(value)]="to" placeholder="To" [disabled]=true [formControl]="defaultOption">
+                      <mat-option value="BCA Learning Institute">BCA Learning Institute</mat-option>
                     </mat-select>
                   </mat-form-field>
-                </div>
+                </div> -->
               </div>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                  
                   <mat-form-field>
-                    <input matInput [matDatepickerFilter]="myFilter" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Date"
-                      [value]="date.value" (focus)="picker.open()" 
-                      (click)="picker.open()">
+                    <input type="text" matInput [matDatepickerFilter]="myFilter" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Date"
+                      (dateChange)="update($event.value)" (dateInput)="update($event.value)" [(value)]="dateValue"  (focus)="picker.open()" 
+                      (click)="picker.open()" disabled=true>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
                   </mat-form-field>
+                  
 
+                  <!-- <kendo-multiviewcalendar
+    kendoDateRangeSelection
+    [(selectionRange)]="range"
+></kendo-multiviewcalendar> -->
+                  <!-- <mat-calendar [selected]="dateValue" (selectedChange)="update($event)"> </mat-calendar> -->
+                </div>
+                <div class="col-md-6">
+                  <h3>{{dateValue}}</h3>
+                  <h3>{{from}}</h3>
+                  <h3>{{to}}</h3>
                 </div>
               </div>
-
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right">Done</button>
+              <!-- <div class="row" *ngFor="let date of dates">
+                <div class="col-md-6">
+                  <mat-checkbox >{{date}}</mat-checkbox><br>
+                </div>
+              </div> -->
+              <!-- <input #dateInput type="text" (keyup.enter)="update(dateInput.value)">
+              <h3>{{test}}</h3> -->
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="fromControl.hasError('required')">Done</button>
               <div class="clearfix"></div>
             </form>
           </div>

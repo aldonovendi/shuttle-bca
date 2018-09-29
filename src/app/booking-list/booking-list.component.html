@@ -1,0 +1,96 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Simple Table</h4>
+                        <p class="card-category"> Here is a subtitle for this table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        No
+                                    </th>
+                                    <th>
+                                        Route
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Departure Time
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </thead>
+                                <tbody>
+                                  
+                                    <tr *ngFor="let booking of bookingList | async; let i=index">
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            {{booking.from}} - {{booking.to}}
+                                        </td>
+                                        <td>
+                                            {{booking.date}}
+                                        </td>
+                                        <td>
+                                            00:00:00
+                                        </td>
+                                        <td>
+                                            <button mat-raised-button class="btn btn-danger" (click)="sendEmail(booking)">Email</button>
+                                            <button mat-raised-button class="btn btn-danger" (clicl)="deleteBooking()">Delete</button>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <!-- <div class="d-flex justify-content-center">
+
+                                <nav class="my-4 pt-2">
+                                  <ul class="pagination pagination-circle pg-purple mb-0">
+                            
+                                    <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                                      <a class="page-link">First</a>
+                                    </li>
+                            
+                                    <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
+                                      <a class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                      </a>
+                                    </li>
+                                    <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index" class="page-item" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                                        <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+                                    </li>
+                            
+                            
+                            
+                                    <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                      <a class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                      </a>
+                                    </li>
+                            
+                                    <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                      <a class="page-link">Last</a>
+                                    </li>
+                            
+                                  </ul>
+                                </nav>
+                            
+                              </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

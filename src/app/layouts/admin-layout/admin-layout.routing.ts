@@ -11,6 +11,9 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AddBookingComponent } from '../../add-booking/add-booking.component';
 import { ScheduleComponent } from '../../schedule/schedule.component';
 import { RegisterUserComponent } from '../../register-user/register-user.component'
+import { BookingListComponent } from '../../booking-list/booking-list.component';
+import { ChangeEmailComponent } from '../../change-email/change-email.component';
+import { ChangePasswordComponent } from '../../change-password/change-password.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -65,5 +68,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-booking',        component: AddBookingComponent },
     { path: 'schedule', component: ScheduleComponent},
-    { path: 'register-user', component: RegisterUserComponent}
+    { path: 'register-user', component: RegisterUserComponent},
+    { path: 'booking-list', component: BookingListComponent},
+    { path: 'change-email', component: ChangeEmailComponent},
+    { path: 'change-password', component: ChangePasswordComponent},
 ];

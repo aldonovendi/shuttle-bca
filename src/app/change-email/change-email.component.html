@@ -1,0 +1,42 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Change Email</h4>
+            <p class="card-category">Insert your new email</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="changeEmail()">
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width-input email">
+                    <input matInput name="email" placeholder="New Email" formControlName="email" required email>
+                    <mat-error *ngIf="isFieldInvalid('email')">
+                      Please fill with correct email address
+                    </mat-error>
+                  </mat-form-field>
+                  
+                  <mat-form-field class="full-width-input">
+                    <input matInput type="password" placeholder="Password" formControlName="password" required>
+                    <mat-error *ngIf="isFieldInvalid('password')">
+                      Please inform your password
+                    </mat-error>
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right">Change Email</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

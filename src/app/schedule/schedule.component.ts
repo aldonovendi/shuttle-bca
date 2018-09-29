@@ -43,17 +43,17 @@ export class ScheduleComponent implements OnInit {
 
   zoom: number = 20;
 
-  shuttlePoints = SHUTTLE_POINTS;
+  // shuttlePoints = SHUTTLE_POINTS;
 
-  // shuttlePoints: any[];
+  shuttlePoints: any[];
 
   constructor(private db: AngularFireDatabase) { 
     // collection: AngularFirestoreCollection<> = db.collection
-    // db.list('/shuttle-points').valueChanges()
-    //     .subscribe(shuttlePoints => {
-    //         this.shuttlePoints = shuttlePoints;
-    //         console.log(shuttlePoints);
-    //     })
+    db.list('/shuttle-points').valueChanges()
+        .subscribe(shuttlePoints => {
+            this.shuttlePoints = shuttlePoints;
+            console.log(shuttlePoints);
+        })
 }
 
   ngOnInit() {
@@ -61,6 +61,7 @@ export class ScheduleComponent implements OnInit {
     // this.points = this.pointsCollection.valueChanges()
     // console.log(this.points)
     this.pointsObservable = this.db.list('/shuttle-points').valueChanges()
+  
     
 
     // getShuttlePoints(listPath): Observable<any[]> {

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
@@ -15,12 +13,18 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AddBookingComponent } from '../../add-booking/add-booking.component';
 import { ScheduleComponent } from '../../schedule/schedule.component';
-import { RegisterUserComponent } from '../../register-user/register-user.component'
+import { RegisterUserComponent } from '../../register-user/register-user.component';
+import { BookingListComponent } from '../../booking-list/booking-list.component';
+import { ChangeEmailComponent } from '../../change-email/change-email.component';
+import { ChangePasswordComponent } from '../../change-password/change-password.component';
 
 import { environment } from '../../../environments/environment'
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth'
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { ToastrModule } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
+// import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {
   MatButtonModule,
   MatInputModule,
@@ -34,9 +38,11 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatDividerModule,
   MatExpansionModule,
+  MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
   MatListModule,
@@ -108,6 +114,7 @@ import { AgmCoreModule } from '@agm/core';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    
   ],
   declarations: [
     DashboardComponent,
@@ -120,8 +127,12 @@ import { AgmCoreModule } from '@agm/core';
     UpgradeComponent,
     AddBookingComponent,
     ScheduleComponent,
-    RegisterUserComponent
-  ]
+    RegisterUserComponent,
+    BookingListComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent,
+  ],
+  // providers:[ToastrService]
 })
 
 export class AdminLayoutModule {}
