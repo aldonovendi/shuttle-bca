@@ -42,8 +42,13 @@ exports.login = function (req, res) {
     }).catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
+        
         console.log('[e-Shuttle][login][Error][Code:' + errorCode + '][' + errorMessage + ']');
-        res.status(500).json({ message: "Auth failed!" });
+        if(errorCode == 'auth/network-request-failed'){
+            res.status(400).json({ message: "Lost Connection!" });
+        } else {
+            res.status(500).json({ message: "Auth failed!" });
+        }
     });
     // auth.onAuthStateChanged(function (user) {
     //     console.log('here [e-Shuttle][onAuthStateChanged][Auth state changed]');

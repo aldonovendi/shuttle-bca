@@ -9,14 +9,14 @@
           </div>
           <div class="card-body">
             <a>This booking is for round-trip from and to BCA Learning Institute</a>
-            <form #bookingForm="ngForm" id="shuttleForm" (ngSubmit)="pushBooking()">
+            <form [formGroup]="form" (ngSubmit)="pushBooking()">
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field>
-                    <mat-select placeholder="Assembly Point" [(value)]="from" [formControl]="fromControl" required>
-                      <mat-option *ngFor="let shuttlePoint of pointsObservable | async" value="{{shuttlePoint.name}}">{{shuttlePoint.name}}</mat-option>
+                    <mat-select placeholder="Assembly Point" formControlName = "from" required>
+                      <mat-option *ngFor="let shuttlePoint of pointsObservable | async" value="{{shuttlePoint.name}}+{{shuttlePoint.departure}}">{{shuttlePoint.name}}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="fromControl.hasError('required')">Please choose Your Origin</mat-error>
+                    <mat-error *ngIf="!from.valid">Please choose Your Origin</mat-error>
                   </mat-form-field>
                 </div>
                 <!-- <div class="col-md-6">
@@ -40,23 +40,29 @@
                  
                   <mat-form-field>
                     <input type="text" matInput [matDatepickerFilter]="myFilter" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Date"
-                      (dateChange)="update($event.value)" (dateInput)="update($event.value)" [(value)]="dateValue"  (focus)="picker.open()" 
-                      (click)="picker.open()" disabled=true>
+                      (dateChange)="update($event.value)" (dateInput)="update($event.value)"  (focus)="picker.open()" 
+                      (click)="picker.open()" formControlName = "date" disabled>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="!date.valid">Please choose a date</mat-error>
                   </mat-form-field>
                   
 
                   <!-- <kendo-multiviewcalendar
-    kendoDateRangeSelection
-    [(selectionRange)]="range"
-></kendo-multiviewcalendar> -->
+                        kendoDateRangeSelection
+                        [(selectionRange)]="range"
+                    ></kendo-multiviewcalendar> -->
                   <!-- <mat-calendar [selected]="dateValue" (selectedChange)="update($event)"> </mat-calendar> -->
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <h3>{{dateValue}}</h3>
                   <h3>{{from}}</h3>
                   <h3>{{to}}</h3>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-md-12" *ngIf="this.form.value.from!=''">
+                  We will meet at <b>{{form.value.from.split('+')[0]}}</b> at <b>{{form.value.from.split('+')[1]}}</b> and <b>{{to}}</b> at <b>17.00</b>
                 </div>
               </div>
               <!-- <div class="row" *ngFor="let date of dates">
@@ -66,27 +72,9 @@
               </div> -->
               <!-- <input #dateInput type="text" (keyup.enter)="update(dateInput.value)">
               <h3>{{test}}</h3> -->
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="fromControl.hasError('required')">Done</button>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid">Done</button>
               <div class="clearfix"></div>
             </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-profile">
-          <div class="card-avatar">
-            <a href="#pablo">
-              <img class="img" src="../assets/img/faces/marc.jpg" />
-            </a>
-          </div>
-          <div class="card-body">
-            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-            <h4 class="card-title">Alec Thompson</h4>
-            <p class="card-description">
-              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye
-              I love Rick Owens’ bed design but the back is...
-            </p>
-            <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
           </div>
         </div>
       </div>

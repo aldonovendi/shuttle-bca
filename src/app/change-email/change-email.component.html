@@ -21,8 +21,9 @@
                   
                   <mat-form-field class="full-width-input">
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
-                    <mat-error *ngIf="isFieldInvalid('password')">
-                      Please inform your password
+                    <mat-error>
+                      <div *ngIf="authFailed">Password is incorrect</div>
+                      <div *ngIf="isFieldInvalid('password')">Please inform your password</div>
                     </mat-error>
                     
                   </mat-form-field>

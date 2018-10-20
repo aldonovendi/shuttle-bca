@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireDatabase } from 'angularfire2/database'
 import { Observable } from 'rxjs/Observable';
+import { NgxSpinnerService } from 'ngx-spinner';
 import 'rxjs/add/operator/map'
 
 interface AssemblyPoint{
@@ -47,7 +48,10 @@ export class ScheduleComponent implements OnInit {
 
   shuttlePoints: any[];
 
-  constructor(private db: AngularFireDatabase) { 
+  constructor(
+    private db: AngularFireDatabase,
+    private spinner: NgxSpinnerService
+  ) { 
     // collection: AngularFirestoreCollection<> = db.collection
     db.list('/shuttle-points').valueChanges()
         .subscribe(shuttlePoints => {
@@ -60,8 +64,9 @@ export class ScheduleComponent implements OnInit {
     // this.pointsCollection = this.db.collection('points')
     // this.points = this.pointsCollection.valueChanges()
     // console.log(this.points)
-    this.pointsObservable = this.db.list('/shuttle-points').valueChanges()
-  
+    this.spinner.show();
+    this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
+    this.spinner.hide();
     
 
     // getShuttlePoints(listPath): Observable<any[]> {

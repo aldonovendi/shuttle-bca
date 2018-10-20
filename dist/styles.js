@@ -655,20 +655,20 @@ if(false) {}
 
 /***/ }),
 
-/***/ 2:
+/***/ 5:
 /*!*********************************************************************************************************************************************************************************!*\
   !*** multi ./node_modules/perfect-scrollbar/css/perfect-scrollbar.css ./src/assets/scss/material-dashboard.scss ./src/assets/css/demo.css ./node_modules/ngx-toastr/toastr.css ***!
   \*********************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\New folder (2)\shuttle-bca\node_modules\perfect-scrollbar\css\perfect-scrollbar.css */"./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
-__webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\New folder (2)\shuttle-bca\src\assets\scss\material-dashboard.scss */"./src/assets/scss/material-dashboard.scss");
-__webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\New folder (2)\shuttle-bca\src\assets\css\demo.css */"./src/assets/css/demo.css");
-module.exports = __webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\New folder (2)\shuttle-bca\node_modules\ngx-toastr\toastr.css */"./node_modules/ngx-toastr/toastr.css");
+__webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\Shuttle BCA Project\shuttle-bca\node_modules\perfect-scrollbar\css\perfect-scrollbar.css */"./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
+__webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\Shuttle BCA Project\shuttle-bca\src\assets\scss\material-dashboard.scss */"./src/assets/scss/material-dashboard.scss");
+__webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\Shuttle BCA Project\shuttle-bca\src\assets\css\demo.css */"./src/assets/css/demo.css");
+module.exports = __webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\Shuttle BCA Project\shuttle-bca\node_modules\ngx-toastr\toastr.css */"./node_modules/ngx-toastr/toastr.css");
 
 
 /***/ })
 
-},[[2,"runtime"]]]);
+},[[5,"runtime"]]]);
 //# sourceMappingURL=styles.js.map

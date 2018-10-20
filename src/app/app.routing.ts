@@ -7,11 +7,12 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes =[
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'add-booking',
     pathMatch: 'full',
   },
   {
@@ -30,12 +31,17 @@ const routes: Routes =[
       {
         path: 'login',
         component: LoginComponent
-      }
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
+      },
     ]
   },
+  
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'add-booking',
     pathMatch: 'full',
   },
   

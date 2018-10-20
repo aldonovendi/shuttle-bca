@@ -4,10 +4,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Simple Table</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+                        <h4 class="card-title ">Booking History</h4>
+                        <p class="card-category">See your booking history, you can email the booking detail or cancel them</p>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="bookingListLength == 0">
+                        Booking Empty
+                    </div>
+                    <div class="card-body" *ngIf="bookingListLength != 0">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
@@ -29,7 +32,7 @@
                                 </thead>
                                 <tbody>
                                   
-                                    <tr *ngFor="let booking of bookingList | async; let i=index">
+                                    <tr *ngFor="let booking of bookingList; let i=index">
                                         <td>
                                             {{i+1}}
                                         </td>
@@ -37,14 +40,14 @@
                                             {{booking.from}} - {{booking.to}}
                                         </td>
                                         <td>
-                                            {{booking.date}}
+                                            {{changeDateFormat(booking.date)}}
                                         </td>
                                         <td>
-                                            00:00:00
+                                            {{booking.departure}}
                                         </td>
                                         <td>
                                             <button mat-raised-button class="btn btn-danger" (click)="sendEmail(booking)">Email</button>
-                                            <button mat-raised-button class="btn btn-danger" (clicl)="deleteBooking()">Delete</button>
+                                            <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(booking)">Cancel</button>
                                         </td>
                                     </tr>
                                     
@@ -93,4 +96,6 @@
         </div>
     </div>
   </div>
-  
+  <ngx-spinner
+bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-atom"
+></ngx-spinner>

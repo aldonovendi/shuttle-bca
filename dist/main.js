@@ -112,19 +112,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_components_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/components.module */ "./src/app/components/components.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./auth/auth.guard */ "./src/app/auth/auth.guard.ts");
-/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./auth/auth.service */ "./src/app/auth/auth.service.ts");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
-/* harmony import */ var _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./layouts/admin-layout/admin-layout.component */ "./src/app/layouts/admin-layout/admin-layout.component.ts");
-/* harmony import */ var _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layouts/login-layout/login-layout.component */ "./src/app/layouts/login-layout/login-layout.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./auth/auth.guard */ "./src/app/auth/auth.guard.ts");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./auth/auth.service */ "./src/app/auth/auth.service.ts");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layouts/admin-layout/admin-layout.component */ "./src/app/layouts/admin-layout/admin-layout.component.ts");
+/* harmony import */ var _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./layouts/login-layout/login-layout.component */ "./src/app/layouts/login-layout/login-layout.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./forgot-password/forgot-password.component */ "./src/app/forgot-password/forgot-password.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -156,54 +160,56 @@ var AppModule = /** @class */ (function () {
                 _components_components_module__WEBPACK_IMPORTED_MODULE_7__["ComponentsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"],
                 _app_routing__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_12__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_13__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                ngx_toastr__WEBPACK_IMPORTED_MODULE_9__["ToastrModule"].forRoot()
+                ngx_toastr__WEBPACK_IMPORTED_MODULE_9__["ToastrModule"].forRoot(),
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_10__["NgxSpinnerModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-                _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_14__["LoginLayoutComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_15__["LoginComponent"],
-                _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_13__["AdminLayoutComponent"],
+                _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_15__["LoginLayoutComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_16__["LoginComponent"],
+                _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_14__["AdminLayoutComponent"],
+                _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_18__["ForgotPasswordComponent"],
             ],
-            providers: [_auth_auth_service__WEBPACK_IMPORTED_MODULE_11__["AuthService"], _auth_auth_guard__WEBPACK_IMPORTED_MODULE_10__["AuthGuard"]],
+            providers: [_auth_auth_service__WEBPACK_IMPORTED_MODULE_12__["AuthService"], _auth_auth_guard__WEBPACK_IMPORTED_MODULE_11__["AuthGuard"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["CUSTOM_ELEMENTS_SCHEMA"]]
         })
@@ -233,6 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./layouts/login-layout/login-layout.component */ "./src/app/layouts/login-layout/login-layout.component.ts");
 /* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth/auth.guard */ "./src/app/auth/auth.guard.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./forgot-password/forgot-password.component */ "./src/app/forgot-password/forgot-password.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -247,10 +254,11 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'add-booking',
         pathMatch: 'full',
     },
     {
@@ -271,12 +279,16 @@ var routes = [
             {
                 path: 'login',
                 component: _login_login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"]
-            }
+            },
+            {
+                path: 'forgot-password',
+                component: _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_8__["ForgotPasswordComponent"]
+            },
         ]
     },
     {
         path: '**',
-        redirectTo: 'dashboard',
+        redirectTo: 'add-booking',
         pathMatch: 'full',
     },
 ];
@@ -549,7 +561,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-wrapper\">\n          <a class=\"navbar-brand\" [routerLink]=\"['/dashboard']\">{{getTitle()}}</a>\n        </div>\n        <button mat-raised-button class=\"navbar-toggler\" type=\"button\" (click)=\"sidebarToggle()\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"navbar-toggler-icon icon-bar\"></span>\n            <span class=\"navbar-toggler-icon icon-bar\"></span>\n            <span class=\"navbar-toggler-icon icon-bar\"></span>\n        </button>\n        <div class=\"collapse navbar-collapse justify-content-end\" id=\"navigation\">\n            <form class=\"navbar-form\">\n                <div class=\"input-group no-border\">\n                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n                    <button mat-raised-button type=\"submit\" class=\"btn btn-white btn-round btn-just-icon\">\n                        <i class=\"material-icons\">search</i>\n                        <div class=\"ripple-container\"></div>\n                    </button>\n                </div>\n            </form>\n            <ul class=\"navbar-nav\">\n                <li class=\"nav-item\">\n                    <a class=\"nav-link\" href=\"#pablo\">\n                        <i class=\"material-icons\">dashboard</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Stats</span>\n                        </p>\n                    </a>\n                </li>\n                <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" href=\"http://example.com\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <i class=\"material-icons\">notifications</i>\n                        <span class=\"notification\">5</span>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Some Actions</span>\n                        </p>\n                    </a>\n                    <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\n                        <a class=\"dropdown-item\" href=\"#\">Mike John responded to your email</a>\n                        <a class=\"dropdown-item\" href=\"#\">You have 5 new tasks</a>\n                        <a class=\"dropdown-item\" href=\"#\">You're now friend with Andrew</a>\n                        <a class=\"dropdown-item\" href=\"#\">Another Notification</a>\n                        <a class=\"dropdown-item\" href=\"#\">Another One</a>\n                    </div>\n                </li>\n                <!-- <li class=\"nav-item\">\n                    <a class=\"nav-link\" href=\"#pablo\">\n                        <i class=\"material-icons\">person</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Account</span>\n                        </p>\n                    </a>\n                </li> -->\n                <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" href=\"http://example.com\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <i class=\"material-icons\">person</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Account</span>\n                        </p>\n                    </a>\n                    <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\n                        <a class=\"dropdown-item\" [routerLink]=\"['/change-email']\">Change Email</a>\n                        <a class=\"dropdown-item\" [routerLink]=\"['/change-password']\">Change Password</a>\n                        <a class=\"dropdown-item\" href=\"/login\" (click)=\"logout()\">Log Out</a>\n                    </div>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<!--\n\n<nav class=\"navbar navbar-transparent navbar-absolute\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <button mat-raised-button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" (click)=\"sidebarToggle()\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">{{getTitle()}}</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a href=\"#pablo\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"material-icons\">dashboard</i>\n                        <p class=\"hidden-lg hidden-md\">Dashboard</p>\n                    </a>\n                </li>\n                <li class=\"dropdown\">\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"material-icons\">notifications</i>\n                        <span class=\"notification\">5</span>\n                        <p class=\"hidden-lg hidden-md\">Notifications</p>\n                    </a>\n                    <ul class=\"dropdown-menu\">\n                        <li><a href=\"#\">Mike John responded to your email</a></li>\n                        <li><a href=\"#\">You have 5 new tasks</a></li>\n                        <li><a href=\"#\">You're now friend with Andrew</a></li>\n                        <li><a href=\"#\">Another Notification</a></li>\n                        <li><a href=\"#\">Another One</a></li>\n                    </ul>\n                </li>\n                <li>\n                    <a href=\"#pablo\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                       <i class=\"material-icons\">person</i>\n                       <p class=\"hidden-lg hidden-md\">Profile</p>\n                    </a>\n                </li>\n            </ul>\n\n            <form class=\"navbar-form navbar-right\" role=\"search\">\n                <div class=\"form-group form-black is-empty\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n                    <span class=\"material-input\"></span>\n                </div>\n                <button mat-raised-button type=\"submit\" class=\"btn btn-white btn-round btn-just-icon\">\n                    <i class=\"material-icons\">search</i><div class=\"ripple-container\"></div>\n                </button>\n            </form>\n        </div>\n    </div>\n</nav> -->\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-wrapper\">\n          <a class=\"navbar-brand\" [routerLink]=\"['/dashboard']\">{{getTitle()}}</a>\n        </div>\n        <button mat-raised-button class=\"navbar-toggler\" type=\"button\" (click)=\"sidebarToggle()\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"navbar-toggler-icon icon-bar\"></span>\n            <span class=\"navbar-toggler-icon icon-bar\"></span>\n            <span class=\"navbar-toggler-icon icon-bar\"></span>\n        </button>\n        <div class=\"collapse navbar-collapse justify-content-end\" id=\"navigation\">\n            <!-- <form class=\"navbar-form\">\n                <div class=\"input-group no-border\">\n                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n                    <button mat-raised-button type=\"submit\" class=\"btn btn-white btn-round btn-just-icon\">\n                        <i class=\"material-icons\">search</i>\n                        <div class=\"ripple-container\"></div>\n                    </button>\n                </div>\n            </form> -->\n            <ul class=\"navbar-nav\">\n                <!-- <li class=\"nav-item\">\n                    <a class=\"nav-link\" href=\"#pablo\">\n                        <i class=\"material-icons\">dashboard</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Stats</span>\n                        </p>\n                    </a>\n                </li> -->\n                <!-- <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" href=\"http://example.com\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <i class=\"material-icons\">notifications</i>\n                        <span class=\"notification\">5</span>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Some Actions</span>\n                        </p>\n                    </a>\n                    <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\n                        <a class=\"dropdown-item\" href=\"#\">Mike John responded to your email</a>\n                        <a class=\"dropdown-item\" href=\"#\">You have 5 new tasks</a>\n                        <a class=\"dropdown-item\" href=\"#\">You're now friend with Andrew</a>\n                        <a class=\"dropdown-item\" href=\"#\">Another Notification</a>\n                        <a class=\"dropdown-item\" href=\"#\">Another One</a>\n                    </div>\n                </li> -->\n                <!-- <li class=\"nav-item\">\n                    <a class=\"nav-link\" href=\"#pablo\">\n                        <i class=\"material-icons\">person</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Account</span>\n                        </p>\n                    </a>\n                </li> -->\n                <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" [routerLink]=\"['/add-booking']\">\n                        <i class=\"material-icons\">add</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Add Booking</span>\n                        </p>\n                    </a>\n                </li>\n                <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" href=\"#\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <i class=\"material-icons\">person</i>\n                        <p>\n                            <span class=\"d-lg-none d-md-block\">Account</span>\n                        </p>\n                    </a>\n                    <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\n                        <a class=\"dropdown-item\" [routerLink]=\"['/change-email']\">Change Email</a>\n                        <a class=\"dropdown-item\" [routerLink]=\"['/change-password']\">Change Password</a>\n                        <a class=\"dropdown-item\" (click)=\"logout()\">Log Out</a>\n                    </div>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<!--\n\n<nav class=\"navbar navbar-transparent navbar-absolute\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <button mat-raised-button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" (click)=\"sidebarToggle()\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">{{getTitle()}}</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a href=\"#pablo\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"material-icons\">dashboard</i>\n                        <p class=\"hidden-lg hidden-md\">Dashboard</p>\n                    </a>\n                </li>\n                <li class=\"dropdown\">\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"material-icons\">notifications</i>\n                        <span class=\"notification\">5</span>\n                        <p class=\"hidden-lg hidden-md\">Notifications</p>\n                    </a>\n                    <ul class=\"dropdown-menu\">\n                        <li><a href=\"#\">Mike John responded to your email</a></li>\n                        <li><a href=\"#\">You have 5 new tasks</a></li>\n                        <li><a href=\"#\">You're now friend with Andrew</a></li>\n                        <li><a href=\"#\">Another Notification</a></li>\n                        <li><a href=\"#\">Another One</a></li>\n                    </ul>\n                </li>\n                <li>\n                    <a href=\"#pablo\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                       <i class=\"material-icons\">person</i>\n                       <p class=\"hidden-lg hidden-md\">Profile</p>\n                    </a>\n                </li>\n            </ul>\n\n            <form class=\"navbar-form navbar-right\" role=\"search\">\n                <div class=\"form-group form-black is-empty\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n                    <span class=\"material-input\"></span>\n                </div>\n                <button mat-raised-button type=\"submit\" class=\"btn btn-white btn-round btn-just-icon\">\n                    <i class=\"material-icons\">search</i><div class=\"ripple-container\"></div>\n                </button>\n            </form>\n        </div>\n    </div>\n</nav> -->\n"
 
 /***/ }),
 
@@ -722,7 +734,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"logo\">\n    <a href=\"https://www.creative-tim.com\" class=\"simple-text\">\n        <div class=\"logo-img\">\n            <img src=\"/assets/img/logo-bca.png\"/>\n        </div>\n        Shuttle BCA\n    </a>\n</div>\n<div class=\"sidebar-wrapper\">\n  <div *ngIf=\"isMobileMenu()\">\n    <form class=\"navbar-form\">\n      <span class=\"bmd-form-group\">\n        <div class=\"input-group no-border\">\n          <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n          <button mat-raised-button type=\"submit\" class=\"btn btn-white btn-round btn-just-icon\">\n            <i class=\"material-icons\">search</i>\n            <div class=\"ripple-container\"></div>\n          </button>\n        </div>\n      </span>\n    </form>\n    <ul class=\"nav navbar-nav nav-mobile-menu\">\n        <li class=\"nav-item\">\n            <a class=\"nav-link\" href=\"#pablo\">\n                <i class=\"material-icons\">dashboard</i>\n                <p>\n                    <span class=\"d-lg-none d-md-block\">Stats</span>\n                </p>\n            </a>\n        </li>\n        <li class=\"nav-item dropdown\">\n            <a class=\"nav-link\" href=\"http://example.com\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"material-icons\">notifications</i>\n                <span class=\"notification\">5</span>\n                <p>\n                    <span class=\"d-lg-none d-md-block\">Some Actions</span>\n                </p>\n            </a>\n            <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\n                <a class=\"dropdown-item\" href=\"#\">Mike John responded to your email</a>\n                <a class=\"dropdown-item\" href=\"#\">You have 5 new tasks</a>\n                <a class=\"dropdown-item\" href=\"#\">You're now friend with Andrew</a>\n                <a class=\"dropdown-item\" href=\"#\">Another Notification</a>\n                <a class=\"dropdown-item\" href=\"#\">Another One</a>\n            </div>\n        </li>\n        <li class=\"nav-item\">\n            <a class=\"nav-link\" href=\"#pablo\">\n                <i class=\"material-icons\">person</i>\n                <p>\n                    <span class=\"d-lg-none d-md-block\">Account</span>\n                </p>\n            </a>\n        </li>\n    </ul>\n  </div>\n    <ul class=\"nav\">\n        <li routerLinkActive=\"active\" *ngFor=\"let menuItem of menuItems\" class=\"{{menuItem.class}} nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"[menuItem.path]\">\n                <i class=\"material-icons\">{{menuItem.icon}}</i>\n                <p>{{menuItem.title}}</p>\n            </a>\n        </li>\n    </ul>\n</div>\n"
+module.exports = "<div class=\"logo\">\n    <a [routerLink]=\"['/add-booking']\" class=\"simple-text\">\n        <div class=\"logo-img\">\n            <img src=\"/assets/img/logo.png\"/>\n        </div>\n        Shuttle BCA\n    </a>\n</div>\n<div class=\"sidebar-wrapper\">\n  <!-- <div *ngIf=\"isMobileMenu()\">\n    <form class=\"navbar-form\">\n      <span class=\"bmd-form-group\">\n        <div class=\"input-group no-border\">\n          <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n          <button mat-raised-button type=\"submit\" class=\"btn btn-white btn-round btn-just-icon\">\n            <i class=\"material-icons\">search</i>\n            <div class=\"ripple-container\"></div>\n          </button> \n        </div>\n      </span>\n    </form>\n    <ul class=\"nav navbar-nav nav-mobile-menu\">\n        <li class=\"nav-item\">\n            <a class=\"nav-link\" href=\"#pablo\">\n                <i class=\"material-icons\">dashboard</i>\n                <p>\n                    <span class=\"d-lg-none d-md-block\">Stats</span>\n                </p>\n            </a>\n        </li>\n        <li class=\"nav-item dropdown\">\n            <a class=\"nav-link\" href=\"http://example.com\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"material-icons\">notifications</i>\n                <span class=\"notification\">5</span>\n                <p>\n                    <span class=\"d-lg-none d-md-block\">Some Actions</span>\n                </p>\n            </a>\n            <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\n                <a class=\"dropdown-item\" href=\"#\">Mike John responded to your email</a>\n                <a class=\"dropdown-item\" href=\"#\">You have 5 new tasks</a>\n                <a class=\"dropdown-item\" href=\"#\">You're now friend with Andrew</a>\n                <a class=\"dropdown-item\" href=\"#\">Another Notification</a>\n                <a class=\"dropdown-item\" href=\"#\">Another One</a>\n            </div>\n        </li>\n        <li class=\"nav-item\">\n            <a class=\"nav-link\" href=\"#pablo\">\n                <i class=\"material-icons\">person</i>\n                <p>\n                    <span class=\"d-lg-none d-md-block\">Account</span>\n                </p>\n            </a>\n        </li>\n    </ul>\n  </div> -->\n    <ul class=\"nav\">\n        <li routerLinkActive=\"active\" *ngFor=\"let menuItem of menuItems\" class=\"{{menuItem.class}} nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"[menuItem.path]\">\n                <i class=\"material-icons\">{{menuItem.icon}}</i>\n                <p>{{menuItem.title}}</p>\n            </a>\n        </li>\n    </ul>\n</div>\n"
 
 /***/ }),
 
@@ -749,15 +761,19 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 var ROUTES = [
-    { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+    // { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/add-booking', title: 'Add Booking', icon: 'add', class: '' },
     { path: '/change-email', title: 'Change Email', icon: 'person', class: '' },
     { path: '/change-password', title: 'Change Password', icon: 'lock', class: '' },
-    { path: '/add-booking', title: 'Add Booking', icon: 'content_paste', class: '' },
-    { path: '/register-user', title: 'Register User', icon: 'library_books', class: '' },
-    { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
-    { path: '/schedule', title: 'Schedule', icon: 'location_on', class: '' },
-    { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
-    { path: '/booking-list', title: 'Booking List', icon: 'library_books', class: '' },
+    // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
+    { path: '/shuttle-points', title: 'Shuttle Points', icon: 'location_on', class: '' },
+    // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
+    { path: '/booking-list', title: 'My Booking History', icon: 'history', class: '' },
+    { path: '/register-user', title: 'Register User', icon: 'person_add', class: '' },
+    { path: '/add-booking-admin', title: 'Add Booking to User', icon: 'add_circle', class: '' },
+    { path: '/add-shuttle-point', title: 'Add Shuttle Point', icon: 'add_location', class: '' },
+    { path: '/booking-report', title: 'Booking Report', icon: 'library_books', class: '' },
+    { path: '/manage-user', title: 'Manage User', icon: 'people', class: '' },
 ];
 var SidebarComponent = /** @class */ (function () {
     function SidebarComponent() {
@@ -781,6 +797,107 @@ var SidebarComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], SidebarComponent);
     return SidebarComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/forgot-password/forgot-password.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/forgot-password/forgot-password.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"signin-content\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Forgot password</h4>\n            <p class=\"card-category\">Please enter your email address</p>\n          </div>\n          <div class=\"card-body\">\n            <!-- <div class=\"signin-content\"> -->\n              <!-- <mat-card>\n                <mat-card-content> -->\n                  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput placeholder=\"Email\" formControlName=\"email\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('email')\">\n                        Please insert a valid email address\n                      </mat-error>\n                    </mat-form-field>\n                    <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!form.valid\">Next</button>\n                  </form>\n                <!-- </mat-card-content>\n              </mat-card> -->\n            <!-- </div> -->\n            \n          </div>\n        </div>\n      </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+
+/***/ }),
+
+/***/ "./src/app/forgot-password/forgot-password.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/forgot-password/forgot-password.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".signin-content {\n  padding: 60px 1rem;\n  max-width: 400px;\n  margin: 2em auto;\n  text-align: center; }\n\n.full-width-input {\n  width: 100%; }\n"
+
+/***/ }),
+
+/***/ "./src/app/forgot-password/forgot-password.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/forgot-password/forgot-password.component.ts ***!
+  \**************************************************************/
+/*! exports provided: ForgotPasswordComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPasswordComponent", function() { return ForgotPasswordComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ForgotPasswordComponent = /** @class */ (function () {
+    function ForgotPasswordComponent(fb, http, toastrService) {
+        this.fb = fb;
+        this.http = http;
+        this.toastrService = toastrService;
+    }
+    ForgotPasswordComponent.prototype.ngOnInit = function () {
+        this.form = this.fb.group({
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].email]
+        });
+    };
+    ForgotPasswordComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.form.get(field).valid && this.form.get(field).touched) ||
+            (this.form.get(field).untouched && this.formSubmitAttempt));
+    };
+    ForgotPasswordComponent.prototype.onSubmit = function () {
+        var _this = this;
+        if (this.form.valid) {
+            // this.spinner.show();
+            this.http.post('/forgot-password', this.form.value).subscribe(function (data) {
+                console.log('forgot pass success' + data);
+                _this.toastrService.success('A reset link has been sent to your email', 'Please check your email');
+            }, function (error) {
+                console.log("error: " + error.status);
+                if (error.status == 400) {
+                    _this.toastrService.error("There's no user with this email address", 'Invalid email');
+                }
+                else {
+                    _this.toastrService.error('Please double check your email address', 'Invalid email');
+                }
+            });
+            this.form.reset();
+        }
+        this.formSubmitAttempt = true;
+    };
+    ForgotPasswordComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-forgot-password',
+            template: __webpack_require__(/*! ./forgot-password.component.html */ "./src/app/forgot-password/forgot-password.component.html"),
+            styles: [__webpack_require__(/*! ./forgot-password.component.scss */ "./src/app/forgot-password/forgot-password.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
+    ], ForgotPasswordComponent);
+    return ForgotPasswordComponent;
 }());
 
 
@@ -973,7 +1090,7 @@ var LoginLayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"signin-content\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Login</h4>\n            <p class=\"card-category\">Please login to continue</p>\n          </div>\n          <div class=\"card-body\">\n            <!-- <div class=\"signin-content\"> -->\n              <!-- <mat-card>\n                <mat-card-content> -->\n                  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput placeholder=\"Email\" formControlName=\"email\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('email')\">\n                        Please inform your user name\n                      </mat-error>\n                    </mat-form-field>\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('password')\">\n                        Please inform your password\n                      </mat-error>\n                    </mat-form-field>\n                    <button mat-raised-button color=\"primary\" type=\"submit\">Login</button>\n                  </form>\n                <!-- </mat-card-content>\n              </mat-card> -->\n            <!-- </div> -->\n          </div>\n        </div>\n      </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"signin-content\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Login</h4>\n            <p class=\"card-category\">Please login to continue</p>\n          </div>\n          <div class=\"card-body\">\n            <!-- <div class=\"signin-content\"> -->\n              <!-- <mat-card>\n                <mat-card-content> -->\n                  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput placeholder=\"Email\" formControlName=\"email\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('email')\">\n                        Please inform your user name\n                      </mat-error>\n                    </mat-form-field>\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('password')\">\n                        Please inform your password\n                      </mat-error>\n                    </mat-form-field>\n                    <a [routerLink]=\"['/forgot-password']\">Forgot password?</a><br>\n                    <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!form.valid\">Login</button>\n                  </form>\n                <!-- </mat-card-content>\n              </mat-card> -->\n            <!-- </div> -->\n            \n          </div>\n        </div>\n      </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
 
 /***/ }),
 
@@ -1002,6 +1119,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../auth/auth.service */ "./src/app/auth/auth.service.ts");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1015,11 +1134,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(fb, http, authService) {
+    function LoginComponent(fb, http, authService, spinner, toastrService) {
         this.fb = fb;
         this.http = http;
         this.authService = authService;
+        this.spinner = spinner;
+        this.toastrService = toastrService;
+        this.isConnect = true;
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.form = this.fb.group({
@@ -1034,11 +1158,22 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
         if (this.form.valid) {
+            this.spinner.show();
             this.http.post('/login-success', this.form.value).subscribe(function (data) {
                 console.log('Login success' + data);
                 _this.authService.login(_this.form.value);
+                _this.spinner.hide();
             }, function (error) {
-                console.log("auth failed" + error);
+                if (error.status == 400) {
+                    console.log("Lost Connection!");
+                    _this.toastrService.error('Lost Connection!');
+                    _this.isConnect = false;
+                }
+                else {
+                    _this.toastrService.error('Invalid username or password');
+                    console.log("auth failed" + error);
+                }
+                _this.spinner.hide();
             });
             console.log(this.form.value);
         }
@@ -1052,7 +1187,9 @@ var LoginComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
             _angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"],
-            _auth_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
+            _auth_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -1125,7 +1262,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\New folder (2)\shuttle-bca\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\Aldo Novendi\Desktop\Shuttle BCA Project\shuttle-bca\src\main.ts */"./src/main.ts");
 
 
 /***/ })

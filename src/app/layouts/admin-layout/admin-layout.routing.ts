@@ -14,6 +14,11 @@ import { RegisterUserComponent } from '../../register-user/register-user.compone
 import { BookingListComponent } from '../../booking-list/booking-list.component';
 import { ChangeEmailComponent } from '../../change-email/change-email.component';
 import { ChangePasswordComponent } from '../../change-password/change-password.component';
+import { AddBookingAdminComponent } from '../../add-booking-admin/add-booking-admin.component';
+import { AddShuttlePointComponent } from '../../add-shuttle-point/add-shuttle-point.component';
+import { BookingReportComponent } from '../../booking-report/booking-report.component';
+import { ManageUserComponent } from '../../manage-user/manage-user.component';
+import { ReportComponent } from '../../report/report.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -58,18 +63,23 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
+    // { path: 'dashboard',      component: DashboardComponent },
+    // { path: 'user-profile',   component: UserProfileComponent },
+    // { path: 'table-list',     component: TableListComponent },
+    // { path: 'typography',     component: TypographyComponent },
+    // { path: 'icons',          component: IconsComponent },
+    // { path: 'maps',           component: MapsComponent },
+    // { path: 'notifications',  component: NotificationsComponent },
+    // { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-booking',        component: AddBookingComponent },
-    { path: 'schedule', component: ScheduleComponent},
+    { path: 'shuttle-points', component: ScheduleComponent},
     { path: 'register-user', component: RegisterUserComponent},
     { path: 'booking-list', component: BookingListComponent},
     { path: 'change-email', component: ChangeEmailComponent},
     { path: 'change-password', component: ChangePasswordComponent},
+    { path: 'add-booking-admin', component: AddBookingAdminComponent},
+    { path: 'add-shuttle-point', component: AddShuttlePointComponent},
+    { path: 'booking-report', component: BookingReportComponent},
+    { path: 'manage-user', component: ManageUserComponent},
+    { path: 'download-booking-report/:month/:year', component: ReportComponent },
 ];

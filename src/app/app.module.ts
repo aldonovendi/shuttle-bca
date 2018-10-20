@@ -20,6 +20,7 @@ import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 import { AuthGuard } from './auth/auth.guard';
@@ -74,6 +75,7 @@ import {
   MatToolbarModule,
   MatTreeModule,
 } from '@angular/material';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
@@ -124,15 +126,15 @@ import {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
     }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   declarations: [
     AppComponent,
     LoginLayoutComponent,
     LoginComponent,
     AdminLayoutComponent,
-    
-    
+    ForgotPasswordComponent, 
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent],

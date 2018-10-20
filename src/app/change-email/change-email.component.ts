@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-change-email',
@@ -10,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChangeEmailComponent implements OnInit {
   form: FormGroup;
+  newEmail: String;
   constructor(private fb: FormBuilder, private http: Http, private toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -26,11 +28,17 @@ export class ChangeEmailComponent implements OnInit {
     );
   }
 
+  @ViewChild('form') formDirective: FormGroupDirective;
+
+  authFailed: boolean = false;
   changeEmail(){
+    this.authFailed = false;
+    this.newEmail = this.form.value.email;
     this.http.post('change-email', this.form.value).subscribe(data => {
-      this.toastrService.success('An email has been set to ' + this.form.value.email, 'Change Email Success');
+      this.toastrService.success('An email has been set to ' + this.newEmail, 'Change Email Success');
     }, error => {
       console.log("auth failed" + error);
+      this.authFailed = true;
     })
     this.form.reset();
   }

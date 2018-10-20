@@ -4,5 +4,6 @@ export class RegisterUser {
     nip: string;
     division: string;
     program: string;
+    phone: string;
     email: string;
 }

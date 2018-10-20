@@ -17,12 +17,20 @@ import { RegisterUserComponent } from '../../register-user/register-user.compone
 import { BookingListComponent } from '../../booking-list/booking-list.component';
 import { ChangeEmailComponent } from '../../change-email/change-email.component';
 import { ChangePasswordComponent } from '../../change-password/change-password.component';
+import { AddBookingAdminComponent } from '../../add-booking-admin/add-booking-admin.component';
+import { AddShuttlePointComponent } from '../../add-shuttle-point/add-shuttle-point.component';
+import { BookingReportComponent } from '../../booking-report/booking-report.component';
+import { ManageUserComponent } from '../../manage-user/manage-user.component';
+import { ReportComponent } from '../../report/report.component';
 
 import { environment } from '../../../environments/environment'
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ExcelService } from '../../services/excel.service';
+import { HttpClientModule } from '@angular/common/http';
 // import { ToastrService } from 'ngx-toastr';
 // import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {
@@ -69,6 +77,7 @@ import { AgmCoreModule } from '@agm/core';
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
@@ -114,7 +123,7 @@ import { AgmCoreModule } from '@agm/core';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    
+    NgxSpinnerModule
   ],
   declarations: [
     DashboardComponent,
@@ -131,8 +140,13 @@ import { AgmCoreModule } from '@agm/core';
     BookingListComponent,
     ChangeEmailComponent,
     ChangePasswordComponent,
+    AddBookingAdminComponent,
+    AddShuttlePointComponent,
+    BookingReportComponent,
+    ManageUserComponent,
+    ReportComponent
   ],
-  // providers:[ToastrService]
+  providers:[ExcelService]
 })
 
 export class AdminLayoutModule {}

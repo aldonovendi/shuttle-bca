@@ -1,0 +1,41 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Booking Report</h4>
+              <p class="card-category">Choose the time you want to see</p>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="form" (ngSubmit)="getReport()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-select placeholder="Month" formControlName = "month">
+                        <mat-option *ngFor="let monthName of months" value="{{monthName}}">{{monthName}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="!month.valid">Please choose a Month</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-select placeholder="Year" formControlName = "year">
+                          <mat-option *ngFor="let year of years" value="{{year}}">{{year}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="!year.valid">Please choose a year</mat-error>
+                      </mat-form-field>
+                    </div>
+                </div>
+                <a [routerLink]="['/download-booking-report', this.form.value.month, this.form.value.year]">
+                  <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid">See Report</button>
+                </a>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,47 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Report Booking</h4>
+                        <p class="card-category">{{this.month}} {{this.year}}</p>
+                        <button mat-raised-button class="btn btn-danger pull-right" (click)="download()">Download</button>
+
+                    </div>
+                    <div class="card-body" *ngIf="bookingListLength == 0">
+                        Booking Empty
+                    </div>
+                    <div class="card-body" *ngIf="bookingListLength != 0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Name</th>
+                                    <th>Program</th>
+                                    <th>Phone No</th>
+                                    <th>Date</th>
+                                    <th>Route</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let booking of bookingList">
+                                        <td>{{booking.name}}</td>
+                                        <td>{{booking.program}}</td>
+                                        <td>{{booking.phoneNo}}</td>
+                                        <td>{{booking.date}}</td>
+                                        <td>{{booking.from}} - {{booking.to}} </td>
+                                        <td>
+                                            <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(booking)">Cancel</button>
+                                        </td>
+                                    </tr>
+                                    <!-- <h3>{{history_data.length}}</h3> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-atom"></ngx-spinner>

@@ -8,15 +8,20 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    // { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/add-booking', title: 'Add Booking',  icon:'add', class: '' },
     { path: '/change-email', title: 'Change Email',  icon:'person', class: '' },
     { path: '/change-password', title: 'Change Password',  icon:'lock', class: '' },
-    { path: '/add-booking', title: 'Add Booking',  icon:'content_paste', class: '' },
-    { path: '/register-user', title: 'Register User',  icon:'library_books', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    { path: '/schedule', title: 'Schedule',  icon:'location_on', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/booking-list', title: 'Booking List',  icon:'library_books', class: '' },
+    // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
+    { path: '/shuttle-points', title: 'Shuttle Points',  icon:'location_on', class: '' },
+    // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
+    { path: '/booking-list', title: 'My Booking History',  icon:'history', class: '' },
+    { path: '/register-user', title: 'Register User',  icon:'person_add', class: '' },
+    { path: '/add-booking-admin', title: 'Add Booking to User',  icon:'add_circle', class: '' },
+    { path: '/add-shuttle-point', title: 'Add Shuttle Point',  icon:'add_location', class: '' },
+    { path: '/booking-report', title: 'Booking Report',  icon:'library_books', class: '' },
+    { path: '/manage-user', title: 'Manage User',  icon:'people', class: '' },
+
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 

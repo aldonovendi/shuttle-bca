@@ -25,11 +25,13 @@
                         Please inform your password
                       </mat-error>
                     </mat-form-field>
-                    <button mat-raised-button color="primary" type="submit">Login</button>
+                    <a [routerLink]="['/forgot-password']">Forgot password?</a><br>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Login</button>
                   </form>
                 <!-- </mat-card-content>
               </mat-card> -->
             <!-- </div> -->
+            
           </div>
         </div>
       </div>
@@ -37,3 +39,6 @@
     </div>
   </div>
 </div>
+<ngx-spinner
+bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-atom"
+></ngx-spinner>

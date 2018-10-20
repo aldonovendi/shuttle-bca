@@ -1,13 +1,13 @@
 <div class="logo">
-    <a href="https://www.creative-tim.com" class="simple-text">
+    <a [routerLink]="['/add-booking']" class="simple-text">
         <div class="logo-img">
-            <img src="/assets/img/logo-bca.png"/>
+            <img src="/assets/img/logo.png"/>
         </div>
         Shuttle BCA
     </a>
 </div>
 <div class="sidebar-wrapper">
-  <div *ngIf="isMobileMenu()">
+  <!-- <div *ngIf="isMobileMenu()">
     <form class="navbar-form">
       <span class="bmd-form-group">
         <div class="input-group no-border">
@@ -15,7 +15,7 @@
           <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
             <i class="material-icons">search</i>
             <div class="ripple-container"></div>
-          </button>
+          </button> 
         </div>
       </span>
     </form>
@@ -53,7 +53,7 @@
             </a>
         </li>
     </ul>
-  </div>
+  </div> -->
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]">
