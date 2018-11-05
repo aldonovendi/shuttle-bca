@@ -17,7 +17,7 @@ admin.initializeApp({
 app.use(express.static(path.join(__dirname, "dist")));
 
 const hostname = 'e-shuttle.herokuapp.com';
-const port = 3000;
+const port = process.env.PORT;
 
 function changeDateFormat(date) {
     var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
@@ -497,7 +497,7 @@ app.post("/forgot-password", function (req, res) {
     });
 });
 
-app.listen(process.env.PORT, hostname, () => {
+app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
     //   console.log(new Date());
 });
