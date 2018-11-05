@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { HttpHeaders } from '@angular/common/http'
 import { mixinDisabled } from '@angular/material';
-
 export const SHUTTLE_POINTS: String[] = [
   "Wisma Asia",
   "Kelapa Gading",
@@ -48,7 +47,7 @@ export class AddBookingComponent implements OnInit {
   defaultOption = new FormControl(this.shuttlePoints[2]);
   from = '';
   to = 'BCA Learning Institute';
-
+  private processing = false;
   // fromModel = new NgModel();
   dateValue = this.date.value;
   update(dateInput: string) {
@@ -56,9 +55,7 @@ export class AddBookingComponent implements OnInit {
   }
   pushBooking(): void {
     // console.log(this.dateValue.getDate());
-    console.log(this.form.value);
-
-    console.log(this.from);
+    this.processing = true;
 
     var bookingObj = {
       from: this.form.value.from.split('+')[0],
@@ -73,8 +70,10 @@ export class AddBookingComponent implements OnInit {
       console.log('tesssss' + data);
       this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
       this.resetForm();
+      this.processing = false;
     }, error => {
       this.toastrService.error('Lost Connection!');
+      this.processing = false;
     });
     // this.sendEmail(bookingObj);
     

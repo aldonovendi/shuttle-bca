@@ -28,7 +28,7 @@
                                         <td>{{booking.name}}</td>
                                         <td>{{booking.program}}</td>
                                         <td>{{booking.phoneNo}}</td>
-                                        <td>{{booking.date}}</td>
+                                        <td>{{changeDateFormat(booking.date)}}</td>
                                         <td>{{booking.from}} - {{booking.to}} </td>
                                         <td>
                                             <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(booking)">Cancel</button>

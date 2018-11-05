@@ -46,8 +46,11 @@
                                             {{booking.departure}}
                                         </td>
                                         <td>
-                                            <button mat-raised-button class="btn btn-danger" (click)="sendEmail(booking)">Email</button>
-                                            <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(booking)">Cancel</button>
+                                            <button mat-raised-button class="btn btn-danger" (click)="sendEmail(booking)" *ngIf="emailProcessing != true">Email</button>
+                                            <button mat-raised-button class="btn btn-danger" disabled *ngIf="emailProcessing == true">Processing...</button>
+                                            <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(booking)" *ngIf="processing != true">Cancel</button>
+                                            <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
+
                                         </td>
                                     </tr>
                                     

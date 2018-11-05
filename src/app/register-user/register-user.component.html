@@ -58,7 +58,8 @@
                 </div>
               </div>
 
-              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right">Register User</button>
+              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right" *ngIf="processing != true">Register User</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -83,7 +84,8 @@
                 </div>
               </div>
               
-              <button mat-raised-button type="button"  class="btn btn-danger pull-right" (click)="Upload()">Upload File</button>
+              <button mat-raised-button type="button"  class="btn btn-danger pull-right" (click)="Upload()" *ngIf="uploadProcessing == false">Upload File</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="uploadProcessing == true">Processing...</button>
               <div class="clearfix"></div>
           </div>
         </div>

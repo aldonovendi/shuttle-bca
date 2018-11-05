@@ -25,7 +25,9 @@ export class ReportComponent implements OnInit {
   private keys = [];
   private year = '';
   private month = '';
-  private time = {
+  private assemblyPoint= '';
+  private filter = {
+    assemblyPoint: '',
     month: '',
     year: ''
   }
@@ -44,14 +46,16 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.month = this.route.snapshot.paramMap.get('month');
     this.year = this.route.snapshot.paramMap.get('year');
+    this.assemblyPoint = this.route.snapshot.paramMap.get('assemblyPoint');
 
-    this.time = {
+    this.filter = {
+      assemblyPoint: this.assemblyPoint,
       month: this.month,
       year: this.year
     }
 
     this.spinner.show();
-    this.http.post('/show-booking-report', this.time).subscribe(res => {
+    this.http.post('/show-booking-report', this.filter).subscribe(res => {
       // this.testVar = res;
       console.log('show booking ' + (res.json()));
       
@@ -85,6 +89,11 @@ export class ReportComponent implements OnInit {
     // });
   
   
+  }
+
+  changeDateFormat(date: String){
+    var newDate = date.split("-");
+    return newDate[0] + " " + this.month[+newDate[1]-1] + " " + newDate[2];
   }
 
   download(){

@@ -20,6 +20,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/add-booking-admin', title: 'Add Booking to User',  icon:'add_circle', class: '' },
     { path: '/add-shuttle-point', title: 'Add Shuttle Point',  icon:'add_location', class: '' },
     { path: '/booking-report', title: 'Booking Report',  icon:'library_books', class: '' },
+    { path: '/download-report', title: 'Download Report',  icon:'save_alt', class: '' },
     { path: '/manage-user', title: 'Manage User',  icon:'people', class: '' },
 
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },

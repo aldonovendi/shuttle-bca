@@ -17,7 +17,7 @@
                       <mat-option value="Operational">Operational</mat-option>
                       <mat-option value="Shuttle Bus">Shuttle Bus</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="!from.valid">Please choose Your Origin</mat-error>
+                    <mat-error *ngIf="isFieldInvalid('type')">Please choose the shuttle type</mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -97,7 +97,8 @@
                   and <b>{{to}}</b> at <b>17.00</b>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid">Done</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid" *ngIf="processing != true">Done</button>              
               <div class="clearfix"></div>
             </form>
           </div>

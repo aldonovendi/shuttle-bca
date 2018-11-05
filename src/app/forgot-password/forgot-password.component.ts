@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ForgotPasswordComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
+  private processing = false;
   constructor(
     private fb: FormBuilder,
     private http: Http,
@@ -31,11 +32,13 @@ export class ForgotPasswordComponent implements OnInit {
     );
   }
   onSubmit(): void {
+    this.processing = true;
     if (this.form.valid) {
-      // this.spinner.show();
       this.http.post('/forgot-password', this.form.value).subscribe(data => {
         console.log('forgot pass success' + data);
         this.toastrService.success('A reset link has been sent to your email', 'Please check your email');
+        this.form.reset();
+    this.processing = false;
       }, error => {
         console.log("error: " + error.status);
         if(error.status == 400){
@@ -43,10 +46,9 @@ export class ForgotPasswordComponent implements OnInit {
         } else{
           this.toastrService.error('Please double check your email address', 'Invalid email');
         }
+        this.processing = false;
       });
-      this.form.reset();
     }
-    
     this.formSubmitAttempt = true;
   }
 }

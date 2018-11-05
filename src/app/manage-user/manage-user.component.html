@@ -1,61 +1,63 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title ">Manage User</h4>
-                      <p class="card-category">Registered user, you can delete them</p>
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table">
-                              <thead class=" text-primary">
-                                  <th>
-                                      No
-                                  </th>
-                                  <th>
-                                      Name
-                                  </th>
-                                  <th>
-                                      NIP
-                                  </th>
-                                  <th>
-                                      Program
-                                  </th>
-                                  <th>
-                                      Email
-                                  </th>
-                                  <th>
-                                      Action
-                                  </th>
-                              </thead>
-                              <tbody>
-                                
-                                  <tr *ngFor="let user of userList; let i=index">
-                                      <td>
-                                          {{i+1}}
-                                      </td>
-                                      <td>
-                                          {{user.name}}
-                                      </td>
-                                      <td>
-                                          {{user.nip}}
-                                      </td>
-                                      <td>
-                                          {{user.program}}
-                                      </td>
-                                      <td>
-                                         {{user.email}}
-                                      </td>
-                                      <td>
-                                          <button mat-raised-button class="btn btn-danger" (click)="deleteUser(user)">Delete</button>
-                                      </td>
-                                  </tr>
-                                  
-                              </tbody>
-                          </table>
-                          <!-- <div class="d-flex justify-content-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Manage User</h4>
+                        <p class="card-category">Registered user, you can delete them</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        No
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        NIP
+                                    </th>
+                                    <th>
+                                        Program
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let user of userList; let i=index">
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            {{user.name}}
+                                        </td>
+                                        <td>
+                                            {{user.nip}}
+                                        </td>
+                                        <td>
+                                            {{user.program}}
+                                        </td>
+                                        <td>
+                                            {{user.email}}
+                                        </td>
+                                        <td>
+                                            <button mat-raised-button class="btn btn-danger" (click)="deleteUser(user)"
+                                                *ngIf="processing != true">Delete</button>
+                                            <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- <div class="d-flex justify-content-center">
 
                               <nav class="my-4 pt-2">
                                 <ul class="pagination pagination-circle pg-purple mb-0">
@@ -91,13 +93,11 @@
                               </nav>
                           
                             </div> -->
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<ngx-spinner
-bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-atom"
-></ngx-spinner>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-atom"></ngx-spinner>

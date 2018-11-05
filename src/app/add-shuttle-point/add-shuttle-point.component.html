@@ -40,8 +40,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field>
-                    <input matInput placeholder="Position Description (near ...)" formControlName="desc">
-                    <mat-error *ngIf="isFieldInvalid('desc')">
+                    <input matInput placeholder="Position Description (near ...)" formControlName="position">
+                    <mat-error *ngIf="isFieldInvalid('position')">
                       This field is <strong>required</strong>
                     </mat-error>
                   </mat-form-field>
@@ -57,7 +57,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid">See Report</button>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid" *ngIf="processing != true">Done</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
               <div class="clearfix"></div>
             </form>
           </div>

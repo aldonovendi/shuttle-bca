@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Http } from '@angular/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-shuttle-point',
@@ -13,14 +14,17 @@ export class AddShuttlePointComponent implements OnInit {
   constructor(
     private http: Http,
     private fb: FormBuilder,
-  ) { }
+    private toastrService: ToastrService,
 
+  ) { }
+  private processing = false;
   ngOnInit() {
+
     this.form = this.fb.group({
       name: ['', Validators.required],
       lat: ['', Validators.required],
       lng: ['', Validators.required],
-      desc: ['', Validators.required],
+      position: ['', Validators.required],
       departure: ['', Validators.required],
     });
   }
@@ -31,7 +35,26 @@ export class AddShuttlePointComponent implements OnInit {
     );
   }
 
-  onSubmit(){
+  onSubmit() {
+    var shuttlePointObj = {
+      name: this.form.value.name,
+      departure: this.form.value.departure,
+      img: '../assets/img/maps/' + this.form.value.name + '.jpg',
+      lat: this.form.value.lat,
+      lng: this.form.value.lng,
+      position: this.form.value.position,
+    }
+    this.processing = true;
+    this.http.post('/add-shuttle-point', shuttlePointObj).subscribe(data => {
+      console.log('tesssss' + data);
+      this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
+      this.form.reset();
+      this.processing = false;
+    }, error => {
+      this.toastrService.error('Lost Connection!');
+      this.processing = false;
+    });
     this.formSubmitAttempt = true;
   }
+  
 }

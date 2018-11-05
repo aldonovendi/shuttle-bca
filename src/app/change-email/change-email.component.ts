@@ -12,6 +12,8 @@ import { auth } from 'firebase';
 export class ChangeEmailComponent implements OnInit {
   form: FormGroup;
   newEmail: String;
+  private processing = false;
+
   constructor(private fb: FormBuilder, private http: Http, private toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -32,14 +34,22 @@ export class ChangeEmailComponent implements OnInit {
 
   authFailed: boolean = false;
   changeEmail(){
+    this.processing = true;
     this.authFailed = false;
     this.newEmail = this.form.value.email;
     this.http.post('change-email', this.form.value).subscribe(data => {
       this.toastrService.success('An email has been set to ' + this.newEmail, 'Change Email Success');
+      this.processing = false;
+      this.form.reset();
     }, error => {
-      console.log("auth failed" + error);
+      if(error.status = 500){
+        this.toastrService.error('Incorrect Password');
+      } else{
+        this.toastrService.error('Lost Connection!');
+      }
       this.authFailed = true;
+      this.processing = false;
     })
-    this.form.reset();
+    
   }
 }

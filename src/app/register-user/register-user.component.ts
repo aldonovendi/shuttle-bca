@@ -23,7 +23,8 @@ export class RegisterUserComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   form: FormGroup;
   private formSubmitAttempt: boolean;
-
+  private processing = false;
+  private uploadProcessing = false;
   constructor(
     private db: AngularFireDatabase,
     private toastrService: ToastrService,
@@ -36,6 +37,7 @@ export class RegisterUserComponent implements OnInit {
   // @ViewChild('registerUserForm') formDirective: FormGroupDirective;
 
   registerUser() {
+    this.processing = true;
     var userObj = {
       name: this.form.value.name,
       nip: this.form.value.nip,
@@ -49,12 +51,14 @@ export class RegisterUserComponent implements OnInit {
       console.log('tesssss' + data);
       this.toastrService.success('An email has been sent to ' + this.form.value.email, this.form.value.name + ' register success');
       this.form.reset();
+    this.processing = false;
     }, error => {
       if (error.status == 501) {
         this.toastrService.error('Email already in use');
       } else{
         this.toastrService.error('Lost Connection');
       }
+    this.processing = false;
     });
     this.formSubmitAttempt = true;
   }
@@ -92,6 +96,7 @@ export class RegisterUserComponent implements OnInit {
 
   Upload() {
     let fileReader = new FileReader();
+    this.uploadProcessing = true;
     fileReader.onload = (e) => {
       this.arrayBuffer = fileReader.result;
       var data = new Uint8Array(this.arrayBuffer);
@@ -108,12 +113,14 @@ export class RegisterUserComponent implements OnInit {
           var userData = JSON.parse(JSON.stringify(excelData[i]));
           this.toastrService.success('An email has been sent to ' + userData.email, userData.name + ' register success');
           // console.log('tesssss' + );
+    this.uploadProcessing = false;
         }, error => {
           if (error.status == 501) {
             this.toastrService.error('Email already in use');
           } else{
             this.toastrService.error('Lost Connection');
           }
+    this.uploadProcessing = false;
         });
       }
     }

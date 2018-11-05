@@ -22,7 +22,7 @@
                   <mat-form-field class="full-width-input">
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
                     <mat-error>
-                      <div *ngIf="authFailed">Password is incorrect</div>
+                      <div *ngIf="authFailed">Incorrect password</div>
                       <div *ngIf="isFieldInvalid('password')">Please inform your password</div>
                     </mat-error>
                     
@@ -30,7 +30,8 @@
                 </div>
               </div>
 
-              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right">Change Email</button>
+              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right" *ngIf="processing != true">Change Email</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
               <div class="clearfix"></div>
             </form>
           </div>

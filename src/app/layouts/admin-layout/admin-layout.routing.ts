@@ -19,6 +19,7 @@ import { AddShuttlePointComponent } from '../../add-shuttle-point/add-shuttle-po
 import { BookingReportComponent } from '../../booking-report/booking-report.component';
 import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
+import { DownloadReportComponent } from '../../download-report/download-report.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -82,4 +83,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'booking-report', component: BookingReportComponent},
     { path: 'manage-user', component: ManageUserComponent},
     { path: 'download-booking-report/:month/:year', component: ReportComponent },
+    { path: 'download-report', component: DownloadReportComponent },
 ];

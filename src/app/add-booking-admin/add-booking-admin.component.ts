@@ -45,6 +45,7 @@ export class AddBookingAdminComponent implements OnInit {
   defaultOption = new FormControl(this.shuttlePoints[2]);
   from = '';
   to = 'BCA Learning Institute';
+  private processing = false;
 
   // fromModel = new NgModel();
   dateValue = this.date.value;
@@ -53,8 +54,7 @@ export class AddBookingAdminComponent implements OnInit {
   }
   pushBooking(): void {
     // console.log(this.dateValue.getDate());
-    console.log(this.from);
-
+    this.processing = true;
     var bookingObj = {
       type: this.form.value.type,
       name: this.form.value.name,
@@ -71,11 +71,13 @@ export class AddBookingAdminComponent implements OnInit {
 
     // this.db.list('/booking').push(bookingObj);
     this.http.post('/push-booking-admin', bookingObj).subscribe(data => {
-      console.log('tesssss' + data);
+      this.processing = false;
+      this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
+      this.resetForm();    
+    }, error => {
+      this.toastrService.error('Lost Connection!');
+      this.processing = false;
     });
-    // this.sendEmail(bookingObj);
-    this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
-    this.resetForm();
     this.formSubmitAttempt = true;
   }
 

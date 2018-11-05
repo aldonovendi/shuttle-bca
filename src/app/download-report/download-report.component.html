@@ -1,42 +1,16 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8">
         <div class="card">
           <div class="card-header card-header-danger">
             <h4 class="card-title">Booking Report</h4>
             <p class="card-category">Choose the time you want to see</p>
           </div>
           <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="getReport()">
+            <form [formGroup]="form" (ngSubmit)="download()">
               <div class="row">
-                <div class="col-md-2">
-                  <mat-form-field>
-                    <mat-select placeholder="Shuttle Type" formControlName="type">
-                      <mat-option value="All">All</mat-option>
-                      <mat-option value="Operational">Operational</mat-option>
-                      <mat-option value="Shuttle Bus">Shuttle Bus</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="isFieldInvalid('type')">Please choose the shuttle type</mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-2" *ngIf="this.form.value.type == 'Shuttle Bus'">
-                  <mat-form-field>
-                    <mat-select placeholder="Assembly Point" formControlName="assemblyPoint">
-                      <mat-option *ngFor="let shuttlePoint of pointsObservable | async" value="{{shuttlePoint.name}}">{{shuttlePoint.name}}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="isFieldInvalid('assemblyPoint')">Please choose an assembly point</mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-2" *ngIf="this.form.value.type == 'Operational'">
-                  <mat-form-field>
-                    <mat-select placeholder="Assembly Point" formControlName="assemblyPoint">
-                      <mat-option value="Wisma Asia" sele>Wisma Asia</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="isFieldInvalid('assemblyPoint')">Please choose an assembly point</mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                   <mat-form-field>
                     <mat-select placeholder="Month" formControlName="month">
                       <mat-option *ngFor="let monthName of months" value="{{monthName}}">{{monthName}}</mat-option>
@@ -44,7 +18,7 @@
                     <mat-error *ngIf="isFieldInvalid('month')">Please choose a Month</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <mat-form-field>
                     <mat-select placeholder="Year" formControlName="year">
                       <mat-option *ngFor="let year of years" value="{{year}}">{{year}}</mat-option>
@@ -52,12 +26,13 @@
                     <mat-error *ngIf="isFieldInvalid('year')">Please choose a year</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-4">
-                  <button mat-raised-button class="btn btn-danger" (click)="filter()" [disabled]="!form.valid">See
-                    Report</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button mat-raised-button class="btn btn-danger" (click)="download()" [disabled]="!form.valid">Download</button>
-                </div>
+                
               </div>
+              
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid" *ngIf="processing != true">Download</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
+              
+            
 
               <div class="clearfix"></div>
             </form>

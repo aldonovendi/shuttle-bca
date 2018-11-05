@@ -8,15 +8,16 @@ import { ExcelService } from '../services/excel.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-booking-report',
-  templateUrl: './booking-report.component.html',
-  styleUrls: ['./booking-report.component.scss']
+  selector: 'app-download-report',
+  templateUrl: './download-report.component.html',
+  styleUrls: ['./download-report.component.scss']
 })
 
-export class BookingReportComponent implements OnInit {
+export class DownloadReportComponent implements OnInit {
   form: FormGroup;
   months: String[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   years: String[] = ["2018"];
+
   private filterData = {
     type: '',
     assemblyPoint: '',
@@ -75,9 +76,7 @@ export class BookingReportComponent implements OnInit {
   }
   bookingReportList: any[];
   download(){
-    if(this.bookingListLength != 0){
-      this.excelServ.exportAsExcelFile(this.bookingList, 'Shuttle Report ' + this.form.value.month + " " + this.form.value.year);
-    } else {
+    this.processing = true;
       this.filterData = {
         type: this.form.value.type,
         assemblyPoint: this.form.value.assemblyPoint,
@@ -94,28 +93,17 @@ export class BookingReportComponent implements OnInit {
         console.log('show booking ' + (res.json()));
         this.bookingList = res.json();
         this.excelServ.exportAsExcelFile(this.bookingList, 'Booking Report ' + this.form.value.month + ' ' + this.form.value.year);
+        this.processing = false;
+      }, error => {
+        this.toastrService.error('Lost Connection!');
+        this.processing = false;
       });
       this.formSubmitAttempt = true;
-    }
     
   }
   changeDateFormat(date: String){
     var newDate = date.split("-");
     return newDate[0] + " " + this.months[+newDate[1]-1] + " " + newDate[2];
-  }
-  cancelBooking(bookingObj: Object){
-    this.processing = true;
-    this.http.post('/cancel-booking', bookingObj).subscribe(data => {
-      var index = this.bookingList.findIndex(booking => booking.key === JSON.parse(JSON.stringify(bookingObj)).key)
-      this.bookingList.splice(index ,1);
-      this.bookingListLength = this.bookingList.length;
-      this.toastrService.success('This booking has been canceled', 'Cancel Success');
-      this.processing = false;
-    }, error => {
-      this.toastrService.error('Lost Connection!');
-      this.processing = false;
-    });
-    
   }
   isFieldInvalid(field: string) {
     return (

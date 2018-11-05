@@ -25,41 +25,48 @@ export class BookingListComponent implements OnInit {
 
   bookingList: any[]
   month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
+  private processing = false;
+  private emailProcessing = false;
   constructor(
-    private db: AngularFireDatabase, 
-    private er: ElementRef, 
-    private http: Http, 
+    private db: AngularFireDatabase,
+    private er: ElementRef,
+    private http: Http,
     private toastrService: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
-  changeDateFormat(date: String){
+  changeDateFormat(date: String) {
     var newDate = date.split("-");
-    return this.month[+newDate[1]-1] + " " + newDate[0] + ", " + newDate[2];
+    return newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
   }
 
-  sendEmail(bookingObj: Object){
-    console.log(bookingObj);
-    
+  sendEmail(bookingObj: Object) {
+    this.emailProcessing = true;
     this.http.post('/send-booking-detail', bookingObj).subscribe(data => {
-      console.log('tesssss'+data);
+      console.log('tesssss' + data);
+      this.emailProcessing = false;
+      this.toastrService.success('Please check your email', 'An email has been sent');
     }, error => {
+      this.emailProcessing = false;
       this.toastrService.error('Lost Connection!');
     });
-    this.toastrService.success('Please check your email', 'An email has been sent');
   }
 
-  cancelBooking(bookingObj: Object){
+  cancelBooking(bookingObj: Object) {
+    this.processing = true;
     this.http.post('/cancel-booking', bookingObj).subscribe(data => {
       this.toastrService.success('Your booking has been canceled', 'Cancel Success');
-      var index = this.bookingList.findIndex(booking => booking.key === JSON.parse(JSON.stringify(bookingObj)).key)      
-      this.bookingList.splice(index ,1);
+      var index = this.bookingList.findIndex(booking => booking.key === JSON.parse(JSON.stringify(bookingObj)).key)
+      this.bookingList.splice(index, 1);
       this.bookingListLength = this.bookingList.length;
+      this.processing = false;
+
     }, error => {
       this.toastrService.error('Lost Connection!');
+      this.processing = false;
+
     })
-    
+
   }
 
   changePage(event: any) {
@@ -74,10 +81,10 @@ export class BookingListComponent implements OnInit {
     if (this.pages.last.nativeElement.classList.contains('active')) {
       if ((this.numberOfPaginators - this.numberOfVisiblePaginators) >= this.lastVisiblePaginator) {
         this.firstVisiblePaginator += this.numberOfVisiblePaginators;
-      this.lastVisiblePaginator += this.numberOfVisiblePaginators;
+        this.lastVisiblePaginator += this.numberOfVisiblePaginators;
       } else {
         this.firstVisiblePaginator += this.numberOfVisiblePaginators;
-      this.lastVisiblePaginator = this.numberOfPaginators;
+        this.lastVisiblePaginator = this.numberOfPaginators;
       }
     }
 
@@ -88,7 +95,7 @@ export class BookingListComponent implements OnInit {
 
   previousPage(event: any) {
     if (this.pages.first.nativeElement.classList.contains('active')) {
-      if ((this.lastVisiblePaginator - this.firstVisiblePaginator) === this.numberOfVisiblePaginators)  {
+      if ((this.lastVisiblePaginator - this.firstVisiblePaginator) === this.numberOfVisiblePaginators) {
         this.firstVisiblePaginator -= this.numberOfVisiblePaginators;
         this.lastVisiblePaginator -= this.numberOfVisiblePaginators;
       } else {
@@ -123,11 +130,11 @@ export class BookingListComponent implements OnInit {
       this.firstVisiblePaginator = this.lastVisiblePaginator - (this.numberOfPaginators % this.numberOfVisiblePaginators);
     }
   }
-// testVar: any;
+  // testVar: any;
 
-private bookingListLength;
+  private bookingListLength;
   ngOnInit() {
-    
+
     // this.bookingList = this.db.list('/user').snapshotChanges().map(changes => {
     //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     // });
@@ -135,10 +142,10 @@ private bookingListLength;
     this.http.post('/show-booking-list', {}).subscribe(res => {
       // this.testVar = res;
       console.log('show booking ' + (res.json()));
-      
+
       this.bookingList = res.json();
       this.bookingListLength = this.bookingList.length;
-      
+
       this.spinner.hide();
       // console.log('show booking ' + this.testVar.json());
       // console.log('show booking ' + JSON.stringify(res.json()));

@@ -57927,7 +57927,7 @@ var XLS = XLSX, ODS = XLSX;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Add Booking</h4>\n            <p class=\"card-category\">Complete the booking</p>\n          </div>\n          <div class=\"card-body\">\n            <a>This booking is for round-trip from and to BCA Learning Institute</a>\n            <form [formGroup]=\"form\" (ngSubmit)=\"pushBooking()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Shuttle Type\" formControlName=\"type\">\n                      <mat-option value=\"Operational\">Operational</mat-option>\n                      <mat-option value=\"Shuttle Bus\">Shuttle Bus</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"!from.valid\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"name\">\n                    <input matInput placeholder=\"Name\" formControlName=\"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      Name is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"nip\">\n                    <input matInput placeholder=\"NIP\" formControlName=\"nip\">\n                    <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                      NIP is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"program\">\n                    <input matInput placeholder=\"Program\" formControlName=\"program\">\n                    <mat-error *ngIf=\"isFieldInvalid('program')\">\n                      Program is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"phone\">\n                    <input matInput placeholder=\"Phone Number\" formControlName=\"phone\">\n                    <mat-error *ngIf=\"isFieldInvalid('phone')\">\n                      Phone is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"email\">\n                    <input matInput placeholder=\"Email\" formControlName=\"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"from\">\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" [disabled]=\"this.form.value.type == 'Operational' && shuttlePoint.name != 'Wisma Asia'\" value=\"{{shuttlePoint.name}}+{{shuttlePoint.departure}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"!from.valid\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n\n                  <mat-form-field>\n                    <input type=\"text\" matInput [matDatepickerFilter]=\"myFilter\" [min]=\"minDate\" [max]=\"maxDate\"\n                      [matDatepicker]=\"picker\" placeholder=\"Date\" (dateChange)=\"update($event.value)\" (dateInput)=\"update($event.value)\"\n                      (focus)=\"picker.open()\" (click)=\"picker.open()\" formControlName=\"date\" disabled>\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker disabled=\"false\"></mat-datepicker>\n                    <mat-error *ngIf=\"!date.valid\">Please choose a date</mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\" *ngIf=\"this.form.value.from!='' && this.form.value.type == 'Shuttle Bus'\">\n                  We will meet at <b>{{form.value.from.split('+')[0]}}</b> at <b>{{form.value.from.split('+')[1]}}</b>\n                  and <b>{{to}}</b> at <b>17.00</b>\n                </div>\n              </div>\n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\">Done</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Add Booking</h4>\n            <p class=\"card-category\">Complete the booking</p>\n          </div>\n          <div class=\"card-body\">\n            <a>This booking is for round-trip from and to BCA Learning Institute</a>\n            <form [formGroup]=\"form\" (ngSubmit)=\"pushBooking()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Shuttle Type\" formControlName=\"type\">\n                      <mat-option value=\"Operational\">Operational</mat-option>\n                      <mat-option value=\"Shuttle Bus\">Shuttle Bus</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('type')\">Please choose the shuttle type</mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"name\">\n                    <input matInput placeholder=\"Name\" formControlName=\"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      Name is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"nip\">\n                    <input matInput placeholder=\"NIP\" formControlName=\"nip\">\n                    <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                      NIP is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"program\">\n                    <input matInput placeholder=\"Program\" formControlName=\"program\">\n                    <mat-error *ngIf=\"isFieldInvalid('program')\">\n                      Program is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"phone\">\n                    <input matInput placeholder=\"Phone Number\" formControlName=\"phone\">\n                    <mat-error *ngIf=\"isFieldInvalid('phone')\">\n                      Phone is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"email\">\n                    <input matInput placeholder=\"Email\" formControlName=\"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"from\">\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" [disabled]=\"this.form.value.type == 'Operational' && shuttlePoint.name != 'Wisma Asia'\" value=\"{{shuttlePoint.name}}+{{shuttlePoint.departure}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"!from.valid\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n\n                  <mat-form-field>\n                    <input type=\"text\" matInput [matDatepickerFilter]=\"myFilter\" [min]=\"minDate\" [max]=\"maxDate\"\n                      [matDatepicker]=\"picker\" placeholder=\"Date\" (dateChange)=\"update($event.value)\" (dateInput)=\"update($event.value)\"\n                      (focus)=\"picker.open()\" (click)=\"picker.open()\" formControlName=\"date\" disabled>\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker disabled=\"false\"></mat-datepicker>\n                    <mat-error *ngIf=\"!date.valid\">Please choose a date</mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\" *ngIf=\"this.form.value.from!='' && this.form.value.type == 'Shuttle Bus'\">\n                  We will meet at <b>{{form.value.from.split('+')[0]}}</b> at <b>{{form.value.from.split('+')[1]}}</b>\n                  and <b>{{to}}</b> at <b>17.00</b>\n                </div>\n              </div>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Done</button>              \n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -58000,6 +58000,7 @@ var AddBookingAdminComponent = /** @class */ (function () {
         this.defaultOption = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.shuttlePoints[2]);
         this.from = '';
         this.to = 'BCA Learning Institute';
+        this.processing = false;
         // fromModel = new NgModel();
         this.dateValue = this.date.value;
         this.myFilter = function (d) {
@@ -58027,8 +58028,9 @@ var AddBookingAdminComponent = /** @class */ (function () {
         this.dateValue = dateInput;
     };
     AddBookingAdminComponent.prototype.pushBooking = function () {
+        var _this = this;
         // console.log(this.dateValue.getDate());
-        console.log(this.from);
+        this.processing = true;
         var bookingObj = {
             type: this.form.value.type,
             name: this.form.value.name,
@@ -58044,11 +58046,13 @@ var AddBookingAdminComponent = /** @class */ (function () {
         // date: this.dateValue}
         // this.db.list('/booking').push(bookingObj);
         this.http.post('/push-booking-admin', bookingObj).subscribe(function (data) {
-            console.log('tesssss' + data);
+            _this.processing = false;
+            _this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
+            _this.resetForm();
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
         });
-        // this.sendEmail(bookingObj);
-        this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
-        this.resetForm();
         this.formSubmitAttempt = true;
     };
     AddBookingAdminComponent.prototype.resetForm = function () {
@@ -58107,7 +58111,7 @@ var AddBookingAdminComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Add Booking</h4>\n            <p class=\"card-category\">Complete your booking</p>\n          </div>\n          <div class=\"card-body\">\n            <a>This booking is for round-trip from and to BCA Learning Institute</a>\n            <form [formGroup]=\"form\" (ngSubmit)=\"pushBooking()\">\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName = \"from\" required>\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" value=\"{{shuttlePoint.name}}+{{shuttlePoint.departure}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"!from.valid\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div>\n                <!-- <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"To\"  [(value)]=\"to\" [formControl]=\"toControl\" required>\n                      <mat-option *ngFor=\"let shuttlePoint of shuttlePoints\" value=\"{{shuttlePoint}}\" [disabled]=\"(from!='BCA Learning Institute' && shuttlePoint!='BCA Learning Institute') || (from=='BCA Learning Institute' && shuttlePoint=='BCA Learning Institute')\">{{shuttlePoint}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"toControl.hasError('required')\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div> -->\n                <!-- <div class=\"col-md-6\" [hidden]=\"from=='BCA Learning Institute'\">\n                  <mat-form-field>\n                    <mat-select [(value)]=\"to\" placeholder=\"To\" [disabled]=true [formControl]=\"defaultOption\">\n                      <mat-option value=\"BCA Learning Institute\">BCA Learning Institute</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div> -->\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                 \n                  <mat-form-field>\n                    <input type=\"text\" matInput [matDatepickerFilter]=\"myFilter\" [min]=\"minDate\" [max]=\"maxDate\" [matDatepicker]=\"picker\" placeholder=\"Date\"\n                      (dateChange)=\"update($event.value)\" (dateInput)=\"update($event.value)\"  (focus)=\"picker.open()\" \n                      (click)=\"picker.open()\" formControlName = \"date\" disabled>\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker disabled=\"false\"></mat-datepicker>\n                    <mat-error *ngIf=\"!date.valid\">Please choose a date</mat-error>\n                  </mat-form-field>\n                  \n\n                  <!-- <kendo-multiviewcalendar\n                        kendoDateRangeSelection\n                        [(selectionRange)]=\"range\"\n                    ></kendo-multiviewcalendar> -->\n                  <!-- <mat-calendar [selected]=\"dateValue\" (selectedChange)=\"update($event)\"> </mat-calendar> -->\n                </div>\n                <!-- <div class=\"col-md-6\">\n                  <h3>{{dateValue}}</h3>\n                  <h3>{{from}}</h3>\n                  <h3>{{to}}</h3>\n                </div> -->\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\" *ngIf=\"this.form.value.from!=''\">\n                  We will meet at <b>{{form.value.from.split('+')[0]}}</b> at <b>{{form.value.from.split('+')[1]}}</b> and <b>{{to}}</b> at <b>17.00</b>\n                </div>\n              </div>\n              <!-- <div class=\"row\" *ngFor=\"let date of dates\">\n                <div class=\"col-md-6\">\n                  <mat-checkbox >{{date}}</mat-checkbox><br>\n                </div>\n              </div> -->\n              <!-- <input #dateInput type=\"text\" (keyup.enter)=\"update(dateInput.value)\">\n              <h3>{{test}}</h3> -->\n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\">Done</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Add Booking</h4>\n            <p class=\"card-category\">Complete your booking</p>\n          </div>\n          <div class=\"card-body\">\n            <a>This booking is for round-trip from and to BCA Learning Institute</a>\n            <form [formGroup]=\"form\" (ngSubmit)=\"pushBooking()\">\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName = \"from\" required>\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" value=\"{{shuttlePoint.name}}+{{shuttlePoint.departure}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"!from.valid\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div>\n                <!-- <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"To\"  [(value)]=\"to\" [formControl]=\"toControl\" required>\n                      <mat-option *ngFor=\"let shuttlePoint of shuttlePoints\" value=\"{{shuttlePoint}}\" [disabled]=\"(from!='BCA Learning Institute' && shuttlePoint!='BCA Learning Institute') || (from=='BCA Learning Institute' && shuttlePoint=='BCA Learning Institute')\">{{shuttlePoint}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"toControl.hasError('required')\">Please choose Your Origin</mat-error>\n                  </mat-form-field>\n                </div> -->\n                <!-- <div class=\"col-md-6\" [hidden]=\"from=='BCA Learning Institute'\">\n                  <mat-form-field>\n                    <mat-select [(value)]=\"to\" placeholder=\"To\" [disabled]=true [formControl]=\"defaultOption\">\n                      <mat-option value=\"BCA Learning Institute\">BCA Learning Institute</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div> -->\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                 \n                  <mat-form-field>\n                    <input type=\"text\" matInput [matDatepickerFilter]=\"myFilter\" [min]=\"minDate\" [max]=\"maxDate\" [matDatepicker]=\"picker\" placeholder=\"Date\"\n                      (dateChange)=\"update($event.value)\" (dateInput)=\"update($event.value)\"  (focus)=\"picker.open()\" \n                      (click)=\"picker.open()\" formControlName = \"date\" disabled>\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker disabled=\"false\"></mat-datepicker>\n                    <mat-error *ngIf=\"!date.valid\">Please choose a date</mat-error>\n                  </mat-form-field>\n                  \n\n                  <!-- <kendo-multiviewcalendar\n                        kendoDateRangeSelection\n                        [(selectionRange)]=\"range\"\n                    ></kendo-multiviewcalendar> -->\n                  <!-- <mat-calendar [selected]=\"dateValue\" (selectedChange)=\"update($event)\"> </mat-calendar> -->\n                </div>\n                <!-- <div class=\"col-md-6\">\n                  <h3>{{dateValue}}</h3>\n                  <h3>{{from}}</h3>\n                  <h3>{{to}}</h3>\n                </div> -->\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\" *ngIf=\"this.form.value.from!=''\">\n                  We will meet at <b>{{form.value.from.split('+')[0]}}</b> at <b>{{form.value.from.split('+')[1]}}</b> and <b>{{to}}</b> at <b>17.00</b>\n                </div>\n              </div>\n              <!-- <div class=\"row\" *ngFor=\"let date of dates\">\n                <div class=\"col-md-6\">\n                  <mat-checkbox >{{date}}</mat-checkbox><br>\n                </div>\n              </div> -->\n              <!-- <input #dateInput type=\"text\" (keyup.enter)=\"update(dateInput.value)\">\n              <h3>{{test}}</h3> -->\n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Done</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -58180,6 +58184,7 @@ var AddBookingComponent = /** @class */ (function () {
         this.defaultOption = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.shuttlePoints[2]);
         this.from = '';
         this.to = 'BCA Learning Institute';
+        this.processing = false;
         // fromModel = new NgModel();
         this.dateValue = this.date.value;
         this.myFilter = function (d) {
@@ -58211,8 +58216,7 @@ var AddBookingComponent = /** @class */ (function () {
     AddBookingComponent.prototype.pushBooking = function () {
         var _this = this;
         // console.log(this.dateValue.getDate());
-        console.log(this.form.value);
-        console.log(this.from);
+        this.processing = true;
         var bookingObj = {
             from: this.form.value.from.split('+')[0],
             to: this.form.value.to,
@@ -58225,8 +58229,10 @@ var AddBookingComponent = /** @class */ (function () {
             console.log('tesssss' + data);
             _this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
             _this.resetForm();
+            _this.processing = false;
         }, function (error) {
             _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
         });
         // this.sendEmail(bookingObj);
     };
@@ -58277,7 +58283,7 @@ var AddBookingComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Add Shuttle Point</h4>\n            <p class=\"card-category\">Complete the shuttle point data here</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Shuttle Point Name\" formControlName=\"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Latitude\" formControlName=\"lat\">\n                    <mat-error *ngIf=\"isFieldInvalid('lat')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Longitude\" formControlName=\"lng\">\n                    <mat-error *ngIf=\"isFieldInvalid('lng')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Position Description (near ...)\" formControlName=\"desc\">\n                    <mat-error *ngIf=\"isFieldInvalid('desc')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Departure Time\" formControlName=\"departure\">\n                    <mat-error *ngIf=\"isFieldInvalid('departure')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\">See Report</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Add Shuttle Point</h4>\n            <p class=\"card-category\">Complete the shuttle point data here</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Shuttle Point Name\" formControlName=\"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Latitude\" formControlName=\"lat\">\n                    <mat-error *ngIf=\"isFieldInvalid('lat')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Longitude\" formControlName=\"lng\">\n                    <mat-error *ngIf=\"isFieldInvalid('lng')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Position Description (near ...)\" formControlName=\"position\">\n                    <mat-error *ngIf=\"isFieldInvalid('position')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field>\n                    <input matInput placeholder=\"Departure Time\" formControlName=\"departure\">\n                    <mat-error *ngIf=\"isFieldInvalid('departure')\">\n                      This field is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Done</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -58305,6 +58311,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58317,17 +58324,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddShuttlePointComponent = /** @class */ (function () {
-    function AddShuttlePointComponent(http, fb) {
+    function AddShuttlePointComponent(http, fb, toastrService) {
         this.http = http;
         this.fb = fb;
+        this.toastrService = toastrService;
+        this.processing = false;
     }
     AddShuttlePointComponent.prototype.ngOnInit = function () {
         this.form = this.fb.group({
             name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             lat: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             lng: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            desc: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            position: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             departure: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
         });
     };
@@ -58336,6 +58346,25 @@ var AddShuttlePointComponent = /** @class */ (function () {
             (this.form.get(field).untouched && this.formSubmitAttempt));
     };
     AddShuttlePointComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var shuttlePointObj = {
+            name: this.form.value.name,
+            departure: this.form.value.departure,
+            img: '../assets/img/maps/' + this.form.value.name + '.jpg',
+            lat: this.form.value.lat,
+            lng: this.form.value.lng,
+            position: this.form.value.position,
+        };
+        this.processing = true;
+        this.http.post('/add-shuttle-point', shuttlePointObj).subscribe(function (data) {
+            console.log('tesssss' + data);
+            _this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
+            _this.form.reset();
+            _this.processing = false;
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
+        });
         this.formSubmitAttempt = true;
     };
     AddShuttlePointComponent = __decorate([
@@ -58345,7 +58374,8 @@ var AddShuttlePointComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./add-shuttle-point.component.scss */ "./src/app/add-shuttle-point/add-shuttle-point.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
     ], AddShuttlePointComponent);
     return AddShuttlePointComponent;
 }());
@@ -58361,7 +58391,7 @@ var AddShuttlePointComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Booking History</h4>\n                        <p class=\"card-category\">See your booking history, you can email the booking detail or cancel them</p>\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength == 0\">\n                        Booking Empty\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength != 0\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Route\n                                    </th>\n                                    <th>\n                                        Date\n                                    </th>\n                                    <th>\n                                        Departure Time\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n                                  \n                                    <tr *ngFor=\"let booking of bookingList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{booking.from}} - {{booking.to}}\n                                        </td>\n                                        <td>\n                                            {{changeDateFormat(booking.date)}}\n                                        </td>\n                                        <td>\n                                            {{booking.departure}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"sendEmail(booking)\">Email</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\">Cancel</button>\n                                        </td>\n                                    </tr>\n                                    \n                                </tbody>\n                            </table>\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                                <nav class=\"my-4 pt-2\">\n                                  <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\">First</a>\n                                    </li>\n                            \n                                    <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\" aria-label=\"Previous\">\n                                        <span aria-hidden=\"true\">&laquo;</span>\n                                        <span class=\"sr-only\">Previous</span>\n                                      </a>\n                                    </li>\n                                    <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                        <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                    </li>\n                            \n                            \n                            \n                                    <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\" aria-label=\"Next\">\n                                        <span aria-hidden=\"true\">&raquo;</span>\n                                        <span class=\"sr-only\">Next</span>\n                                      </a>\n                                    </li>\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\">Last</a>\n                                    </li>\n                            \n                                  </ul>\n                                </nav>\n                            \n                              </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n  </div>\n  <ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Booking History</h4>\n                        <p class=\"card-category\">See your booking history, you can email the booking detail or cancel them</p>\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength == 0\">\n                        Booking Empty\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength != 0\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Route\n                                    </th>\n                                    <th>\n                                        Date\n                                    </th>\n                                    <th>\n                                        Departure Time\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n                                  \n                                    <tr *ngFor=\"let booking of bookingList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{booking.from}} - {{booking.to}}\n                                        </td>\n                                        <td>\n                                            {{changeDateFormat(booking.date)}}\n                                        </td>\n                                        <td>\n                                            {{booking.departure}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"sendEmail(booking)\" *ngIf=\"emailProcessing != true\">Email</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"emailProcessing == true\">Processing...</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n\n                                        </td>\n                                    </tr>\n                                    \n                                </tbody>\n                            </table>\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                                <nav class=\"my-4 pt-2\">\n                                  <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\">First</a>\n                                    </li>\n                            \n                                    <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\" aria-label=\"Previous\">\n                                        <span aria-hidden=\"true\">&laquo;</span>\n                                        <span class=\"sr-only\">Previous</span>\n                                      </a>\n                                    </li>\n                                    <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                        <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                    </li>\n                            \n                            \n                            \n                                    <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\" aria-label=\"Next\">\n                                        <span aria-hidden=\"true\">&raquo;</span>\n                                        <span class=\"sr-only\">Next</span>\n                                      </a>\n                                    </li>\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\">Last</a>\n                                    </li>\n                            \n                                  </ul>\n                                </nav>\n                            \n                              </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n  </div>\n  <ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
 
 /***/ }),
 
@@ -58422,30 +58452,37 @@ var BookingListComponent = /** @class */ (function () {
         this.firstVisiblePaginator = 0;
         this.lastVisiblePaginator = this.numberOfVisiblePaginators;
         this.month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.processing = false;
+        this.emailProcessing = false;
     }
     BookingListComponent.prototype.changeDateFormat = function (date) {
         var newDate = date.split("-");
-        return this.month[newDate[1]] + " " + newDate[0] + ", " + newDate[2];
+        return newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
     };
     BookingListComponent.prototype.sendEmail = function (bookingObj) {
         var _this = this;
-        console.log(bookingObj);
+        this.emailProcessing = true;
         this.http.post('/send-booking-detail', bookingObj).subscribe(function (data) {
             console.log('tesssss' + data);
+            _this.emailProcessing = false;
+            _this.toastrService.success('Please check your email', 'An email has been sent');
         }, function (error) {
+            _this.emailProcessing = false;
             _this.toastrService.error('Lost Connection!');
         });
-        this.toastrService.success('Please check your email', 'An email has been sent');
     };
     BookingListComponent.prototype.cancelBooking = function (bookingObj) {
         var _this = this;
+        this.processing = true;
         this.http.post('/cancel-booking', bookingObj).subscribe(function (data) {
             _this.toastrService.success('Your booking has been canceled', 'Cancel Success');
             var index = _this.bookingList.findIndex(function (booking) { return booking.key === JSON.parse(JSON.stringify(bookingObj)).key; });
             _this.bookingList.splice(index, 1);
             _this.bookingListLength = _this.bookingList.length;
+            _this.processing = false;
         }, function (error) {
             _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
         });
     };
     BookingListComponent.prototype.changePage = function (event) {
@@ -58562,7 +58599,7 @@ var BookingListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n      <div class=\"row\">\n        <div class=\"col-md-8\">\n          <div class=\"card\">\n            <div class=\"card-header card-header-danger\">\n              <h4 class=\"card-title\">Booking Report</h4>\n              <p class=\"card-category\">Choose the time you want to see</p>\n            </div>\n            <div class=\"card-body\">\n              <form [formGroup]=\"form\" (ngSubmit)=\"getReport()\">\n                <div class=\"row\">\n                  <div class=\"col-md-6\">\n                    <mat-form-field>\n                      <mat-select placeholder=\"Month\" formControlName = \"month\">\n                        <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                      </mat-select>\n                      <mat-error *ngIf=\"!month.valid\">Please choose a Month</mat-error>\n                    </mat-form-field>\n                  </div>\n                  <div class=\"col-md-6\">\n                      <mat-form-field>\n                        <mat-select placeholder=\"Year\" formControlName = \"year\">\n                          <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                        </mat-select>\n                        <mat-error *ngIf=\"!year.valid\">Please choose a year</mat-error>\n                      </mat-form-field>\n                    </div>\n                </div>\n                <a [routerLink]=\"['/download-booking-report', this.form.value.month, this.form.value.year]\">\n                  <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\">See Report</button>\n                </a>\n                <div class=\"clearfix\"></div>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  "
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Booking Report</h4>\n            <p class=\"card-category\">Choose the time you want to see</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"getReport()\">\n              <div class=\"row\">\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Shuttle Type\" formControlName=\"type\">\n                      <mat-option value=\"All\">All</mat-option>\n                      <mat-option value=\"Operational\">Operational</mat-option>\n                      <mat-option value=\"Shuttle Bus\">Shuttle Bus</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('type')\">Please choose the shuttle type</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\" *ngIf=\"this.form.value.type == 'Shuttle Bus'\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"assemblyPoint\">\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" value=\"{{shuttlePoint.name}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('assemblyPoint')\">Please choose an assembly point</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\" *ngIf=\"this.form.value.type == 'Operational'\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"assemblyPoint\">\n                      <mat-option value=\"Wisma Asia\" sele>Wisma Asia</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('assemblyPoint')\">Please choose an assembly point</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Month\" formControlName=\"month\">\n                      <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('month')\">Please choose a Month</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Year\" formControlName=\"year\">\n                      <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('year')\">Please choose a year</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-4\">\n                  <button mat-raised-button class=\"btn btn-danger\" (click)=\"filter()\" [disabled]=\"!form.valid\">See\n                    Report</button>&nbsp;&nbsp;&nbsp;&nbsp;\n                    <button mat-raised-button class=\"btn btn-danger\" (click)=\"download()\" [disabled]=\"!form.valid\">Download</button>\n                </div>\n              </div>\n\n              <div class=\"clearfix\"></div>\n            </form>\n            \n            <div class=\"table-responsive\" *ngIf=\"bookingListLength!=0\">\n              <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->\n              <table class=\"table\">\n                <thead class=\" text-primary\">\n                  <th>Name</th>\n                  <th>Program</th>\n                  <th>Phone No</th>\n                  <th>Date</th>\n                  <th>Route</th>\n                  <th>Action</th>\n                </thead>\n                <tbody>\n                  <tr *ngFor=\"let booking of bookingList\">\n                    <td>{{booking.name}}</td>\n                    <td>{{booking.program}}</td>\n                    <td>{{booking.phoneNo}}</td>\n                    <td>{{changeDateFormat(booking.date)}}</td>\n                    <td>{{booking.from}} - {{booking.to}} </td>\n                    <td>\n                      <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                      <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                    </td>\n                  </tr>\n                  <!-- <h3>{{history_data.length}}</h3> -->\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -58590,6 +58627,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58602,20 +58644,111 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
 var BookingReportComponent = /** @class */ (function () {
-    function BookingReportComponent(http, fb) {
+    function BookingReportComponent(http, fb, db, toastrService, excelServ, spinner) {
         this.http = http;
         this.fb = fb;
+        this.db = db;
+        this.toastrService = toastrService;
+        this.excelServ = excelServ;
+        this.spinner = spinner;
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         this.years = ["2018"];
+        this.filterData = {
+            type: '',
+            assemblyPoint: '',
+            month: '',
+            year: ''
+        };
         this.month = "";
         this.year = "";
+        this.assemblyPoint = "";
+        this.type = "";
+        this.bookingListLength = 0;
+        this.processing = false;
     }
-    BookingReportComponent.prototype.ngOnInit = function () {
-        this.form = this.fb.group({
-            month: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            year: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+    BookingReportComponent.prototype.filter = function () {
+        var _this = this;
+        this.filterData = {
+            type: this.form.value.type,
+            assemblyPoint: this.form.value.assemblyPoint,
+            month: this.form.value.month,
+            year: this.form.value.year
+        };
+        this.spinner.show();
+        this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
+            // this.testVar = res;
+            console.log('show booking ' + (res.json()));
+            _this.bookingList = res.json();
+            _this.bookingListLength = _this.bookingList.length;
+            if (_this.bookingListLength == 0) {
+                _this.toastrService.warning("There's no Booking History");
+            }
+            _this.spinner.hide();
+            // console.log('show booking ' + this.testVar.json());
+            // console.log('show booking ' + JSON.stringify(res.json()));
         });
+        this.formSubmitAttempt = true;
+    };
+    BookingReportComponent.prototype.ngOnInit = function () {
+        this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
+        this.form = this.fb.group({
+            type: ['Shuttle Bus', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            assemblyPoint: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            month: [this.months[new Date().getMonth()], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            year: [new Date().getFullYear().toString(), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+        });
+    };
+    BookingReportComponent.prototype.download = function () {
+        var _this = this;
+        if (this.bookingListLength != 0) {
+            this.excelServ.exportAsExcelFile(this.bookingList, 'Shuttle Report ' + this.form.value.month + " " + this.form.value.year);
+        }
+        else {
+            this.filterData = {
+                type: this.form.value.type,
+                assemblyPoint: this.form.value.assemblyPoint,
+                month: this.form.value.month,
+                year: this.form.value.year
+            };
+            // this.db.list('/booking-report/Shuttle Bus/' + this.filterData.year + '/' + this.filterData.month).valueChanges().subscribe(bookingReportList => {
+            //   this.bookingReportList = bookingReportList;
+            //   console.log(bookingReportList);
+            //   this.excelServ.exportAsExcelFile(this.bookingReportList, 'Booking Report ' + this.form.value.month + ' ' + this.form.value.year);
+            // });
+            this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
+                console.log('show booking ' + (res.json()));
+                _this.bookingList = res.json();
+                _this.excelServ.exportAsExcelFile(_this.bookingList, 'Booking Report ' + _this.form.value.month + ' ' + _this.form.value.year);
+            });
+            this.formSubmitAttempt = true;
+        }
+    };
+    BookingReportComponent.prototype.changeDateFormat = function (date) {
+        var newDate = date.split("-");
+        return newDate[0] + " " + this.months[+newDate[1] - 1] + " " + newDate[2];
+    };
+    BookingReportComponent.prototype.cancelBooking = function (bookingObj) {
+        var _this = this;
+        this.processing = true;
+        this.http.post('/cancel-booking', bookingObj).subscribe(function (data) {
+            var index = _this.bookingList.findIndex(function (booking) { return booking.key === JSON.parse(JSON.stringify(bookingObj)).key; });
+            _this.bookingList.splice(index, 1);
+            _this.bookingListLength = _this.bookingList.length;
+            _this.toastrService.success('This booking has been canceled', 'Cancel Success');
+            _this.processing = false;
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
+        });
+    };
+    BookingReportComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.form.get(field).valid && this.form.get(field).touched) ||
+            (this.form.get(field).untouched && this.formSubmitAttempt));
     };
     BookingReportComponent.prototype.getReport = function () {
     };
@@ -58626,7 +58759,11 @@ var BookingReportComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./booking-report.component.scss */ "./src/app/booking-report/booking-report.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            angularfire2_database__WEBPACK_IMPORTED_MODULE_3__["AngularFireDatabase"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _services_excel_service__WEBPACK_IMPORTED_MODULE_5__["ExcelService"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], BookingReportComponent);
     return BookingReportComponent;
 }());
@@ -58642,7 +58779,7 @@ var BookingReportComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Change Email</h4>\n            <p class=\"card-category\">Insert your new email</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"changeEmail()\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"full-width-input email\">\n                    <input matInput name=\"email\" placeholder=\"New Email\" formControlName=\"email\" required email>\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please fill with correct email address\n                    </mat-error>\n                  </mat-form-field>\n                  \n                  <mat-form-field class=\"full-width-input\">\n                    <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                    <mat-error>\n                      <div *ngIf=\"authFailed\">Password is incorrect</div>\n                      <div *ngIf=\"isFieldInvalid('password')\">Please inform your password</div>\n                    </mat-error>\n                    \n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\">Change Email</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    \n  </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Change Email</h4>\n            <p class=\"card-category\">Insert your new email</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"changeEmail()\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"full-width-input email\">\n                    <input matInput name=\"email\" placeholder=\"New Email\" formControlName=\"email\" required email>\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please fill with correct email address\n                    </mat-error>\n                  </mat-form-field>\n                  \n                  <mat-form-field class=\"full-width-input\">\n                    <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                    <mat-error>\n                      <div *ngIf=\"authFailed\">Incorrect password</div>\n                      <div *ngIf=\"isFieldInvalid('password')\">Please inform your password</div>\n                    </mat-error>\n                    \n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Change Email</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    \n  </div>\n</div>"
 
 /***/ }),
 
@@ -58689,6 +58826,7 @@ var ChangeEmailComponent = /** @class */ (function () {
         this.fb = fb;
         this.http = http;
         this.toastrService = toastrService;
+        this.processing = false;
         this.authFailed = false;
     }
     ChangeEmailComponent.prototype.ngOnInit = function () {
@@ -58703,15 +58841,23 @@ var ChangeEmailComponent = /** @class */ (function () {
     };
     ChangeEmailComponent.prototype.changeEmail = function () {
         var _this = this;
+        this.processing = true;
         this.authFailed = false;
         this.newEmail = this.form.value.email;
         this.http.post('change-email', this.form.value).subscribe(function (data) {
             _this.toastrService.success('An email has been set to ' + _this.newEmail, 'Change Email Success');
+            _this.processing = false;
+            _this.form.reset();
         }, function (error) {
-            console.log("auth failed" + error);
+            if (error.status = 500) {
+                _this.toastrService.error('Incorrect Password');
+            }
+            else {
+                _this.toastrService.error('Lost Connection!');
+            }
             _this.authFailed = true;
+            _this.processing = false;
         });
-        this.form.reset();
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('form'),
@@ -58739,7 +58885,7 @@ var ChangeEmailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-8\">\n          <div class=\"card\">\n            <div class=\"card-header card-header-danger\">\n              <h4 class=\"card-title\">Change Password</h4>\n              <p class=\"card-category\">Update your pasword</p>\n            </div>\n            <div class=\"card-body\">\n              <form [formGroup]=\"form\" (ngSubmit)=\"changePassword()\">\n                \n                <div class=\"row\">\n                  <div class=\"col-md-12\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Old Password\" formControlName=\"oldPassword\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('oldPassword')\">\n                        Please inform your password\n                      </mat-error>\n                    </mat-form-field>\n                    \n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"New Password\" formControlName=\"newPassword\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('newPassword')\">\n                        Please inform your password\n                      </mat-error>  \n                    </mat-form-field>\n\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Confirm New Password\" formControlName=\"confirmNewPassword\" required>\n                      <mat-error *ngIf=\"isPasswordInvalid()\">\n                        Password doesn't match\n                      </mat-error>\n                    </mat-form-field>\n                    <!-- <h3>{{isPasswordInvalid()}}</h3> -->\n                  </div>\n                </div>\n  \n                <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\">Change Password</button>\n                <div class=\"clearfix\"></div>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n  </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-8\">\n          <div class=\"card\">\n            <div class=\"card-header card-header-danger\">\n              <h4 class=\"card-title\">Change Password</h4>\n              <p class=\"card-category\">Update your pasword</p>\n            </div>\n            <div class=\"card-body\">\n              <form [formGroup]=\"form\" (ngSubmit)=\"changePassword()\">\n                \n                <div class=\"row\">\n                  <div class=\"col-md-12\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Old Password\" formControlName=\"oldPassword\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('oldPassword')\">\n                        Please inform your password\n                      </mat-error>\n                    </mat-form-field>\n                    \n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"New Password\" formControlName=\"newPassword\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('newPassword')\">\n                        Please inform your password\n                      </mat-error>  \n                    </mat-form-field>\n\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Confirm New Password\" formControlName=\"confirmNewPassword\" required>\n                      <mat-error *ngIf=\"isPasswordInvalid()\">\n                        Password doesn't match\n                      </mat-error>\n                    </mat-form-field>\n                    <!-- <h3>{{isPasswordInvalid()}}</h3> -->\n                  </div>\n                </div>\n  \n                <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Change Password</button>\n                <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n                <div class=\"clearfix\"></div>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -58786,6 +58932,7 @@ var ChangePasswordComponent = /** @class */ (function () {
         this.fb = fb;
         this.http = http;
         this.toastrService = toastrService;
+        this.processing = false;
     }
     ChangePasswordComponent.prototype.ngOnInit = function () {
         this.form = this.fb.group({
@@ -58803,12 +58950,20 @@ var ChangePasswordComponent = /** @class */ (function () {
     };
     ChangePasswordComponent.prototype.changePassword = function () {
         var _this = this;
+        this.processing = true;
         this.http.post('change-password', this.form.value).subscribe(function (data) {
             _this.toastrService.success('Your password has been updated', 'Change Password Success');
+            _this.processing = false;
+            _this.form.reset();
         }, function (error) {
-            console.log("auth failed" + error);
+            if (error.status = 500) {
+                _this.toastrService.error('Incorrect Password');
+            }
+            else {
+                _this.toastrService.error('Lost Connection!');
+            }
+            _this.processing = false;
         });
-        this.form.reset();
     };
     ChangePasswordComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -59351,7 +59506,7 @@ var AdminLayoutRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-12\">\n              <div class=\"card\">\n                  <div class=\"card-header card-header-danger\">\n                      <h4 class=\"card-title \">Manage User</h4>\n                      <p class=\"card-category\">Registered user, you can delete them</p>\n                  </div>\n                  <div class=\"card-body\">\n                      <div class=\"table-responsive\">\n                          <table class=\"table\">\n                              <thead class=\" text-primary\">\n                                  <th>\n                                      No\n                                  </th>\n                                  <th>\n                                      Name\n                                  </th>\n                                  <th>\n                                      NIP\n                                  </th>\n                                  <th>\n                                      Program\n                                  </th>\n                                  <th>\n                                      Email\n                                  </th>\n                                  <th>\n                                      Action\n                                  </th>\n                              </thead>\n                              <tbody>\n                                \n                                  <tr *ngFor=\"let user of userList; let i=index\">\n                                      <td>\n                                          {{i+1}}\n                                      </td>\n                                      <td>\n                                          {{user.name}}\n                                      </td>\n                                      <td>\n                                          {{user.nip}}\n                                      </td>\n                                      <td>\n                                          {{user.program}}\n                                      </td>\n                                      <td>\n                                         {{user.email}}\n                                      </td>\n                                      <td>\n                                          <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user)\">Delete</button>\n                                      </td>\n                                  </tr>\n                                  \n                              </tbody>\n                          </table>\n                          <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Name\n                                    </th>\n                                    <th>\n                                        NIP\n                                    </th>\n                                    <th>\n                                        Program\n                                    </th>\n                                    <th>\n                                        Email\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n\n                                    <tr *ngFor=\"let user of userList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{user.name}}\n                                        </td>\n                                        <td>\n                                            {{user.nip}}\n                                        </td>\n                                        <td>\n                                            {{user.program}}\n                                        </td>\n                                        <td>\n                                            {{user.email}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user)\"\n                                                *ngIf=\"processing != true\">Delete</button>\n                                            <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                        </td>\n                                    </tr>\n\n                                </tbody>\n                            </table>\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -59398,16 +59553,20 @@ var ManageUserComponent = /** @class */ (function () {
         this.http = http;
         this.toastrService = toastrService;
         this.spinner = spinner;
+        this.processing = false;
     }
     ManageUserComponent.prototype.deleteUser = function (userObj) {
         var _this = this;
         // console.log(JSON.stringify(userObj));
+        this.processing = true;
         this.http.post('/delete-user', userObj).subscribe(function (data) {
             _this.toastrService.success('This user has been deleted', 'Delete Success');
             var index = _this.userList.findIndex(function (user) { return user.key === JSON.parse(JSON.stringify(userObj)).key; });
             _this.userList.splice(index, 1);
+            _this.processing = false;
         }, function (error) {
             _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
         });
     };
     ManageUserComponent.prototype.ngOnInit = function () {
@@ -59707,7 +59866,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup] = \"form\" (ngSubmit)=\"registerUser()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"name\">\n                    <input matInput placeholder=\"Name\" formControlName = \"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      Name is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"nip\">\n                    <input matInput placeholder=\"NIP\" formControlName = \"nip\">\n                    <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                      NIP is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"program\">\n                    <input matInput placeholder=\"Program\" formControlName = \"program\">\n                    <mat-error *ngIf=\"isFieldInvalid('program')\">\n                      Program is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"phoneNo\">\n                    <input matInput placeholder=\"Phone Number\" formControlName = \"phoneNo\">\n                    <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n                      Phone is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"email\">\n                    <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\">Register User</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-4\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                    <input type=\"file\" style=\"display: inline-block;\" (change)=\"incomingfile($event)\" placeholder=\"Upload file\" accept=\".xlsx\">\n                      \n                    <!-- <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error> -->\n                </div>\n              </div>\n              \n              <button mat-raised-button type=\"button\"  class=\"btn btn-danger pull-right\" (click)=\"Upload()\">Upload File</button>\n              <div class=\"clearfix\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup] = \"form\" (ngSubmit)=\"registerUser()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"name\">\n                    <input matInput placeholder=\"Name\" formControlName = \"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      Name is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"nip\">\n                    <input matInput placeholder=\"NIP\" formControlName = \"nip\">\n                    <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                      NIP is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"program\">\n                    <input matInput placeholder=\"Program\" formControlName = \"program\">\n                    <mat-error *ngIf=\"isFieldInvalid('program')\">\n                      Program is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"phoneNo\">\n                    <input matInput placeholder=\"Phone Number\" formControlName = \"phoneNo\">\n                    <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n                      Phone is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"email\">\n                    <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Register User</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-4\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                    <input type=\"file\" style=\"display: inline-block;\" (change)=\"incomingfile($event)\" placeholder=\"Upload file\" accept=\".xlsx\">\n                      \n                    <!-- <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error> -->\n                </div>\n              </div>\n              \n              <button mat-raised-button type=\"button\"  class=\"btn btn-danger pull-right\" (click)=\"Upload()\" *ngIf=\"uploadProcessing == false\">Upload File</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"uploadProcessing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -59775,11 +59934,14 @@ var RegisterUserComponent = /** @class */ (function () {
         this.http = http;
         this.fb = fb;
         this.matcher = new MyErrorStateMatcher();
+        this.processing = false;
+        this.uploadProcessing = false;
         this.newUser = new _register_user_model__WEBPACK_IMPORTED_MODULE_3__["RegisterUser"]();
     }
     // @ViewChild('registerUserForm') formDirective: FormGroupDirective;
     RegisterUserComponent.prototype.registerUser = function () {
         var _this = this;
+        this.processing = true;
         var userObj = {
             name: this.form.value.name,
             nip: this.form.value.nip,
@@ -59793,6 +59955,7 @@ var RegisterUserComponent = /** @class */ (function () {
             console.log('tesssss' + data);
             _this.toastrService.success('An email has been sent to ' + _this.form.value.email, _this.form.value.name + ' register success');
             _this.form.reset();
+            _this.processing = false;
         }, function (error) {
             if (error.status == 501) {
                 _this.toastrService.error('Email already in use');
@@ -59800,6 +59963,7 @@ var RegisterUserComponent = /** @class */ (function () {
             else {
                 _this.toastrService.error('Lost Connection');
             }
+            _this.processing = false;
         });
         this.formSubmitAttempt = true;
     };
@@ -59828,6 +59992,7 @@ var RegisterUserComponent = /** @class */ (function () {
     RegisterUserComponent.prototype.Upload = function () {
         var _this = this;
         var fileReader = new FileReader();
+        this.uploadProcessing = true;
         fileReader.onload = function (e) {
             _this.arrayBuffer = fileReader.result;
             var data = new Uint8Array(_this.arrayBuffer);
@@ -59845,6 +60010,7 @@ var RegisterUserComponent = /** @class */ (function () {
                     var userData = JSON.parse(JSON.stringify(excelData[i_1]));
                     _this.toastrService.success('An email has been sent to ' + userData.email, userData.name + ' register success');
                     // console.log('tesssss' + );
+                    _this.uploadProcessing = false;
                 }, function (error) {
                     if (error.status == 501) {
                         _this.toastrService.error('Email already in use');
@@ -59852,6 +60018,7 @@ var RegisterUserComponent = /** @class */ (function () {
                     else {
                         _this.toastrService.error('Lost Connection');
                     }
+                    _this.uploadProcessing = false;
                 });
             };
             for (var i_1 = 0; i_1 < excelData.length; i_1++) {
@@ -59905,7 +60072,7 @@ var RegisterUser = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Report Booking</h4>\n                        <p class=\"card-category\">{{this.month}} {{this.year}}</p>\n                        <button mat-raised-button class=\"btn btn-danger pull-right\" (click)=\"download()\">Download</button>\n\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength == 0\">\n                        Booking Empty\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength != 0\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>Name</th>\n                                    <th>Program</th>\n                                    <th>Phone No</th>\n                                    <th>Date</th>\n                                    <th>Route</th>\n                                    <th>Action</th>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let booking of bookingList\">\n                                        <td>{{booking.name}}</td>\n                                        <td>{{booking.program}}</td>\n                                        <td>{{booking.phoneNo}}</td>\n                                        <td>{{booking.date}}</td>\n                                        <td>{{booking.from}} - {{booking.to}} </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\">Cancel</button>\n                                        </td>\n                                    </tr>\n                                    <!-- <h3>{{history_data.length}}</h3> -->\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Report Booking</h4>\n                        <p class=\"card-category\">{{this.month}} {{this.year}}</p>\n                        <button mat-raised-button class=\"btn btn-danger pull-right\" (click)=\"download()\">Download</button>\n\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength == 0\">\n                        Booking Empty\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength != 0\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>Name</th>\n                                    <th>Program</th>\n                                    <th>Phone No</th>\n                                    <th>Date</th>\n                                    <th>Route</th>\n                                    <th>Action</th>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let booking of bookingList\">\n                                        <td>{{booking.name}}</td>\n                                        <td>{{booking.program}}</td>\n                                        <td>{{booking.phoneNo}}</td>\n                                        <td>{{changeDateFormat(booking.date)}}</td>\n                                        <td>{{booking.from}} - {{booking.to}} </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\">Cancel</button>\n                                        </td>\n                                    </tr>\n                                    <!-- <h3>{{history_data.length}}</h3> -->\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -59975,7 +60142,9 @@ var ReportComponent = /** @class */ (function () {
         this.keys = [];
         this.year = '';
         this.month = '';
-        this.time = {
+        this.assemblyPoint = '';
+        this.filter = {
+            assemblyPoint: '',
             month: '',
             year: ''
         };
@@ -59984,12 +60153,14 @@ var ReportComponent = /** @class */ (function () {
         var _this = this;
         this.month = this.route.snapshot.paramMap.get('month');
         this.year = this.route.snapshot.paramMap.get('year');
-        this.time = {
+        this.assemblyPoint = this.route.snapshot.paramMap.get('assemblyPoint');
+        this.filter = {
+            assemblyPoint: this.assemblyPoint,
             month: this.month,
             year: this.year
         };
         this.spinner.show();
-        this.http.post('/show-booking-report', this.time).subscribe(function (res) {
+        this.http.post('/show-booking-report', this.filter).subscribe(function (res) {
             // this.testVar = res;
             console.log('show booking ' + (res.json()));
             _this.bookingList = res.json();
@@ -60017,6 +60188,10 @@ var ReportComponent = /** @class */ (function () {
         //   console.log("No data");
         //   this.spinner.hide();  
         // });
+    };
+    ReportComponent.prototype.changeDateFormat = function (date) {
+        var newDate = date.split("-");
+        return newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
     };
     ReportComponent.prototype.download = function () {
         this.excelServ.exportAsExcelFile(this.history_data, 'sample');
@@ -60074,7 +60249,7 @@ var ReportComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of pointsObservable | async\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                      <h4 class=\"card-title\">{{shuttlePoint.name}}</h4>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of shuttlePoints\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                      <h4 class=\"card-title\">{{shuttlePoint.name}}</h4>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
 
 /***/ }),
 
@@ -60129,24 +60304,27 @@ var SHUTTLE_POINTS = [
 ];
 var ScheduleComponent = /** @class */ (function () {
     function ScheduleComponent(db, spinner) {
-        var _this = this;
         this.db = db;
         this.spinner = spinner;
         this.zoom = 20;
         // collection: AngularFirestoreCollection<> = db.collection
-        db.list('/shuttle-points').valueChanges()
-            .subscribe(function (shuttlePoints) {
-            _this.shuttlePoints = shuttlePoints;
-            console.log(shuttlePoints);
-        });
+        // db.list('/shuttle-points').valueChanges()
+        //     .subscribe(shuttlePoints => {
+        //         this.shuttlePoints = shuttlePoints;
+        //         console.log(shuttlePoints);
+        //     })
     }
     ScheduleComponent.prototype.ngOnInit = function () {
+        var _this = this;
         // this.pointsCollection = this.db.collection('points')
         // this.points = this.pointsCollection.valueChanges()
         // console.log(this.points)
         this.spinner.show();
-        this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
-        this.spinner.hide();
+        this.db.list('/shuttle-points').valueChanges().subscribe(function (shuttlePoints) {
+            _this.shuttlePoints = shuttlePoints;
+            console.log(shuttlePoints);
+            _this.spinner.hide();
+        });
         // getShuttlePoints(listPath): Observable<any[]> {
         //   return this.db.list(listPath).valueChanges();
         // }
@@ -60201,9 +60379,32 @@ var ExcelService = /** @class */ (function () {
         this.keys = [];
     }
     ExcelService.prototype.exportAsExcelFile = function (json, excelFileName) {
-        // console.log(json[0].name);
-        var worksheet = xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].json_to_sheet(json);
-        var workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        console.log(json);
+        // var workbook: XLSX.WorkBook;
+        var worksheet = [];
+        for (var i = 0; i < json.length; i++) {
+            worksheet.push(xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].json_to_sheet(json[i]));
+            // workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        }
+        ;
+        var workbook = {
+            Sheets: {
+                'Alam Sutera': worksheet[0],
+                'Bekasi': worksheet[1],
+                'Bogor': worksheet[2],
+                'Kelapa Gading': worksheet[3],
+                'Pondok Indah': worksheet[4],
+                'Wisma Asia': worksheet[5],
+            },
+            SheetNames: [
+                'Alam Sutera',
+                'Bekasi',
+                'Bogor',
+                'Kelapa Gading',
+                'Pondok Indah',
+                'Wisma Asia',
+            ]
+        };
         var excelBuffer = xlsx__WEBPACK_IMPORTED_MODULE_2__["write"](workbook, { bookType: 'xlsx', type: 'array' });
         this.saveAsExcelFile(excelBuffer, excelFileName);
     };

@@ -72,7 +72,8 @@
               </div> -->
               <!-- <input #dateInput type="text" (keyup.enter)="update(dateInput.value)">
               <h3>{{test}}</h3> -->
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid">Done</button>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid" *ngIf="processing != true">Done</button>
+              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
               <div class="clearfix"></div>
             </form>
           </div>

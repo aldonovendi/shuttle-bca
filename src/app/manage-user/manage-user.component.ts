@@ -11,22 +11,25 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ManageUserComponent implements OnInit {
 
   userList: any[]
-
+  private processing = false;
   constructor(
-    private http: Http, 
+    private http: Http,
     private toastrService: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
-  deleteUser(userObj: Object){
+  deleteUser(userObj: Object) {
     // console.log(JSON.stringify(userObj));
+    this.processing = true;
     this.http.post('/delete-user', userObj).subscribe(data => {
       this.toastrService.success('This user has been deleted', 'Delete Success');
       var index = this.userList.findIndex(user => user.key === JSON.parse(JSON.stringify(userObj)).key)
-      this.userList.splice(index ,1);
+      this.userList.splice(index, 1);
+      this.processing = false;
     }, error => {
       this.toastrService.error('Lost Connection!');
-    });    
+      this.processing = false;
+    });
   }
 
   ngOnInit() {
@@ -34,7 +37,7 @@ export class ManageUserComponent implements OnInit {
     this.http.post('/show-user-list', {}).subscribe(res => {
       // this.testVar = res;
       console.log('show booking ' + (res.json()));
-      
+
       this.userList = res.json();
       this.spinner.hide();
       // console.log('show booking ' + this.testVar.json());

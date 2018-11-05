@@ -134,7 +134,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     LoginLayoutComponent,
     LoginComponent,
     AdminLayoutComponent,
-    ForgotPasswordComponent, 
+    ForgotPasswordComponent,
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent],

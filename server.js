@@ -11,13 +11,19 @@ var admin = require("firebase-admin");
 var serviceAccount = require("./path/to/serviceAccountKey.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://ejhail-ajah.firebaseio.com"
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://ejhail-ajah.firebaseio.com"
 });
 app.use(express.static(path.join(__dirname, "dist")));
 
 const hostname = '127.0.0.1';
 const port = 3000;
+
+function changeDateFormat(date) {
+    var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+    var newDate = date.split("-");
+    return newDate[0] + " " + month[parseInt(newDate[1]) - 1] + " " + newDate[2];
+}
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'))
@@ -72,8 +78,6 @@ app.post("/change-email", function (req, res) {
     firebase.auth.signInWithEmailAndPassword(firebase.auth.currentUser.email, req.body.password).then(function (user) {
         firebase.auth.onAuthStateChanged(function (user) {
             if (user) {
-                console.log('print user here : ' + user.uid);
-
                 user.updateEmail(req.body.email).then(function () {
                     firebase.database.ref().child("user").child(user.uid + "/email").set(req.body.email).then(function () {
                         console.log('[e-Shuttle][post/change-email][Email changed]')
@@ -82,14 +86,14 @@ app.post("/change-email", function (req, res) {
                     });
                 }).catch(function (error) {
                     console.log('[e-Shuttle][post/change-email][Error][update-email][' + error + ']');
-                    res.status(500).json({ message: 'failed' });
+                    res.status(400).json({ message: 'change email failed' });
                 });
             }
             res.send(req.body);
         });
     }).catch(function (error) {
         console.log('[e-Shuttle][post/change-email][Error][sign-in][' + error + ']');
-        res.status(500).json({ message: 'failed' });
+        res.status(500).json({ message: 'auth failed' });
     });
 
 });
@@ -104,14 +108,14 @@ app.post("/change-password", function (req, res) {
                     console.log('[e-Shuttle][post/change-password][Password changed]');
                 }).catch(function (error) {
                     console.log('[e-Shuttle][post/change-email][Error][update-password][' + error + ']');
-                    res.status(500).json({ message: 'failed' });
+                    res.status(400).json({ message: 'lost connection' });
                 });
             }
             res.send(req.body);
         });
     }).catch(function (error) {
         console.log('[e-Shuttle][post/change-password][Error][sign-in][' + error + ']');
-        res.status(500).json({ message: 'failed' });
+        res.status(500).json({ message: 'auth failed' });
     });
 
 });
@@ -132,7 +136,7 @@ app.post("/push-booking", function (req, res) {
         // var division = snapshot.val().division;
         // var program = snapshot.val().program;
         // var phone = snapshot.val().phone;
-        var bookingCode = firebase.database.ref('booking-report').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).push({
+        var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
             userID: firebase.auth.currentUser.uid,
             type: 'Shuttle Bus',
             from: req.body.from,
@@ -150,6 +154,7 @@ app.post("/push-booking", function (req, res) {
             to: req.body.to,
             date: req.body.date,
             departure: req.body.departure,
+            type: 'Shuttle Bus'
         });
         console.log(req.body);
         console.log(bookingCode);
@@ -161,7 +166,7 @@ app.post("/push-booking", function (req, res) {
                 'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
                 'Silakan tunjukkan email berikut kepada petugas shuttle.\n' +
                 'Berikut data pemesanan Anda:\n\n' +
-                'Tanggal Keberangkatan : ' + req.body.date + '\n' +
+                'Tanggal Keberangkatan : ' + changeDateFormat(req.body.date) + '\n' +
                 'Pergi dari : ' + req.body.from + '\n' +
                 'Jam Keberangkatan : ' + req.body.departure + '\n' +
                 'Pulang dari : ' + req.body.to + '\n' +
@@ -197,10 +202,10 @@ app.post("/push-booking-admin", function (req, res) {
     // var program = snapshot.val().program;
     // var phone = snapshot.val().phone;
     console.log(req.body);
-    
-    var bookingCode = firebase.database.ref('booking-report').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).push({
-        type: req.body.type,
+
+    var bookingCode = firebase.database.ref('booking-report').child(req.body.type).child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
         from: req.body.from,
+        type: req.body.type,
         to: req.body.to,
         date: req.body.date,
         departure: req.body.departure,
@@ -220,7 +225,7 @@ app.post("/push-booking-admin", function (req, res) {
             'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
             'Silakan tunjukkan email berikut kepada petugas shuttle.\n' +
             'Berikut data pemesanan Anda:\n\n' +
-            'Tanggal Keberangkatan : ' + req.body.date + '\n' +
+            'Tanggal Keberangkatan : ' + changeDateFormat(req.body.date) + '\n' +
             'Pergi dari : ' + req.body.from + '\n' +
             'Jam Keberangkatan : ' + req.body.departure + '\n' +
             'Pulang dari : ' + req.body.to + '\n' +
@@ -252,7 +257,7 @@ app.post("/send-booking-detail", function (req, res) {
             'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
             'Silakan tunjukkan email berikut kepada petugas shuttle.\n' +
             'Berikut data pemesanan Anda:\n\n' +
-            'Tanggal Keberangkatan : ' + req.body.date + '\n' +
+            'Tanggal Keberangkatan : ' + changeDateFormat(req.body.date) + '\n' +
             'Pergi dari : ' + req.body.from + '\n' +
             'Jam Keberangkatan : ' + req.body.departure + '\n' +
             'Pulang dari : ' + req.body.to + '\n' +
@@ -273,17 +278,18 @@ app.post("/send-booking-detail", function (req, res) {
 app.post("/cancel-booking", function (req, res) {
     var userID = firebase.auth.currentUser.uid;
     console.log(req.body);
-    
-    if(req.body.userID != undefined){
+
+    if (req.body.userID != undefined) {
         userID = req.body.userID;
     }
     firebase.database.ref('user').child(userID).child('booking-history').child(req.body.key).remove().then(function (snapshot) {
         var bookingDate = req.body.date.split("-");
         var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        var bookingMonth = month[bookingDate[1]-1];
+        var bookingMonth = month[bookingDate[1] - 1];
         console.log(bookingMonth + bookingDate);
-        
-        firebase.database.ref('booking-report').child(bookingDate[2]).child(bookingMonth).child(req.body.key).remove().then(function (snapshot) {
+        console.log(req.body.type);
+
+        firebase.database.ref('booking-report').child(req.body.type).child(bookingDate[2]).child(bookingMonth).child(req.body.from).child(req.body.key).remove().then(function (snapshot) {
             console.log('[e-Shuttle][post/cancel][Success cancel]');
             res.send(req.body);
         }).catch(function (error) {
@@ -339,13 +345,25 @@ app.post("/register-success", function (req, res) {
 
     }).catch(function (error) {
         console.log('[e-Shuttle][login][Error][Code:' + error.code + '][' + error.message + ']');
-        if(error.code == 'auth/email-already-in-use'){
-            res.status(501).send('Email already in use');    
-        } else{
+        if (error.code == 'auth/email-already-in-use') {
+            res.status(501).send('Email already in use');
+        } else {
             res.status(500).send('error');
         }
     });
     console.log("sendmail success");
+});
+
+app.post("/add-shuttle-point", function (req, res) {
+    firebase.database.ref('shuttle-points').child(req.body.name).set({
+        name: req.body.name,
+        departure: req.body.departure,
+        img: '../assets/img/maps/' + req.body.name + '.jpg',
+        lat: req.body.lat,
+        lng: req.body.lng,
+        position: req.body.position,
+    });
+    res.send(req.body);
 });
 
 app.post("/show-booking-list", function (req, res) {
@@ -363,7 +381,8 @@ app.post("/show-booking-list", function (req, res) {
                 "date": item.val().date,
                 "from": item.val().from,
                 "to": item.val().to,
-                "departure": item.val().departure
+                "departure": item.val().departure,
+                "type": item.val().type
             });
         });
         res.send(bookingData);
@@ -374,26 +393,65 @@ app.post("/show-booking-report", function (req, res) {
     // console.log("req "+req.body.month);
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
-    firebase.database.ref('booking-report').child(req.body.year).child(req.body.month).once('value').then(function (snapshot) {
-        // console.log(snapshot.val());  
-        snapshot.forEach(item => {
-            // console.log(item.key);
-            // item.val()["key"] = item.key;
-
-            bookingData.push({
-                "key": item.key,
-                "userID": item.val().userID,
-                "name": item.val().name,
-                "program": item.val().program,
-                "phoneNo": item.val().phoneNo,
-                "date": item.val().date,
-                "from": item.val().from,
-                "to": item.val().to,
-                "departure": item.val().departure
+    var bookingDataPerPoint = [];
+    var i = 0;
+    if (req.body.type == 'All') {
+        firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.year).child(req.body.month).once('value').then(function (snapshot) {
+            // console.log('snapshot: ' + JSON.stringify(snapshot));
+            
+            var dataSize = snapshot.numChildren();
+            snapshot.forEach(item => {
+                var wait = true;
+                firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.year).child(req.body.month).child(item.key).once('value').then(function (snapshotData) {
+                    i++;
+                    snapshotData.forEach(itemData => {
+                        bookingData.push({
+                            "key": itemData.key,
+                            "userID": itemData.val().userID,
+                            "name": itemData.val().name,
+                            "program": itemData.val().program,
+                            "phoneNo": itemData.val().phoneNo,
+                            "date": itemData.val().date,
+                            "from": itemData.val().from,
+                            "to": itemData.val().to,
+                            "departure": itemData.val().departure,
+                            "type": itemData.val().type
+                        });
+                    });
+                    bookingDataPerPoint.push(bookingData)
+                    if(i == dataSize){
+                        console.log('bookingDataLast: ' + bookingDataPerPoint);
+                        res.send(bookingDataPerPoint);
+                    } else {
+                        // console.log('bookingData: ' + bookingDataPerPoint);
+                    }
+                    bookingData = [];
+                });
             });
         });
-        res.send(bookingData);
-    });
+    } else {
+        firebase.database.ref('booking-report').child(req.body.type).child(req.body.year).child(req.body.month).child(req.body.assemblyPoint).once('value').then(function (snapshot) {
+            // console.log(snapshot.val());  
+            snapshot.forEach(item => {
+                // console.log(item.key);
+                // item.val()["key"] = item.key;
+
+                bookingData.push({
+                    "key": item.key,
+                    "userID": item.val().userID,
+                    "name": item.val().name,
+                    "program": item.val().program,
+                    "phoneNo": item.val().phoneNo,
+                    "date": item.val().date,
+                    "from": item.val().from,
+                    "to": item.val().to,
+                    "departure": item.val().departure,
+                    "type": item.val().type
+                });
+            });
+            res.send(bookingData);
+        });
+    }
 });
 
 app.post("/show-user-list", function (req, res) {
@@ -417,7 +475,7 @@ app.post("/show-user-list", function (req, res) {
 
 app.post("/delete-user", function (req, res) {
     // console.log(req.body.key);
-    
+
     admin.auth().deleteUser(req.body.key);
     firebase.database.ref('user').child(req.body.key).remove().then(function (snapshot) {
         console.log('[e-Shuttle][post/delete][Success delete]');
@@ -427,13 +485,13 @@ app.post("/delete-user", function (req, res) {
     });
 });
 
-app.post("/forgot-password", function(req, res){
+app.post("/forgot-password", function (req, res) {
     // firebase.auth.sendPasswordResetEmail(req.body.email);
     console.log(req.body.email);
-    firebase.auth.sendPasswordResetEmail(req.body.email).then(function() {
+    firebase.auth.sendPasswordResetEmail(req.body.email).then(function () {
         console.log('email sent!');
         res.send(req.body);
-    }).catch(function(error) {
+    }).catch(function (error) {
         res.status(400);
         res.send(error);
     });

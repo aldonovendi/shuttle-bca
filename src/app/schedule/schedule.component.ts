@@ -53,11 +53,11 @@ export class ScheduleComponent implements OnInit {
     private spinner: NgxSpinnerService
   ) { 
     // collection: AngularFirestoreCollection<> = db.collection
-    db.list('/shuttle-points').valueChanges()
-        .subscribe(shuttlePoints => {
-            this.shuttlePoints = shuttlePoints;
-            console.log(shuttlePoints);
-        })
+    // db.list('/shuttle-points').valueChanges()
+    //     .subscribe(shuttlePoints => {
+    //         this.shuttlePoints = shuttlePoints;
+    //         console.log(shuttlePoints);
+    //     })
 }
 
   ngOnInit() {
@@ -65,8 +65,12 @@ export class ScheduleComponent implements OnInit {
     // this.points = this.pointsCollection.valueChanges()
     // console.log(this.points)
     this.spinner.show();
-    this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
-    this.spinner.hide();
+    this.db.list('/shuttle-points').valueChanges().subscribe(shuttlePoints => {
+      this.shuttlePoints = shuttlePoints;
+            console.log(shuttlePoints);
+      this.spinner.hide();
+    });
+    
     
 
     // getShuttlePoints(listPath): Observable<any[]> {

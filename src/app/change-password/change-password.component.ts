@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
   constructor(private fb: FormBuilder, private http: Http, private toastrService: ToastrService) { }
+  private processing = false;
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -35,12 +36,19 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePassword(){
+    this.processing = true;
     this.http.post('change-password', this.form.value).subscribe(data => {
       this.toastrService.success('Your password has been updated', 'Change Password Success');
+      this.processing = false;
+      this.form.reset();
     }, error => {
-      console.log("auth failed" + error);
+      if(error.status = 500){
+        this.toastrService.error('Incorrect Password');
+      } else{
+        this.toastrService.error('Lost Connection!');
+      }
+      this.processing = false;
     })
-    this.form.reset();
   }
 
 }

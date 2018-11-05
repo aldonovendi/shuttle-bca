@@ -22,6 +22,7 @@ import { AddShuttlePointComponent } from '../../add-shuttle-point/add-shuttle-po
 import { BookingReportComponent } from '../../booking-report/booking-report.component';
 import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
+import { DownloadReportComponent } from '../../download-report/download-report.component';
 
 import { environment } from '../../../environments/environment'
 import { AngularFireModule } from 'angularfire2';
@@ -144,7 +145,8 @@ import { AgmCoreModule } from '@agm/core';
     AddShuttlePointComponent,
     BookingReportComponent,
     ManageUserComponent,
-    ReportComponent
+    ReportComponent,
+    DownloadReportComponent
   ],
   providers:[ExcelService]
 })
