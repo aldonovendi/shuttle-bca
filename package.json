@@ -50,6 +50,7 @@
     "googleapis": "28.1.0",
     "hammerjs": "2.0.8",
     "jquery": "3.2.1",
+    "nodemailer": "*",
     "moment": "2.18.1",
     "nativescript-email": "^1.5.3",
     "ng2-toastr": "^4.1.2",
