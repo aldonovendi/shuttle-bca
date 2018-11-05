@@ -16,8 +16,8 @@ admin.initializeApp({
 });
 app.use(express.static(path.join(__dirname, "dist")));
 
-const hostname = '127.0.0.1';
-const port = 3000;
+// const hostname = '127.0.0.1';
+// const port = 3000;
 
 function changeDateFormat(date) {
     var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
