@@ -16,7 +16,7 @@ admin.initializeApp({
 });
 app.use(express.static(path.join(__dirname, "dist")));
 
-const hostname = '127.0.0.1';
+const hostname = 'e-shuttle.herokuapp.com';
 const port = 3000;
 
 function changeDateFormat(date) {
@@ -497,7 +497,7 @@ app.post("/forgot-password", function (req, res) {
     });
 });
 
-app.listen(port, hostname, () => {
+app.listen(process.env.PORT, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
     //   console.log(new Date());
 });
