@@ -16,8 +16,8 @@ admin.initializeApp({
 });
 app.use(express.static(path.join(__dirname, "dist")));
 
-const hostname = 'e-shuttle.herokuapp.com';
-const port = process.env.PORT;
+// const hostname = '127.0.0.1';
+const port = process.env.PORT || 3000;
 
 function changeDateFormat(date) {
     var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
