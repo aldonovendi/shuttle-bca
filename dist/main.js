@@ -236,20 +236,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./layouts/admin-layout/admin-layout.component */ "./src/app/layouts/admin-layout/admin-layout.component.ts");
-/* harmony import */ var _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./layouts/login-layout/login-layout.component */ "./src/app/layouts/login-layout/login-layout.component.ts");
-/* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth/auth.guard */ "./src/app/auth/auth.guard.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./forgot-password/forgot-password.component */ "./src/app/forgot-password/forgot-password.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
-
-
 
 
 
@@ -264,7 +256,7 @@ var routes = [
     {
         path: '',
         component: _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutComponent"],
-        canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]],
+        // canActivate: [AuthGuard],
         children: [
             {
                 path: '',
@@ -272,20 +264,20 @@ var routes = [
             }
         ]
     },
-    {
-        path: '',
-        component: _layouts_login_layout_login_layout_component__WEBPACK_IMPORTED_MODULE_5__["LoginLayoutComponent"],
-        children: [
-            {
-                path: 'login',
-                component: _login_login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"]
-            },
-            {
-                path: 'forgot-password',
-                component: _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_8__["ForgotPasswordComponent"]
-            },
-        ]
-    },
+    // {
+    //   path: '',
+    //   component: LoginLayoutComponent,
+    //   children: [
+    //     {
+    //       path: 'login',
+    //       component: LoginComponent
+    //     },
+    //     {
+    //       path: 'forgot-password',
+    //       component: ForgotPasswordComponent
+    //     },
+    //   ]
+    // },
     {
         path: '**',
         redirectTo: 'add-booking',
@@ -773,6 +765,7 @@ var ROUTES = [
     { path: '/add-booking-admin', title: 'Add Booking to User', icon: 'add_circle', class: '' },
     { path: '/add-shuttle-point', title: 'Add Shuttle Point', icon: 'add_location', class: '' },
     { path: '/booking-report', title: 'Booking Report', icon: 'library_books', class: '' },
+    { path: '/download-report', title: 'Download Report', icon: 'save_alt', class: '' },
     { path: '/manage-user', title: 'Manage User', icon: 'people', class: '' },
 ];
 var SidebarComponent = /** @class */ (function () {

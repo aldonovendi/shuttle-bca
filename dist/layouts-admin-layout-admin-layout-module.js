@@ -59164,6 +59164,172 @@ var DashboardComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/download-report/download-report.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/download-report/download-report.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Booking Report</h4>\n            <p class=\"card-category\">Choose the time you want to see</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"download()\">\n              <div class=\"row\">\n                <div class=\"col-md-5\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Month\" formControlName=\"month\">\n                      <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('month')\">Please choose a Month</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-3\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Year\" formControlName=\"year\">\n                      <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('year')\">Please choose a year</mat-error>\n                  </mat-form-field>\n                </div>\n                \n              </div>\n              \n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Download</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              \n            \n\n              <div class=\"clearfix\"></div>\n            </form>\n            \n            <div class=\"table-responsive\" *ngIf=\"bookingListLength!=0\">\n              <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->\n              <table class=\"table\">\n                <thead class=\" text-primary\">\n                  <th>Name</th>\n                  <th>Program</th>\n                  <th>Phone No</th>\n                  <th>Date</th>\n                  <th>Route</th>\n                  <th>Action</th>\n                </thead>\n                <tbody>\n                  <tr *ngFor=\"let booking of bookingList\">\n                    <td>{{booking.name}}</td>\n                    <td>{{booking.program}}</td>\n                    <td>{{booking.phoneNo}}</td>\n                    <td>{{changeDateFormat(booking.date)}}</td>\n                    <td>{{booking.from}} - {{booking.to}} </td>\n                    <td>\n                      <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                      <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                    </td>\n                  </tr>\n                  <!-- <h3>{{history_data.length}}</h3> -->\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+
+/***/ }),
+
+/***/ "./src/app/download-report/download-report.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/download-report/download-report.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/download-report/download-report.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/download-report/download-report.component.ts ***!
+  \**************************************************************/
+/*! exports provided: DownloadReportComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DownloadReportComponent", function() { return DownloadReportComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var DownloadReportComponent = /** @class */ (function () {
+    function DownloadReportComponent(http, fb, db, toastrService, excelServ, spinner) {
+        this.http = http;
+        this.fb = fb;
+        this.db = db;
+        this.toastrService = toastrService;
+        this.excelServ = excelServ;
+        this.spinner = spinner;
+        this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.years = ["2018"];
+        this.filterData = {
+            type: '',
+            assemblyPoint: '',
+            month: '',
+            year: ''
+        };
+        this.month = "";
+        this.year = "";
+        this.assemblyPoint = "";
+        this.type = "";
+        this.bookingListLength = 0;
+        this.processing = false;
+    }
+    DownloadReportComponent.prototype.filter = function () {
+        var _this = this;
+        this.filterData = {
+            type: this.form.value.type,
+            assemblyPoint: this.form.value.assemblyPoint,
+            month: this.form.value.month,
+            year: this.form.value.year
+        };
+        this.spinner.show();
+        this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
+            // this.testVar = res;
+            console.log('show booking ' + (res.json()));
+            _this.bookingList = res.json();
+            _this.bookingListLength = _this.bookingList.length;
+            if (_this.bookingListLength == 0) {
+                _this.toastrService.warning("There's no Booking History");
+            }
+            _this.spinner.hide();
+            // console.log('show booking ' + this.testVar.json());
+            // console.log('show booking ' + JSON.stringify(res.json()));
+        });
+        this.formSubmitAttempt = true;
+    };
+    DownloadReportComponent.prototype.ngOnInit = function () {
+        this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
+        this.form = this.fb.group({
+            type: ['Shuttle Bus', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            assemblyPoint: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            month: [this.months[new Date().getMonth()], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            year: [new Date().getFullYear().toString(), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+        });
+    };
+    DownloadReportComponent.prototype.download = function () {
+        var _this = this;
+        this.processing = true;
+        this.filterData = {
+            type: this.form.value.type,
+            assemblyPoint: this.form.value.assemblyPoint,
+            month: this.form.value.month,
+            year: this.form.value.year
+        };
+        // this.db.list('/booking-report/Shuttle Bus/' + this.filterData.year + '/' + this.filterData.month).valueChanges().subscribe(bookingReportList => {
+        //   this.bookingReportList = bookingReportList;
+        //   console.log(bookingReportList);
+        //   this.excelServ.exportAsExcelFile(this.bookingReportList, 'Booking Report ' + this.form.value.month + ' ' + this.form.value.year);
+        // });
+        this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
+            console.log('show booking ' + (res.json()));
+            _this.bookingList = res.json();
+            _this.excelServ.exportAsExcelFile(_this.bookingList, 'Booking Report ' + _this.form.value.month + ' ' + _this.form.value.year);
+            _this.processing = false;
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
+        });
+        this.formSubmitAttempt = true;
+    };
+    DownloadReportComponent.prototype.changeDateFormat = function (date) {
+        var newDate = date.split("-");
+        return newDate[0] + " " + this.months[+newDate[1] - 1] + " " + newDate[2];
+    };
+    DownloadReportComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.form.get(field).valid && this.form.get(field).touched) ||
+            (this.form.get(field).untouched && this.formSubmitAttempt));
+    };
+    DownloadReportComponent.prototype.getReport = function () {
+    };
+    DownloadReportComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-download-report',
+            template: __webpack_require__(/*! ./download-report.component.html */ "./src/app/download-report/download-report.component.html"),
+            styles: [__webpack_require__(/*! ./download-report.component.scss */ "./src/app/download-report/download-report.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            angularfire2_database__WEBPACK_IMPORTED_MODULE_3__["AngularFireDatabase"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _services_excel_service__WEBPACK_IMPORTED_MODULE_5__["ExcelService"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
+    ], DownloadReportComponent);
+    return DownloadReportComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/icons/icons.component.css":
 /*!*******************************************!*\
   !*** ./src/app/icons/icons.component.css ***!
@@ -59261,24 +59427,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
 /* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
 /* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -59321,53 +59489,53 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_30__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_31__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_31__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_32__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_32__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_33__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                angularfire2__WEBPACK_IMPORTED_MODULE_25__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_24__["environment"].firebase),
-                angularfire2_database__WEBPACK_IMPORTED_MODULE_26__["AngularFireDatabaseModule"],
-                angularfire2_auth__WEBPACK_IMPORTED_MODULE_27__["AngularFireAuthModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_28__["NgxSpinnerModule"]
+                angularfire2__WEBPACK_IMPORTED_MODULE_26__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_25__["environment"].firebase),
+                angularfire2_database__WEBPACK_IMPORTED_MODULE_27__["AngularFireDatabaseModule"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_28__["AngularFireAuthModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_29__["NgxSpinnerModule"]
             ],
             declarations: [
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
@@ -59388,9 +59556,10 @@ var AdminLayoutModule = /** @class */ (function () {
                 _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_20__["AddShuttlePointComponent"],
                 _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_21__["BookingReportComponent"],
                 _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_22__["ManageUserComponent"],
-                _report_report_component__WEBPACK_IMPORTED_MODULE_23__["ReportComponent"]
+                _report_report_component__WEBPACK_IMPORTED_MODULE_23__["ReportComponent"],
+                _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_24__["DownloadReportComponent"]
             ],
-            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_29__["ExcelService"]]
+            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_30__["ExcelService"]]
         })
     ], AdminLayoutModule);
     return AdminLayoutModule;
@@ -59421,6 +59590,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
 /* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
 /* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
+/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
+
 
 
 
@@ -59494,6 +59665,7 @@ var AdminLayoutRoutes = [
     { path: 'booking-report', component: _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_8__["BookingReportComponent"] },
     { path: 'manage-user', component: _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_9__["ManageUserComponent"] },
     { path: 'download-booking-report/:month/:year', component: _report_report_component__WEBPACK_IMPORTED_MODULE_10__["ReportComponent"] },
+    { path: 'download-report', component: _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_11__["DownloadReportComponent"] },
 ];
 
 
