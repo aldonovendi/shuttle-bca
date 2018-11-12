@@ -58251,6 +58251,11 @@ var AddBookingComponent = /** @class */ (function () {
             to: ['BCA Learning Institute'],
             date: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
         });
+        if (this.minDate.getDay() != 0) {
+            this.minDate.setDate(this.minDate.getDate() - this.minDate.getDay() + 15);
+            this.maxDate.setDate(this.minDate.getDate() + 5);
+        }
+        ;
         // this.form.controls['date'].disable();
         this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
         var i = 0;
