@@ -18,26 +18,26 @@ const routes: Routes =[
   {
     path: '',
     component: AdminLayoutComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
         {
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
-  // {
-  //   path: '',
-  //   component: LoginLayoutComponent,
-  //   children: [
-  //     {
-  //       path: 'login',
-  //       component: LoginComponent
-  //     },
-  //     {
-  //       path: 'forgot-password',
-  //       component: ForgotPasswordComponent
-  //     },
-  //   ]
-  // },
+  {
+    path: '',
+    component: LoginLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
+      },
+    ]
+  },
   
   {
     path: '**',

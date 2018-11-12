@@ -72,7 +72,11 @@ export class AddBookingComponent implements OnInit {
       this.resetForm();
       this.processing = false;
     }, error => {
-      this.toastrService.error('Lost Connection!');
+      if(error.status = 500){
+        this.toastrService.error('Cancel your previous booking first','Booking already exist on this date');
+      } else{
+        this.toastrService.error('Lost Connection!');
+      }
       this.processing = false;
     });
     // this.sendEmail(bookingObj);

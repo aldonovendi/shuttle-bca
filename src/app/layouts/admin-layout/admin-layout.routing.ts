@@ -12,6 +12,7 @@ import { AddBookingComponent } from '../../add-booking/add-booking.component';
 import { ScheduleComponent } from '../../schedule/schedule.component';
 import { RegisterUserComponent } from '../../register-user/register-user.component'
 import { BookingListComponent } from '../../booking-list/booking-list.component';
+import { ChangePhoneNoComponent } from '../../change-phone-no/change-phone-no.component';
 import { ChangeEmailComponent } from '../../change-email/change-email.component';
 import { ChangePasswordComponent } from '../../change-password/change-password.component';
 import { AddBookingAdminComponent } from '../../add-booking-admin/add-booking-admin.component';
@@ -77,6 +78,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'register-user', component: RegisterUserComponent},
     { path: 'booking-list', component: BookingListComponent},
     { path: 'change-email', component: ChangeEmailComponent},
+    { path: 'change-phone-no', component: ChangePhoneNoComponent},
     { path: 'change-password', component: ChangePasswordComponent},
     { path: 'add-booking-admin', component: AddBookingAdminComponent},
     { path: 'add-shuttle-point', component: AddShuttlePointComponent},

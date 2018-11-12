@@ -133,17 +133,30 @@ export class BookingListComponent implements OnInit {
   // testVar: any;
 
   private bookingListLength;
+  private today;
+  private todayKey;
+  private idx;
   ngOnInit() {
 
     // this.bookingList = this.db.list('/user').snapshotChanges().map(changes => {
     //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     // });
     this.spinner.show();
+    this.idx = 0;
+    this.today = new Date();
+    this.todayKey = this.today.getFullYear()+this.today.getMonth()+this.today.getDate();
     this.http.post('/show-booking-list', {}).subscribe(res => {
       // this.testVar = res;
       console.log('show booking ' + (res.json()));
 
       this.bookingList = res.json();
+      this.bookingList.forEach(bookingData => {
+        if(this.todayKey > bookingData.key){
+          this.bookingList.splice(this.idx,1);
+        }
+        this.idx++;
+      });
+      
       this.bookingListLength = this.bookingList.length;
 
       this.spinner.hide();

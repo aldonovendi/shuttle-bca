@@ -74,6 +74,25 @@ app.post("/login-success", function (req, res) {
 
 });
 
+app.post("/change-phone-no", function (req, res) {
+    firebase.auth.signInWithEmailAndPassword(firebase.auth.currentUser.email, req.body.password).then(function (user) {
+        firebase.auth.onAuthStateChanged(function (user) {
+            if (user) {
+                firebase.database.ref().child("user").child(user.uid + "/phoneNo").set(req.body.phoneNo).then(function () {
+                    console.log('[e-Shuttle][post/change-email][Phone No changed]')
+                }).catch(function (error) {
+                    console.log('[e-Shuttle][post/change-email][Error][update-database][' + error + ']');                        
+                });
+            }
+            res.send(req.body);
+        });
+    }).catch(function (error) {
+        console.log('[e-Shuttle][post/change-email][Error][sign-in][' + error + ']');
+        res.status(500).json({ message: 'auth failed' });
+    });
+
+});
+
 app.post("/change-email", function (req, res) {
     firebase.auth.signInWithEmailAndPassword(firebase.auth.currentUser.email, req.body.password).then(function (user) {
         firebase.auth.onAuthStateChanged(function (user) {
@@ -130,61 +149,75 @@ app.post("/push-booking", function (req, res) {
     var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     console.log(req.body.date.split("-"));
     console.log(firebase.auth.currentUser.uid);
-    firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value').then(function (snapshot) {
-        var snapshotVal = snapshot.val();
-        // var nip = snapshot.val().nip;
-        // var division = snapshot.val().division;
-        // var program = snapshot.val().program;
-        // var phone = snapshot.val().phone;
-        var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
-            userID: firebase.auth.currentUser.uid,
-            type: 'Shuttle Bus',
-            from: req.body.from,
-            to: req.body.to,
-            date: req.body.date,
-            departure: req.body.departure,
-            name: snapshotVal.name,
-            nip: snapshotVal.nip,
-            program: snapshotVal.program,
-            phoneNo: snapshotVal.phoneNo,
-            email: firebase.auth.currentUser.email
-        }).key;
-        firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').child(bookingCode).set({
-            from: req.body.from,
-            to: req.body.to,
-            date: req.body.date,
-            departure: req.body.departure,
-            type: 'Shuttle Bus'
-        });
-        console.log(req.body);
-        console.log(bookingCode);
-        var mailOptions = {
-            from: "'Shuttle Management' <shuttle.management.bca@gmail.com>",
-            to: firebase.auth.currentUser.email,
-            subject: "Konfirmasi Pemesanan Shuttle",
-            text: 'Halo ' + '' + ',\n' +
-                'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
-                'Silakan tunjukkan email berikut kepada petugas shuttle.\n' +
-                'Berikut data pemesanan Anda:\n\n' +
-                'Tanggal Keberangkatan : ' + changeDateFormat(req.body.date) + '\n' +
-                'Pergi dari : ' + req.body.from + '\n' +
-                'Jam Keberangkatan : ' + req.body.departure + '\n' +
-                'Pulang dari : ' + req.body.to + '\n' +
-                'Jam Kepulangan : 17.00\n' +
-                // '<img src = "https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/verification/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2"> <br><br>' +
-                'Terima kasih \n\nHormat kami, \nBCA Learning Institute',
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) console.log("send email error " + error);
-            // else console.log("Message sent successfully: " + info.response);
-            else console.log("Message sent successfully");
-        });
-        console.log("sendmail success");
+    var date = req.body.date.split("-");
+    var dateKey = date[2]+date[1]+date[0];
+    firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').child(dateKey).once('value').then(function (snapshot) {
+        if(snapshot.exists()){
+            res.status(500).json({ message: 'booking already exist' });
+        } else {
+            firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value').then(function (snapshot) {
+                var snapshotVal = snapshot.val();
+                // var nip = snapshot.val().nip;
+                // var division = snapshot.val().division;
+                // var program = snapshot.val().program;
+                // var phone = snapshot.val().phone;
+                
+                var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(date[2]).child(month[date[1] - 1]).child(date[0]).child(req.body.from).child(firebase.auth.currentUser.uid).set({
+                // var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
+                    userID: firebase.auth.currentUser.uid,
+                    type: 'Shuttle Bus',
+                    from: req.body.from,
+                    to: req.body.to,
+                    date: req.body.date,
+                    departure: req.body.departure,
+                    name: snapshotVal.name,
+                    nip: snapshotVal.nip,
+                    program: snapshotVal.program,
+                    phoneNo: snapshotVal.phoneNo,
+                    email: firebase.auth.currentUser.email
+                }).key;
+                firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').child(dateKey).set({
+                    from: req.body.from,
+                    to: req.body.to,
+                    date: req.body.date,
+                    departure: req.body.departure,
+                    type: 'Shuttle Bus'
+                });
+                console.log(req.body);
+                console.log(bookingCode);
+                var mailOptions = {
+                    from: "'Shuttle Management' <shuttle.management.bca@gmail.com>",
+                    to: firebase.auth.currentUser.email,
+                    subject: "Konfirmasi Pemesanan Shuttle",
+                    text: 'Halo ' + '' + ',\n' +
+                        'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
+                        'Silakan tunjukkan email berikut kepada petugas shuttle.\n' +
+                        'Berikut data pemesanan Anda:\n\n' +
+                        'Tanggal Keberangkatan : ' + changeDateFormat(req.body.date) + '\n' +
+                        'Pergi dari : ' + req.body.from + '\n' +
+                        'Jam Keberangkatan : ' + req.body.departure + '\n' +
+                        'Pulang dari : ' + req.body.to + '\n' +
+                        'Jam Kepulangan : 17.00\n' +
+                        // '<img src = "https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/verification/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2"> <br><br>' +
+                        'Terima kasih \n\nHormat kami, \nBCA Learning Institute',
+                };
+        
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) console.log("send email error " + error);
+                    // else console.log("Message sent successfully: " + info.response);
+                    else console.log("Message sent successfully");
+                });
+                console.log("sendmail success");
+                res.send(req.body);
+            }).catch(function () {
+                console.log("Promise Rejected a");
+            });
+        }
     }).catch(function () {
-        console.log("Promise Rejected");
+        console.log("Promise Rejected b");
     });
-    res.send(req.body);
+    
+    
 });
 
 app.post("/push-booking-admin", function (req, res) {
@@ -289,7 +322,7 @@ app.post("/cancel-booking", function (req, res) {
         console.log(bookingMonth + bookingDate);
         console.log(req.body.type);
 
-        firebase.database.ref('booking-report').child(req.body.type).child(bookingDate[2]).child(bookingMonth).child(req.body.from).child(req.body.key).remove().then(function (snapshot) {
+        firebase.database.ref('booking-report').child(req.body.type).child(bookingDate[2]).child(bookingMonth).child(bookingDate[0]).child(req.body.from).child(userID).remove().then(function (snapshot) {
             console.log('[e-Shuttle][post/cancel][Success cancel]');
             res.send(req.body);
         }).catch(function (error) {
@@ -370,20 +403,24 @@ app.post("/show-booking-list", function (req, res) {
     console.log("req ");
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
-    firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').once('value').then(function (snapshot) {
+    var today = new Date();
+    var todayKey = today.getFullYear()+today.getMonth()+today.getDate();
+    firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').orderByKey().limitToLast(10).once('value').then(function (snapshot) {
         // console.log(snapshot.val());  
         snapshot.forEach(item => {
             // console.log(item.key);
             // item.val()["key"] = item.key;
-
-            bookingData.push({
-                "key": item.key,
-                "date": item.val().date,
-                "from": item.val().from,
-                "to": item.val().to,
-                "departure": item.val().departure,
-                "type": item.val().type
-            });
+            console.log(item);
+            
+                bookingData.push({
+                    "key": item.key,
+                    "date": item.val().date,
+                    "from": item.val().from,
+                    "to": item.val().to,
+                    "departure": item.val().departure,
+                    "type": item.val().type
+                });
+            
         });
         res.send(bookingData);
     });
