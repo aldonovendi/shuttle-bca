@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 0.875rem;
+    width: 100%;
+}
+
+th {
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+}
+
+.mat-cell {
+    font-size: 0.875rem;
+    color: #333333;
+}
+
+td, th {
+    padding: 12px 8px !important;
+    vertical-align: middle;
+}

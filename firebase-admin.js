@@ -22,5 +22,5 @@ admin.initializeApp({
 });
 
 
-exports.admin = admin;
+// exports.admin = admin;
 

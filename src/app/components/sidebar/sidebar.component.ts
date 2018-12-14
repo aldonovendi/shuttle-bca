@@ -15,6 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/change-password', title: 'Change Password',  icon:'lock', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
     { path: '/shuttle-points', title: 'Shuttle Points',  icon:'location_on', class: '' },
+    { path: '/shuttle-points-admin', title: 'Shuttle Points Admin',  icon:'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/booking-list', title: 'My Booking History',  icon:'history', class: '' },
     { path: '/register-user', title: 'Register User',  icon:'person_add', class: '' },

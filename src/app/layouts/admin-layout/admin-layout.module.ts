@@ -13,6 +13,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AddBookingComponent } from '../../add-booking/add-booking.component';
 import { ScheduleComponent } from '../../schedule/schedule.component';
+import { ShuttlePointsAdminComponent } from '../../shuttle-points-admin/shuttle-points-admin.component';
 import { RegisterUserComponent } from '../../register-user/register-user.component';
 import { BookingListComponent } from '../../booking-list/booking-list.component';
 import { ChangePhoneNoComponent } from '../../change-phone-no/change-phone-no.component';
@@ -24,6 +25,8 @@ import { BookingReportComponent } from '../../booking-report/booking-report.comp
 import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 import { environment } from '../../../environments/environment'
 import { AngularFireModule } from 'angularfire2';
@@ -127,6 +130,9 @@ import { AgmCoreModule } from '@agm/core';
     AngularFireAuthModule,
     NgxSpinnerModule
   ],
+  entryComponents: [
+    ConfirmationDialogComponent
+  ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -138,6 +144,7 @@ import { AgmCoreModule } from '@agm/core';
     UpgradeComponent,
     AddBookingComponent,
     ScheduleComponent,
+    ShuttlePointsAdminComponent,
     RegisterUserComponent,
     BookingListComponent,
     ChangePhoneNoComponent,
@@ -148,7 +155,9 @@ import { AgmCoreModule } from '@agm/core';
     BookingReportComponent,
     ManageUserComponent,
     ReportComponent,
-    DownloadReportComponent
+    DownloadReportComponent,
+    ConfirmationDialogComponent
+    // EditShuttlePointComponent,
   ],
   providers:[ExcelService]
 })

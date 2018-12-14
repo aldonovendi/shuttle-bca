@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-booking-list',
@@ -25,6 +27,7 @@ export class BookingListComponent implements OnInit {
 
   bookingList: any[]
   month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   private processing = false;
   private emailProcessing = false;
   constructor(
@@ -32,12 +35,15 @@ export class BookingListComponent implements OnInit {
     private er: ElementRef,
     private http: Http,
     private toastrService: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
   ) { }
 
   changeDateFormat(date: String) {
     var newDate = date.split("-");
-    return newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
+    var systemDate = new Date(+newDate[2], +newDate[1]-1, +newDate[0]);
+    
+    return this.day[systemDate.getDay()] + ", " + newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
   }
 
   sendEmail(bookingObj: Object) {
@@ -51,21 +57,30 @@ export class BookingListComponent implements OnInit {
       this.toastrService.error('Lost Connection!');
     });
   }
+  cancelBooking(bookingObj: Object, bookingDate: String) {
+    
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {msg: "Are you sure to cancel booking on " + this.changeDateFormat(bookingDate) + "?"}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+        this.processing = true;
+        this.http.post('/cancel-booking', bookingObj).subscribe(data => {
+          this.toastrService.success('Your booking has been canceled', 'Cancel Success');
+          var index = this.bookingList.findIndex(booking => booking.key === JSON.parse(JSON.stringify(bookingObj)).key)
+          this.bookingList.splice(index, 1);
+          this.bookingListLength = this.bookingList.length;
+          this.processing = false;
 
-  cancelBooking(bookingObj: Object) {
-    this.processing = true;
-    this.http.post('/cancel-booking', bookingObj).subscribe(data => {
-      this.toastrService.success('Your booking has been canceled', 'Cancel Success');
-      var index = this.bookingList.findIndex(booking => booking.key === JSON.parse(JSON.stringify(bookingObj)).key)
-      this.bookingList.splice(index, 1);
-      this.bookingListLength = this.bookingList.length;
-      this.processing = false;
+        }, error => {
+          this.toastrService.error('Lost Connection!');
+          this.processing = false;
 
-    }, error => {
-      this.toastrService.error('Lost Connection!');
-      this.processing = false;
-
-    })
+        })
+      }
+    });
+    
 
   }
 
@@ -178,3 +193,19 @@ export class BookingListComponent implements OnInit {
   }
 
 }
+
+// @Component({
+//   selector: 'cancel-confirmation',
+//   templateUrl: 'cancel-confirmation.html',
+// })
+// export class CancelConfirmation {
+
+//   constructor(
+//     public dialogRef: MatDialogRef<CancelConfirmation>,
+//     @Inject(MAT_DIALOG_DATA) public data: {}) {}
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+
+// }

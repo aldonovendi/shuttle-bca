@@ -58178,8 +58178,9 @@ var AddBookingComponent = /** @class */ (function () {
         this.toControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('Wisma Asia', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]);
         this.date = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](new Date());
         this.serializedDate = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]((new Date()).toISOString());
-        this.minDate = new Date();
-        this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 14);
+        this.todayDate = new Date();
+        this.minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 8 - this.todayDate.getDay());
+        this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 5);
         this.shuttlePoints = SHUTTLE_POINTS;
         this.defaultOption = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.shuttlePoints[2]);
         this.from = '';
@@ -58246,27 +58247,28 @@ var AddBookingComponent = /** @class */ (function () {
         this.dateValue = this.date.value;
     };
     AddBookingComponent.prototype.ngOnInit = function () {
+        console.log(this.minDate, this.minDate.getDate());
+        console.log(this.maxDate, this.maxDate.getDate());
         this.form = this.fb.group({
             from: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             to: ['BCA Learning Institute'],
             date: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
         });
-        if (this.minDate.getDay() != 0) {
-            this.minDate.setDate(this.minDate.getDate() - this.minDate.getDay() + 15);
-            this.maxDate.setDate(this.minDate.getDate() + 5);
-        }
-        ;
+        // if(this.minDate.getDay()!=0){
+        //   this.minDate.setDate(this.minDate.getDate() - this.minDate.getDay() + 15);
+        //   this.maxDate.setDate(this.minDate.getDate() + 5);
+        // };
         // this.form.controls['date'].disable();
         this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
-        var i = 0;
-        var today = new Date();
-        var day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        while (i < 10) {
-            if (today.getDay() != 0 || today.getDay() != 6)
-                this.dates[i] = day[today.getDay()] + ', ' + today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
-            i += 1;
-            today = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-        }
+        // let i = 0;
+        // let today = new Date();
+        // let day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        // while (i < 10) {
+        //   if (today.getDay() != 0 || today.getDay() != 6)
+        //     this.dates[i] = day[today.getDay()] + ', ' + today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
+        //   i += 1;
+        //   today = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+        // }
     };
     AddBookingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -58401,7 +58403,7 @@ var AddShuttlePointComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Booking History</h4>\n                        <p class=\"card-category\">See your booking history, you can email the booking detail or cancel them</p>\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength == 0\">\n                        No Upcoming Booking\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength != 0\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Route\n                                    </th>\n                                    <th>\n                                        Date\n                                    </th>\n                                    <th>\n                                        Departure Time\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n                                  \n                                    <tr *ngFor=\"let booking of bookingList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{booking.from}} - {{booking.to}}\n                                        </td>\n                                        <td>\n                                            {{changeDateFormat(booking.date)}}\n                                        </td>\n                                        <td>\n                                            {{booking.departure}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"sendEmail(booking)\" *ngIf=\"emailProcessing != true\">Email</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"emailProcessing == true\">Processing...</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n\n                                        </td>\n                                    </tr>\n                                    \n                                </tbody>\n                            </table>\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                                <nav class=\"my-4 pt-2\">\n                                  <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\">First</a>\n                                    </li>\n                            \n                                    <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\" aria-label=\"Previous\">\n                                        <span aria-hidden=\"true\">&laquo;</span>\n                                        <span class=\"sr-only\">Previous</span>\n                                      </a>\n                                    </li>\n                                    <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                        <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                    </li>\n                            \n                            \n                            \n                                    <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\" aria-label=\"Next\">\n                                        <span aria-hidden=\"true\">&raquo;</span>\n                                        <span class=\"sr-only\">Next</span>\n                                      </a>\n                                    </li>\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\">Last</a>\n                                    </li>\n                            \n                                  </ul>\n                                </nav>\n                            \n                              </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n  </div>\n  <ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Booking History</h4>\n                        <p class=\"card-category\">See your booking history, you can email the booking detail or cancel them</p>\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength == 0\">\n                        No Upcoming Booking\n                    </div>\n                    <div class=\"card-body\" *ngIf=\"bookingListLength != 0\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Route\n                                    </th>\n                                    <th>\n                                        Date\n                                    </th>\n                                    <th>\n                                        Departure Time\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n                                  \n                                    <tr *ngFor=\"let booking of bookingList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{booking.from}} - {{booking.to}}\n                                        </td>\n                                        <td>\n                                            {{changeDateFormat(booking.date)}}\n                                        </td>\n                                        <td>\n                                            {{booking.departure}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"sendEmail(booking)\" *ngIf=\"emailProcessing != true\">Email</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"emailProcessing == true\">Processing...</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking, booking.date)\" *ngIf=\"processing != true\">Cancel</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n\n                                        </td>\n                                    </tr>\n                                    \n                                </tbody>\n                            </table>\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                                <nav class=\"my-4 pt-2\">\n                                  <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\">First</a>\n                                    </li>\n                            \n                                    <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                      <a class=\"page-link\" aria-label=\"Previous\">\n                                        <span aria-hidden=\"true\">&laquo;</span>\n                                        <span class=\"sr-only\">Previous</span>\n                                      </a>\n                                    </li>\n                                    <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                        <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                    </li>\n                            \n                            \n                            \n                                    <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\" aria-label=\"Next\">\n                                        <span aria-hidden=\"true\">&raquo;</span>\n                                        <span class=\"sr-only\">Next</span>\n                                      </a>\n                                    </li>\n                            \n                                    <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                      <a class=\"page-link\">Last</a>\n                                    </li>\n                            \n                                  </ul>\n                                </nav>\n                            \n                              </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n  </div>\n  <ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
 
 /***/ }),
 
@@ -58432,6 +58434,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58446,13 +58450,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var BookingListComponent = /** @class */ (function () {
-    function BookingListComponent(db, er, http, toastrService, spinner) {
+    function BookingListComponent(db, er, http, toastrService, spinner, dialog) {
         this.db = db;
         this.er = er;
         this.http = http;
         this.toastrService = toastrService;
         this.spinner = spinner;
+        this.dialog = dialog;
         this.itemsPerPage = 10;
         this.numberOfVisiblePaginators = 10;
         this.paginators = [];
@@ -58462,12 +58469,14 @@ var BookingListComponent = /** @class */ (function () {
         this.firstVisiblePaginator = 0;
         this.lastVisiblePaginator = this.numberOfVisiblePaginators;
         this.month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         this.processing = false;
         this.emailProcessing = false;
     }
     BookingListComponent.prototype.changeDateFormat = function (date) {
         var newDate = date.split("-");
-        return newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
+        var systemDate = new Date(+newDate[2], +newDate[1] - 1, +newDate[0]);
+        return this.day[systemDate.getDay()] + ", " + newDate[0] + " " + this.month[+newDate[1] - 1] + " " + newDate[2];
     };
     BookingListComponent.prototype.sendEmail = function (bookingObj) {
         var _this = this;
@@ -58481,18 +58490,26 @@ var BookingListComponent = /** @class */ (function () {
             _this.toastrService.error('Lost Connection!');
         });
     };
-    BookingListComponent.prototype.cancelBooking = function (bookingObj) {
+    BookingListComponent.prototype.cancelBooking = function (bookingObj, bookingDate) {
         var _this = this;
-        this.processing = true;
-        this.http.post('/cancel-booking', bookingObj).subscribe(function (data) {
-            _this.toastrService.success('Your booking has been canceled', 'Cancel Success');
-            var index = _this.bookingList.findIndex(function (booking) { return booking.key === JSON.parse(JSON.stringify(bookingObj)).key; });
-            _this.bookingList.splice(index, 1);
-            _this.bookingListLength = _this.bookingList.length;
-            _this.processing = false;
-        }, function (error) {
-            _this.toastrService.error('Lost Connection!');
-            _this.processing = false;
+        var dialogRef = this.dialog.open(_confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmationDialogComponent"], {
+            width: '350px',
+            data: { msg: "Are you sure to cancel booking on " + this.changeDateFormat(bookingDate) + "?" }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result == true) {
+                _this.processing = true;
+                _this.http.post('/cancel-booking', bookingObj).subscribe(function (data) {
+                    _this.toastrService.success('Your booking has been canceled', 'Cancel Success');
+                    var index = _this.bookingList.findIndex(function (booking) { return booking.key === JSON.parse(JSON.stringify(bookingObj)).key; });
+                    _this.bookingList.splice(index, 1);
+                    _this.bookingListLength = _this.bookingList.length;
+                    _this.processing = false;
+                }, function (error) {
+                    _this.toastrService.error('Lost Connection!');
+                    _this.processing = false;
+                });
+            }
         });
     };
     BookingListComponent.prototype.changePage = function (event) {
@@ -58602,11 +58619,24 @@ var BookingListComponent = /** @class */ (function () {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"],
             _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"]])
     ], BookingListComponent);
     return BookingListComponent;
 }());
 
+// @Component({
+//   selector: 'cancel-confirmation',
+//   templateUrl: 'cancel-confirmation.html',
+// })
+// export class CancelConfirmation {
+//   constructor(
+//     public dialogRef: MatDialogRef<CancelConfirmation>,
+//     @Inject(MAT_DIALOG_DATA) public data: {}) {}
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+// }
 
 
 /***/ }),
@@ -59105,6 +59135,80 @@ var ChangePhoneNoComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/confirmation-dialog/confirmation-dialog.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/confirmation-dialog/confirmation-dialog.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div mat-dialog-content>\n  <p>{{data.msg}}</p>\n</div>\n<div mat-dialog-actions class=\"pull-right\">\n  <button mat-raised-button class=\"btn\" (click)=\"onNoClick()\">No</button>\n  <button [mat-dialog-close]=\"true\" mat-raised-button class=\"btn btn-danger\" cdkFocusInitial>Yes</button>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/confirmation-dialog/confirmation-dialog.component.scss":
+/*!************************************************************************!*\
+  !*** ./src/app/confirmation-dialog/confirmation-dialog.component.scss ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/confirmation-dialog/confirmation-dialog.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/confirmation-dialog/confirmation-dialog.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: ConfirmationDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmationDialogComponent", function() { return ConfirmationDialogComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var ConfirmationDialogComponent = /** @class */ (function () {
+    function ConfirmationDialogComponent(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+    }
+    ConfirmationDialogComponent.prototype.ngOnInit = function () {
+    };
+    ConfirmationDialogComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
+    ConfirmationDialogComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-confirmation-dialog',
+            template: __webpack_require__(/*! ./confirmation-dialog.component.html */ "./src/app/confirmation-dialog/confirmation-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./confirmation-dialog.component.scss */ "./src/app/confirmation-dialog/confirmation-dialog.component.scss")]
+        }),
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object])
+    ], ConfirmationDialogComponent);
+    return ConfirmationDialogComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/dashboard/dashboard.component.css":
 /*!***************************************************!*\
   !*** ./src/app/dashboard/dashboard.component.css ***!
@@ -59543,29 +59647,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _upgrade_upgrade_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../upgrade/upgrade.component */ "./src/app/upgrade/upgrade.component.ts");
 /* harmony import */ var _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../add-booking/add-booking.component */ "./src/app/add-booking/add-booking.component.ts");
 /* harmony import */ var _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../schedule/schedule.component */ "./src/app/schedule/schedule.component.ts");
-/* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
-/* harmony import */ var _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../booking-list/booking-list.component */ "./src/app/booking-list/booking-list.component.ts");
-/* harmony import */ var _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../change-phone-no/change-phone-no.component */ "./src/app/change-phone-no/change-phone-no.component.ts");
-/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
-/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
-/* harmony import */ var _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../add-booking-admin/add-booking-admin.component */ "./src/app/add-booking-admin/add-booking-admin.component.ts");
-/* harmony import */ var _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../add-shuttle-point/add-shuttle-point.component */ "./src/app/add-shuttle-point/add-shuttle-point.component.ts");
-/* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
-/* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
-/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
-/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../shuttle-points-admin/shuttle-points-admin.component */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.ts");
+/* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
+/* harmony import */ var _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../booking-list/booking-list.component */ "./src/app/booking-list/booking-list.component.ts");
+/* harmony import */ var _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../change-phone-no/change-phone-no.component */ "./src/app/change-phone-no/change-phone-no.component.ts");
+/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
+/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
+/* harmony import */ var _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../add-booking-admin/add-booking-admin.component */ "./src/app/add-booking-admin/add-booking-admin.component.ts");
+/* harmony import */ var _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../add-shuttle-point/add-shuttle-point.component */ "./src/app/add-shuttle-point/add-shuttle-point.component.ts");
+/* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
+/* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
+/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
+/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
+/* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_30__);
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59600,6 +59706,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
+
+
 
 
 
@@ -59616,53 +59725,56 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_32__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_34__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_33__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_34__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_36__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                angularfire2__WEBPACK_IMPORTED_MODULE_27__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_26__["environment"].firebase),
-                angularfire2_database__WEBPACK_IMPORTED_MODULE_28__["AngularFireDatabaseModule"],
-                angularfire2_auth__WEBPACK_IMPORTED_MODULE_29__["AngularFireAuthModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_30__["NgxSpinnerModule"]
+                angularfire2__WEBPACK_IMPORTED_MODULE_29__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_28__["environment"].firebase),
+                angularfire2_database__WEBPACK_IMPORTED_MODULE_30__["AngularFireDatabaseModule"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_31__["AngularFireAuthModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_32__["NgxSpinnerModule"]
+            ],
+            entryComponents: [
+                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"]
             ],
             declarations: [
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
@@ -59675,19 +59787,22 @@ var AdminLayoutModule = /** @class */ (function () {
                 _upgrade_upgrade_component__WEBPACK_IMPORTED_MODULE_12__["UpgradeComponent"],
                 _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_13__["AddBookingComponent"],
                 _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_14__["ScheduleComponent"],
-                _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_15__["RegisterUserComponent"],
-                _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_16__["BookingListComponent"],
-                _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_17__["ChangePhoneNoComponent"],
-                _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_18__["ChangeEmailComponent"],
-                _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_19__["ChangePasswordComponent"],
-                _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_20__["AddBookingAdminComponent"],
-                _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_21__["AddShuttlePointComponent"],
-                _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_22__["BookingReportComponent"],
-                _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_23__["ManageUserComponent"],
-                _report_report_component__WEBPACK_IMPORTED_MODULE_24__["ReportComponent"],
-                _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_25__["DownloadReportComponent"]
+                _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_15__["ShuttlePointsAdminComponent"],
+                _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_16__["RegisterUserComponent"],
+                _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_17__["BookingListComponent"],
+                _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_18__["ChangePhoneNoComponent"],
+                _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_19__["ChangeEmailComponent"],
+                _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_20__["ChangePasswordComponent"],
+                _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_21__["AddBookingAdminComponent"],
+                _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_22__["AddShuttlePointComponent"],
+                _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_23__["BookingReportComponent"],
+                _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_24__["ManageUserComponent"],
+                _report_report_component__WEBPACK_IMPORTED_MODULE_25__["ReportComponent"],
+                _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_26__["DownloadReportComponent"],
+                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"]
+                // EditShuttlePointComponent,
             ],
-            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_31__["ExcelService"]]
+            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_33__["ExcelService"]]
         })
     ], AdminLayoutModule);
     return AdminLayoutModule;
@@ -59709,17 +59824,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminLayoutRoutes", function() { return AdminLayoutRoutes; });
 /* harmony import */ var _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../add-booking/add-booking.component */ "./src/app/add-booking/add-booking.component.ts");
 /* harmony import */ var _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../schedule/schedule.component */ "./src/app/schedule/schedule.component.ts");
-/* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
-/* harmony import */ var _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../booking-list/booking-list.component */ "./src/app/booking-list/booking-list.component.ts");
-/* harmony import */ var _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../change-phone-no/change-phone-no.component */ "./src/app/change-phone-no/change-phone-no.component.ts");
-/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
-/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
-/* harmony import */ var _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../add-booking-admin/add-booking-admin.component */ "./src/app/add-booking-admin/add-booking-admin.component.ts");
-/* harmony import */ var _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../add-shuttle-point/add-shuttle-point.component */ "./src/app/add-shuttle-point/add-shuttle-point.component.ts");
-/* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
-/* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
-/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
-/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
+/* harmony import */ var _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shuttle-points-admin/shuttle-points-admin.component */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.ts");
+/* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
+/* harmony import */ var _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../booking-list/booking-list.component */ "./src/app/booking-list/booking-list.component.ts");
+/* harmony import */ var _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../change-phone-no/change-phone-no.component */ "./src/app/change-phone-no/change-phone-no.component.ts");
+/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
+/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
+/* harmony import */ var _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../add-booking-admin/add-booking-admin.component */ "./src/app/add-booking-admin/add-booking-admin.component.ts");
+/* harmony import */ var _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../add-shuttle-point/add-shuttle-point.component */ "./src/app/add-shuttle-point/add-shuttle-point.component.ts");
+/* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
+/* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
+/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
+/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
 
 
 
@@ -59733,6 +59849,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 var AdminLayoutRoutes = [
     // {
     //   path: '',
@@ -59786,17 +59904,18 @@ var AdminLayoutRoutes = [
     // { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-booking', component: _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_0__["AddBookingComponent"] },
     { path: 'shuttle-points', component: _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_1__["ScheduleComponent"] },
-    { path: 'register-user', component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_2__["RegisterUserComponent"] },
-    { path: 'booking-list', component: _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_3__["BookingListComponent"] },
-    { path: 'change-email', component: _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_5__["ChangeEmailComponent"] },
-    { path: 'change-phone-no', component: _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_4__["ChangePhoneNoComponent"] },
-    { path: 'change-password', component: _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_6__["ChangePasswordComponent"] },
-    { path: 'add-booking-admin', component: _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_7__["AddBookingAdminComponent"] },
-    { path: 'add-shuttle-point', component: _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_8__["AddShuttlePointComponent"] },
-    { path: 'booking-report', component: _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_9__["BookingReportComponent"] },
-    { path: 'manage-user', component: _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_10__["ManageUserComponent"] },
-    { path: 'download-booking-report/:month/:year', component: _report_report_component__WEBPACK_IMPORTED_MODULE_11__["ReportComponent"] },
-    { path: 'download-report', component: _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_12__["DownloadReportComponent"] },
+    { path: 'shuttle-points-admin', component: _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_2__["ShuttlePointsAdminComponent"] },
+    { path: 'register-user', component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_3__["RegisterUserComponent"] },
+    { path: 'booking-list', component: _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_4__["BookingListComponent"] },
+    { path: 'change-email', component: _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_6__["ChangeEmailComponent"] },
+    { path: 'change-phone-no', component: _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_5__["ChangePhoneNoComponent"] },
+    { path: 'change-password', component: _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__["ChangePasswordComponent"] },
+    { path: 'add-booking-admin', component: _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_8__["AddBookingAdminComponent"] },
+    { path: 'add-shuttle-point', component: _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_9__["AddShuttlePointComponent"] },
+    { path: 'booking-report', component: _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_10__["BookingReportComponent"] },
+    { path: 'manage-user', component: _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_11__["ManageUserComponent"] },
+    { path: 'download-booking-report/:month/:year', component: _report_report_component__WEBPACK_IMPORTED_MODULE_12__["ReportComponent"] },
+    { path: 'download-report', component: _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_13__["DownloadReportComponent"] },
 ];
 
 
@@ -59809,7 +59928,7 @@ var AdminLayoutRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Name\n                                    </th>\n                                    <th>\n                                        NIP\n                                    </th>\n                                    <th>\n                                        Program\n                                    </th>\n                                    <th>\n                                        Email\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n\n                                    <tr *ngFor=\"let user of userList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{user.name}}\n                                        </td>\n                                        <td>\n                                            {{user.nip}}\n                                        </td>\n                                        <td>\n                                            {{user.program}}\n                                        </td>\n                                        <td>\n                                            {{user.email}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user)\"\n                                                *ngIf=\"processing != true\">Delete</button>\n                                            <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                        </td>\n                                    </tr>\n\n                                </tbody>\n                            </table>\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <mat-form-field>\n                            <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search by name or NIP\">\n                        </mat-form-field>\n                        <div class=\"table-responsive\">\n                            <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                                <ng-container matColumnDef=\"position\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\">No. </th>\n                                    <td mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"name\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Name </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"nip\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> NIP </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.nip}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"program\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Program </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.program}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"email\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Email </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.email}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"action\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Action </th>\n                                    <td mat-cell *matCellDef=\"let element\">\n                                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(element, element.name)\"\n                                            *ngIf=\"processing != true\">Delete</button>\n                                        <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                    </td>\n                                </ng-container>\n                                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n                            </table>\n                            <mat-paginator [pageSize]=\"20\" [pageSizeOptions]=\"[10, 50, 100]\" showFirstLastButtons></mat-paginator>\n                            <!-- <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Name\n                                    </th>\n                                    <th>\n                                        NIP\n                                    </th>\n                                    <th>\n                                        Program\n                                    </th>\n                                    <th>\n                                        Email\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n\n                                    <tr *ngFor=\"let user of userList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{user.name}}\n                                        </td>\n                                        <td>\n                                            {{user.nip}}\n                                        </td>\n                                        <td>\n                                            {{user.program}}\n                                        </td>\n                                        <td>\n                                            {{user.email}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user, user.name)\"\n                                                *ngIf=\"processing != true\">Delete</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                        </td>\n                                    </tr>\n\n                                </tbody>\n                            </table> -->\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -59820,7 +59939,7 @@ module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "table {\n  width: 100%; }\n\n.mat-form-field {\n  font-size: 0.875rem;\n  width: 100%; }\n\nth {\n  font-size: 0.95rem;\n  font-weight: 500;\n  border-top-width: 0;\n  border-bottom-width: 1px; }\n\n.mat-cell {\n  font-size: 0.875rem;\n  color: #333333; }\n\ntd, th {\n  padding: 12px 8px !important;\n  vertical-align: middle; }\n"
 
 /***/ }),
 
@@ -59838,6 +59957,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59851,48 +59972,98 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+// export interface userElement {
+//   key: string,
+//   name: string,
+//   nip: string,
+//   program: string, 
+//   email: string
+// }
 var ManageUserComponent = /** @class */ (function () {
-    function ManageUserComponent(http, toastrService, spinner) {
+    function ManageUserComponent(http, toastrService, spinner, dialog) {
         this.http = http;
         this.toastrService = toastrService;
         this.spinner = spinner;
+        this.dialog = dialog;
+        this.displayedColumns = ['position', 'name', 'nip', 'program', 'email', 'action'];
         this.processing = false;
     }
-    ManageUserComponent.prototype.deleteUser = function (userObj) {
+    ManageUserComponent.prototype.applyFilter = function (filterValue) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    };
+    ManageUserComponent.prototype.deleteUser = function (userObj, userName) {
         var _this = this;
         // console.log(JSON.stringify(userObj));
-        this.processing = true;
-        this.http.post('/delete-user', userObj).subscribe(function (data) {
-            _this.toastrService.success('This user has been deleted', 'Delete Success');
-            var index = _this.userList.findIndex(function (user) { return user.key === JSON.parse(JSON.stringify(userObj)).key; });
-            _this.userList.splice(index, 1);
-            _this.processing = false;
-        }, function (error) {
-            _this.toastrService.error('Lost Connection!');
-            _this.processing = false;
+        var dialogRef = this.dialog.open(_confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationDialogComponent"], {
+            width: '350px',
+            data: { msg: "Are you sure to delete " + userName + "?" }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result == true) {
+                _this.processing = true;
+                _this.http.post('/delete-user', userObj).subscribe(function (data) {
+                    _this.toastrService.success('This user has been deleted', 'Delete Success');
+                    var index = _this.userList.findIndex(function (user) { return user.key === JSON.parse(JSON.stringify(userObj)).key; });
+                    _this.userList.splice(index, 1);
+                    _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](_this.userList);
+                    _this.dataSource.paginator = _this.paginator;
+                    _this.processing = false;
+                }, function (error) {
+                    _this.toastrService.error('Lost Connection!');
+                    _this.processing = false;
+                });
+            }
         });
     };
+    // @ViewChild(MatPaginator) dataSource: MatTableDataSource<Element>;
     ManageUserComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.spinner.show();
         this.http.post('/show-user-list', {}).subscribe(function (res) {
             // this.testVar = res;
-            console.log('show booking ' + (res.json()));
+            console.log('show user ' + (res.json()));
+            // this.userElements = res.json();
             _this.userList = res.json();
+            _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](_this.userList);
+            _this.dataSource.paginator = _this.paginator;
+            _this.dataSource.filterPredicate = function (data, filter) {
+                return data.name.toLowerCase().includes(filter) || data.nip.toLowerCase().includes(filter);
+            };
             _this.spinner.hide();
             // console.log('show booking ' + this.testVar.json());
             // console.log('show booking ' + JSON.stringify(res.json()));
         });
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatPaginator"])
+    ], ManageUserComponent.prototype, "paginator", void 0);
     ManageUserComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-manage-user',
             template: __webpack_require__(/*! ./manage-user.component.html */ "./src/app/manage-user/manage-user.component.html"),
             styles: [__webpack_require__(/*! ./manage-user.component.scss */ "./src/app/manage-user/manage-user.component.scss")]
-        }),
+        })
+        // const ELEMENT_DATA: userElement[] = [
+        //   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+        //   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+        //   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+        //   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+        //   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+        //   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+        //   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+        //   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+        //   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+        //   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+        // ];
+        ,
         __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerService"]])
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"]])
     ], ManageUserComponent);
     return ManageUserComponent;
 }());
@@ -60720,6 +60891,109 @@ var ExcelService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ExcelService);
     return ExcelService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shuttle-points-admin/shuttle-points-admin.component.html":
+/*!**************************************************************************!*\
+  !*** ./src/app/shuttle-points-admin/shuttle-points-admin.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of shuttlePoints\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                    <div style=\"display:flex\">\n                      <h4 class=\"card-title\" style=\"width:100%\">{{shuttlePoint.name}}</h4>\n                      <a [routerLink]=\"['/edit-shuttle-point', shuttlePoint.name]\">\n                        <i class=\"material-icons pull-right\">edit</i>\n                      </a>\n                    </div>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+
+/***/ }),
+
+/***/ "./src/app/shuttle-points-admin/shuttle-points-admin.component.scss":
+/*!**************************************************************************!*\
+  !*** ./src/app/shuttle-points-admin/shuttle-points-admin.component.scss ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "agm-map {\n  height: 300px; }\n\n.assemblyPoint {\n  position: absolute;\n  z-index: 1;\n  height: 100%;\n  width: 100%;\n  display: block;\n  top: 0;\n  left: 0;\n  background-size: cover;\n  background-position: center center; }\n\n.card-header {\n  height: 250px;\n  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 0, 0, 0.4); }\n"
+
+/***/ }),
+
+/***/ "./src/app/shuttle-points-admin/shuttle-points-admin.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/shuttle-points-admin/shuttle-points-admin.component.ts ***!
+  \************************************************************************/
+/*! exports provided: SHUTTLE_POINTS, ShuttlePointsAdminComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHUTTLE_POINTS", function() { return SHUTTLE_POINTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShuttlePointsAdminComponent", function() { return ShuttlePointsAdminComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var rxjs_add_operator_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/add/operator/map */ "./node_modules/rxjs-compat/_esm5/add/operator/map.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SHUTTLE_POINTS = [
+    { name: "Alam Sutera", lat: 0, lng: 0, img: "../assets/img/sidebar-1.jpg" },
+    { name: "BCA Learning Institute", lat: -6.5852544, lng: 106.8823999, img: "../assets/img/maps/bca-learning-institute.jpg" },
+    { name: "Bekasi", lat: -6.248678, lng: 106.993041, img: "../assets/img/maps/bekasi.jpg" },
+    { name: "Bogor", lat: 0, lng: 0, img: "../assets/img/sidebar-4.jpg" },
+    { name: "Kelapa Gading", lat: -6.169227, lng: 106.900269, img: "../assets/img/maps/kelapa-gading.jpg" },
+    { name: "Pondok Indah", lat: 0, lng: 0, img: "../assets/img/sidebar-4.jpg" },
+    { name: "Wisma Asia", lat: -6.189851, lng: 106.79775, img: "../assets/img/maps/wisma-asia.jpg" },
+];
+var ShuttlePointsAdminComponent = /** @class */ (function () {
+    function ShuttlePointsAdminComponent(db, spinner) {
+        this.db = db;
+        this.spinner = spinner;
+        this.zoom = 20;
+        // collection: AngularFirestoreCollection<> = db.collection
+        // db.list('/shuttle-points').valueChanges()
+        //     .subscribe(shuttlePoints => {
+        //         this.shuttlePoints = shuttlePoints;
+        //         console.log(shuttlePoints);
+        //     })
+    }
+    ShuttlePointsAdminComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // this.pointsCollection = this.db.collection('points')
+        // this.points = this.pointsCollection.valueChanges()
+        // console.log(this.points)
+        this.spinner.show();
+        this.db.list('/shuttle-points').valueChanges().subscribe(function (shuttlePoints) {
+            _this.shuttlePoints = shuttlePoints;
+            console.log(shuttlePoints);
+            _this.spinner.hide();
+        });
+        // getShuttlePoints(listPath): Observable<any[]> {
+        //   return this.db.list(listPath).valueChanges();
+        // }
+    };
+    ShuttlePointsAdminComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-shuttle-points-admin',
+            template: __webpack_require__(/*! ./shuttle-points-admin.component.html */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.html"),
+            styles: [__webpack_require__(/*! ./shuttle-points-admin.component.scss */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.scss")]
+        }),
+        __metadata("design:paramtypes", [angularfire2_database__WEBPACK_IMPORTED_MODULE_1__["AngularFireDatabase"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"]])
+    ], ShuttlePointsAdminComponent);
+    return ShuttlePointsAdminComponent;
 }());
 
 

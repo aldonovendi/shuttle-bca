@@ -41,8 +41,9 @@ export class AddBookingComponent implements OnInit {
 
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
-  minDate = new Date();
-  maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 14);
+  todayDate = new Date();
+  minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 8 - this.todayDate.getDay());
+  maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 5);
   shuttlePoints = SHUTTLE_POINTS;
   defaultOption = new FormControl(this.shuttlePoints[2]);
   from = '';
@@ -114,26 +115,30 @@ export class AddBookingComponent implements OnInit {
   dates: any[] = [];
   pointsObservable: Observable<any[]>;
   ngOnInit() {
+    console.log(this.minDate, this.minDate.getDate());
+    console.log(this.maxDate, this.maxDate.getDate());
+    
+    
     this.form = this.fb.group({
       from: ['', Validators.required],
       to: ['BCA Learning Institute'],
       date: ['', Validators.required],
     });
-    if(this.minDate.getDay()!=0){
-      this.minDate.setDate(this.minDate.getDate() - this.minDate.getDay() + 15);
-      this.maxDate.setDate(this.minDate.getDate() + 5);
-    };
+    // if(this.minDate.getDay()!=0){
+    //   this.minDate.setDate(this.minDate.getDate() - this.minDate.getDay() + 15);
+    //   this.maxDate.setDate(this.minDate.getDate() + 5);
+    // };
     // this.form.controls['date'].disable();
     this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
-    let i = 0;
-    let today = new Date();
-    let day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    while (i < 10) {
-      if (today.getDay() != 0 || today.getDay() != 6)
-        this.dates[i] = day[today.getDay()] + ', ' + today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
-      i += 1;
-      today = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-    }
+    // let i = 0;
+    // let today = new Date();
+    // let day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    // while (i < 10) {
+    //   if (today.getDay() != 0 || today.getDay() != 6)
+    //     this.dates[i] = day[today.getDay()] + ', ' + today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
+    //   i += 1;
+    //   today = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+    // }
   }
 
 }

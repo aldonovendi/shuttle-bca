@@ -51,7 +51,7 @@ export class RegisterUserComponent implements OnInit {
       console.log('tesssss' + data);
       this.toastrService.success('An email has been sent to ' + this.form.value.email, this.form.value.name + ' register success');
       this.form.reset();
-    this.processing = false;
+      this.processing = false;
     }, error => {
       if (error.status == 501) {
         this.toastrService.error('Email already in use');

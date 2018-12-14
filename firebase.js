@@ -28,10 +28,10 @@ exports.login = function (req, res) {
     console.log(req.body);
     var userEmail = req.body.email;
     var userPass = req.body.password;
-    auth.signInWithEmailAndPassword(userEmail, userPass).then(function (user) {
-        if (user) {
+    auth.signInWithEmailAndPassword(userEmail, userPass).then(function (data) {
+        if (data.user) {
             console.log('[e-Shuttle][login][User logged in]');
-            console.log('[e-Shuttle][UID:'+user.uid+'][Email:'+user.email+']');
+            console.log('[e-Shuttle][UID:'+data.user.uid+'][Email:'+data.user.email+']');
             res.send({
                 redirect: '/'
             });

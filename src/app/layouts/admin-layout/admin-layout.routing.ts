@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AddBookingComponent } from '../../add-booking/add-booking.component';
 import { ScheduleComponent } from '../../schedule/schedule.component';
+import { ShuttlePointsAdminComponent } from '../../shuttle-points-admin/shuttle-points-admin.component';
 import { RegisterUserComponent } from '../../register-user/register-user.component'
 import { BookingListComponent } from '../../booking-list/booking-list.component';
 import { ChangePhoneNoComponent } from '../../change-phone-no/change-phone-no.component';
@@ -21,6 +22,7 @@ import { BookingReportComponent } from '../../booking-report/booking-report.comp
 import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
+// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -75,6 +77,7 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-booking',        component: AddBookingComponent },
     { path: 'shuttle-points', component: ScheduleComponent},
+    { path: 'shuttle-points-admin', component: ShuttlePointsAdminComponent},
     { path: 'register-user', component: RegisterUserComponent},
     { path: 'booking-list', component: BookingListComponent},
     { path: 'change-email', component: ChangeEmailComponent},
@@ -86,4 +89,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'manage-user', component: ManageUserComponent},
     { path: 'download-booking-report/:month/:year', component: ReportComponent },
     { path: 'download-report', component: DownloadReportComponent },
+    // { path: 'edit-shuttle-point/:name', component: EditShuttlePointComponent },
 ];

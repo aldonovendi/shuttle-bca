@@ -36,12 +36,13 @@ app.get('*', (req, res) => {
 // });
 
 var transporter = nodemailer.createTransport({
-    // host: "smtp-mail.outlook.com",
+    host: "smtp.goglemail.com",
     secureConnection: false,
     port: 587,
     tls: {
         chipers: "SSLv3"
     },
+    domains: ["gmail.com", "googlemail.com"],
     service: 'gmail',
     auth: {
         user: "shuttle.management.bca@gmail.com",
@@ -62,7 +63,7 @@ app.post("/login-success", function (req, res) {
     firebase.auth.onAuthStateChanged(function (user) {
         if (user) {
             if (firebase.auth.currentUser != null) {
-                console.log('[e-Shuttle][check-auth-login][Unauthorize access]' + firebase.auth.currentUser.uid);
+                console.log('a[e-Shuttle][check-auth-login][Unauthorize access]' + firebase.auth.currentUser.uid);
                 // res.redirect('/');
             }
             else {
@@ -284,9 +285,9 @@ app.post("/send-booking-detail", function (req, res) {
     // console.log(bookingCode);
     var mailOptions = {
         from: "'Shuttle Management' <shuttle.management.bca@gmail.com>",
-        to: "aldonovendi@gmail.com",
+        to: req.body.email,
         subject: "Konfirmasi Pemesanan Shuttle",
-        text: 'Halo ' + '' + ',\n' +
+        text: 'Halo ' + req.body.name + ',\n' +
             'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
             'Silakan tunjukkan email berikut kepada petugas shuttle.\n' +
             'Berikut data pemesanan Anda:\n\n' +
@@ -339,11 +340,11 @@ app.post("/register-success", function (req, res) {
     // res.send("hehe")
     // console.log(req.body);
     var password = Math.random().toString(36).slice(-8);
-    firebase.auth.createUserWithEmailAndPassword(
-        req.body.email,
-        password
-    ).then(function () {
-        firebase.auth.onAuthStateChanged(function (user) {
+    admin.auth().createUser({
+        email: req.body.email,
+        password: password
+    }).then(function (user) {
+        // firebase.auth.onAuthStateChanged(function (user) {
             if (user) {
                 console.log('uid di reg user: ' + user.uid);
                 firebase.database.ref('user').child(user.uid).set({
@@ -368,14 +369,16 @@ app.post("/register-success", function (req, res) {
                 };
 
                 transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) console.log("send email error " + error);
-                    // else console.log("Message sent successfully: " + info.response);
-                    else console.log("Message sent successfully");
+                    if (error){
+                        console.log("send email error " + error);
+                        res.status(500).send("register failed");
+                    } else {
+                        console.log("Message sent successfully"+info);
+                        res.status(200).send("register success");
+                    }
                 });
             }
-        });
-        res.send(req.body);
-
+        // });
     }).catch(function (error) {
         console.log('[e-Shuttle][login][Error][Code:' + error.code + '][' + error.message + ']');
         if (error.code == 'auth/email-already-in-use') {
@@ -384,7 +387,6 @@ app.post("/register-success", function (req, res) {
             res.status(500).send('error');
         }
     });
-    console.log("sendmail success");
 });
 
 app.post("/add-shuttle-point", function (req, res) {
@@ -404,14 +406,13 @@ app.post("/show-booking-list", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
     var today = new Date();
-    var todayKey = today.getFullYear()+today.getMonth()+today.getDate();
+    var todayKey = today.getFullYear()+""+(today.getMonth()+1)+""+today.getDate()+"";
     firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').orderByKey().limitToLast(10).once('value').then(function (snapshot) {
         // console.log(snapshot.val());  
         snapshot.forEach(item => {
             // console.log(item.key);
             // item.val()["key"] = item.key;
-            console.log(item);
-            
+            if(+item.key >= +todayKey){
                 bookingData.push({
                     "key": item.key,
                     "date": item.val().date,
@@ -420,7 +421,8 @@ app.post("/show-booking-list", function (req, res) {
                     "departure": item.val().departure,
                     "type": item.val().type
                 });
-            
+            }
+
         });
         res.send(bookingData);
     });
@@ -531,6 +533,14 @@ app.post("/forgot-password", function (req, res) {
     }).catch(function (error) {
         res.status(400);
         res.send(error);
+    });
+});
+
+app.post("/get-shuttle-point-detail", function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    var bookingData = [];
+    firebase.database.ref('shuttle-points').child(req.body.shuttleName).once('value').then(function (snapshot) {      
+        res.send(snapshot.val());
     });
 });
 

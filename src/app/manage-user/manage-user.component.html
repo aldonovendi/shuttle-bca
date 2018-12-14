@@ -8,8 +8,44 @@
                         <p class="card-category">Registered user, you can delete them</p>
                     </div>
                     <div class="card-body">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by name or NIP">
+                        </mat-form-field>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                                <ng-container matColumnDef="position">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary">No. </th>
+                                    <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Name </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="nip">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary"> NIP </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.nip}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="program">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Program </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.program}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="email">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Email </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Action </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button mat-raised-button class="btn btn-danger" (click)="deleteUser(element, element.name)"
+                                            *ngIf="processing != true">Delete</button>
+                                        <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 50, 100]" showFirstLastButtons></mat-paginator>
+                            <!-- <table class="table">
                                 <thead class=" text-primary">
                                     <th>
                                         No
@@ -49,14 +85,14 @@
                                             {{user.email}}
                                         </td>
                                         <td>
-                                            <button mat-raised-button class="btn btn-danger" (click)="deleteUser(user)"
+                                            <button mat-raised-button class="btn btn-danger" (click)="deleteUser(user, user.name)"
                                                 *ngIf="processing != true">Delete</button>
-                                            <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
+                                            <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
                                         </td>
                                     </tr>
 
                                 </tbody>
-                            </table>
+                            </table> -->
                             <!-- <div class="d-flex justify-content-center">
 
                               <nav class="my-4 pt-2">
