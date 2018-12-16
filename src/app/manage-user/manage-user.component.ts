@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, PageEvent } from '@angular/material';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import {MatTableDataSource, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 // export interface userElement {
 //   key: string,

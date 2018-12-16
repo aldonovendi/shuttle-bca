@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { DashboardComponent } from '../../dashboard-template/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
@@ -26,6 +26,7 @@ import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
 // import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 import { environment } from '../../../environments/environment'
@@ -156,7 +157,8 @@ import { AgmCoreModule } from '@agm/core';
     ManageUserComponent,
     ReportComponent,
     DownloadReportComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AdminDashboardComponent
     // EditShuttlePointComponent,
   ],
   providers:[ExcelService]

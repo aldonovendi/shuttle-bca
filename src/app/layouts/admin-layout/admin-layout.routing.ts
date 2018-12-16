@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { DashboardComponent } from '../../dashboard-template/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
@@ -22,6 +22,7 @@ import { BookingReportComponent } from '../../booking-report/booking-report.comp
 import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
+import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
 // import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -89,5 +90,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'manage-user', component: ManageUserComponent},
     { path: 'download-booking-report/:month/:year', component: ReportComponent },
     { path: 'download-report', component: DownloadReportComponent },
+    { path: 'admin-dashboard', component: AdminDashboardComponent },
     // { path: 'edit-shuttle-point/:name', component: EditShuttlePointComponent },
 ];

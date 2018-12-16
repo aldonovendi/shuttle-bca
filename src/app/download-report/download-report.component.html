@@ -1,16 +1,18 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
+
       <div class="col-md-8">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">Booking Report</h4>
-            <p class="card-category">Choose the time you want to see</p>
+            <h4 class="card-title">Download Report</h4>
+            <p class="card-category">Choose the time you want to download</p>
           </div>
           <div class="card-body">
             <form [formGroup]="form" (ngSubmit)="download()">
               <div class="row">
                 <div class="col-md-5">
+
                   <mat-form-field>
                     <mat-select placeholder="Month" formControlName="month">
                       <mat-option *ngFor="let monthName of months" value="{{monthName}}">{{monthName}}</mat-option>
@@ -18,54 +20,30 @@
                     <mat-error *ngIf="isFieldInvalid('month')">Please choose a Month</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
+
                   <mat-form-field>
                     <mat-select placeholder="Year" formControlName="year">
                       <mat-option *ngFor="let year of years" value="{{year}}">{{year}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="isFieldInvalid('year')">Please choose a year</mat-error>
                   </mat-form-field>
-                </div>
-                
-              </div>
-              
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid" *ngIf="processing != true">Download</button>
-              <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
-              
-            
 
-              <div class="clearfix"></div>
+                </div>
+                <div class="col-md-3">
+                  <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!form.valid"
+                    *ngIf="processing != true">Download</button>
+                  <button mat-raised-button class="btn btn-danger pull-right" disabled *ngIf="processing == true">Processing...</button>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+
+
             </form>
-            
-            <div class="table-responsive" *ngIf="bookingListLength!=0">
-              <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->
-              <table class="table">
-                <thead class=" text-primary">
-                  <th>Name</th>
-                  <th>Program</th>
-                  <th>Phone No</th>
-                  <th>Date</th>
-                  <th>Route</th>
-                  <th>Action</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let booking of bookingList">
-                    <td>{{booking.name}}</td>
-                    <td>{{booking.program}}</td>
-                    <td>{{booking.phoneNo}}</td>
-                    <td>{{changeDateFormat(booking.date)}}</td>
-                    <td>{{booking.from}} - {{booking.to}} </td>
-                    <td>
-                      <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(booking)" *ngIf="processing != true">Cancel</button>
-                      <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
-                    </td>
-                  </tr>
-                  <!-- <h3>{{history_data.length}}</h3> -->
-                </tbody>
-              </table>
-            </div>
+
           </div>
         </div>
+
       </div>
     </div>
   </div>

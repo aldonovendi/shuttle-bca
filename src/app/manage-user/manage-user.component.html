@@ -8,9 +8,12 @@
                         <p class="card-category">Registered user, you can delete them</p>
                     </div>
                     <div class="card-body">
-                        <mat-form-field>
-                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by name or NIP">
-                        </mat-form-field>
+                        <div style="display: flex">
+                            <i class="material-icons" style="align-items: center; display: flex; padding-right: 10px;">search</i>
+                            <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by name or NIP">
+                            </mat-form-field>
+                        </div>
                         <div class="table-responsive">
                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                                 <ng-container matColumnDef="position">

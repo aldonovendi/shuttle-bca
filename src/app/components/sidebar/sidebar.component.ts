@@ -24,6 +24,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/booking-report', title: 'Booking Report',  icon:'library_books', class: '' },
     { path: '/download-report', title: 'Download Report',  icon:'save_alt', class: '' },
     { path: '/manage-user', title: 'Manage User',  icon:'people', class: '' },
+    { path: '/admin-dashboard', title: 'Admin Dashboard',  icon:'dashboard', class: '' },
 
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];

@@ -58179,8 +58179,6 @@ var AddBookingComponent = /** @class */ (function () {
         this.date = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](new Date());
         this.serializedDate = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]((new Date()).toISOString());
         this.todayDate = new Date();
-        this.minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 8 - this.todayDate.getDay());
-        this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 5);
         this.shuttlePoints = SHUTTLE_POINTS;
         this.defaultOption = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.shuttlePoints[2]);
         this.from = '';
@@ -58247,8 +58245,13 @@ var AddBookingComponent = /** @class */ (function () {
         this.dateValue = this.date.value;
     };
     AddBookingComponent.prototype.ngOnInit = function () {
-        console.log(this.minDate, this.minDate.getDate());
-        console.log(this.maxDate, this.maxDate.getDate());
+        if (this.todayDate.getDay() == 0) {
+            this.minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 8 - this.todayDate.getDay());
+        }
+        else {
+            this.minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 15 - this.todayDate.getDay());
+        }
+        this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 5);
         this.form = this.fb.group({
             from: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             to: ['BCA Learning Institute'],
@@ -58390,6 +58393,106 @@ var AddShuttlePointComponent = /** @class */ (function () {
             ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
     ], AddShuttlePointComponent);
     return AddShuttlePointComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin-dashboard/admin-dashboard.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/admin-dashboard/admin-dashboard.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Number of Passengers Next Week</h4>\n            <p class=\"card-category\">Make sure you order the right amount of Shuttle Bus</p>\n          </div>\n          <div class=\"card-body\">\n            <div class=\"table-responsive\">\n              <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                <ng-container matColumnDef=\"assemblyPoint\">\n                  <th mat-header-cell *matHeaderCellDef class=\"text-primary\">Assembly Point </th>\n                  <td mat-cell *matCellDef=\"let element\"> {{element.assemblyPoint}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"passengerCountDay1\">\n                  <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> {{passengerCountDate[0]}} </th>\n                  <td mat-cell *matCellDef=\"let element\"> {{element.passengerCountDay1}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"passengerCountDay2\">\n                  <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> {{passengerCountDate[1]}} </th>\n                  <td mat-cell *matCellDef=\"let element\"> {{element.passengerCountDay2}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"passengerCountDay3\">\n                  <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> {{passengerCountDate[2]}} </th>\n                  <td mat-cell *matCellDef=\"let element\"> {{element.passengerCountDay3}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"passengerCountDay4\">\n                  <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> {{passengerCountDate[3]}} </th>\n                  <td mat-cell *matCellDef=\"let element\"> {{element.passengerCountDay4}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"passengerCountDay5\">\n                  <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> {{passengerCountDate[4]}} </th>\n                  <td mat-cell *matCellDef=\"let element\"> {{element.passengerCountDay5}} </td>\n                </ng-container>\n\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n              </table>\n            </div>\n          </div>\n          <div class=\"card-footer\">\n            <div class=\"stats\">\n              <i class=\"material-icons\">access_time</i> updated 4 minutes ago\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+
+/***/ }),
+
+/***/ "./src/app/admin-dashboard/admin-dashboard.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/admin-dashboard/admin-dashboard.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table {\n  width: 100%; }\n\n.mat-form-field {\n  font-size: 0.875rem;\n  width: 100%; }\n\nth {\n  font-size: 0.95rem;\n  font-weight: 500;\n  border-top-width: 0;\n  border-bottom-width: 1px; }\n\n.mat-cell {\n  font-size: 0.875rem;\n  color: #333333; }\n\ntd, th {\n  padding: 12px 8px !important;\n  vertical-align: middle; }\n"
+
+/***/ }),
+
+/***/ "./src/app/admin-dashboard/admin-dashboard.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/admin-dashboard/admin-dashboard.component.ts ***!
+  \**************************************************************/
+/*! exports provided: AdminDashboardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminDashboardComponent", function() { return AdminDashboardComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AdminDashboardComponent = /** @class */ (function () {
+    function AdminDashboardComponent(http, spinner) {
+        this.http = http;
+        this.spinner = spinner;
+        this.displayedColumns = ['assemblyPoint', 'passengerCountDay1', 'passengerCountDay2', 'passengerCountDay3', 'passengerCountDay4', 'passengerCountDay5'];
+        this.passengerCountDate = new Array(5);
+        this.days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    }
+    AdminDashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.spinner.show();
+        var todayDate = new Date();
+        var firstDay;
+        var addIdx;
+        if (todayDate.getDay() == 0) {
+            addIdx = 1;
+        }
+        else {
+            addIdx = 8 - todayDate.getDay();
+        }
+        for (var i = 0; i < this.passengerCountDate.length; i++) {
+            firstDay = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() + addIdx + i);
+            this.passengerCountDate[i] = this.changeDateFormat(firstDay);
+        }
+        this.http.post('/get-passenger-count', {}).subscribe(function (res) {
+            // this.testVar = res;
+            console.log('show passenger ' + JSON.stringify(res.json()));
+            _this.passengerList = res.json();
+            _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](_this.passengerList);
+            _this.spinner.hide();
+        });
+    };
+    AdminDashboardComponent.prototype.changeDateFormat = function (date) {
+        return this.days[date.getDay()] + ", " + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    };
+    AdminDashboardComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-admin-dashboard',
+            template: __webpack_require__(/*! ./admin-dashboard.component.html */ "./src/app/admin-dashboard/admin-dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./admin-dashboard.component.scss */ "./src/app/admin-dashboard/admin-dashboard.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"]])
+    ], AdminDashboardComponent);
+    return AdminDashboardComponent;
 }());
 
 
@@ -58648,7 +58751,7 @@ var BookingListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Booking Report</h4>\n            <p class=\"card-category\">Choose the time you want to see</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"getReport()\">\n              <div class=\"row\">\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Shuttle Type\" formControlName=\"type\">\n                      <mat-option value=\"All\">All</mat-option>\n                      <mat-option value=\"Operational\">Operational</mat-option>\n                      <mat-option value=\"Shuttle Bus\">Shuttle Bus</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('type')\">Please choose the shuttle type</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\" *ngIf=\"this.form.value.type == 'Shuttle Bus'\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"assemblyPoint\">\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" value=\"{{shuttlePoint.name}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('assemblyPoint')\">Please choose an assembly point</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\" *ngIf=\"this.form.value.type == 'Operational'\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"assemblyPoint\">\n                      <mat-option value=\"Wisma Asia\" sele>Wisma Asia</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('assemblyPoint')\">Please choose an assembly point</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Month\" formControlName=\"month\">\n                      <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('month')\">Please choose a Month</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Year\" formControlName=\"year\">\n                      <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('year')\">Please choose a year</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-4\">\n                  <button mat-raised-button class=\"btn btn-danger\" (click)=\"filter()\" [disabled]=\"!form.valid\">See\n                    Report</button>&nbsp;&nbsp;&nbsp;&nbsp;\n                    <button mat-raised-button class=\"btn btn-danger\" (click)=\"download()\" [disabled]=\"!form.valid\">Download</button>\n                </div>\n              </div>\n\n              <div class=\"clearfix\"></div>\n            </form>\n            \n            <div class=\"table-responsive\" *ngIf=\"bookingListLength!=0\">\n              <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->\n              <table class=\"table\">\n                <thead class=\" text-primary\">\n                  <th>Name</th>\n                  <th>Program</th>\n                  <th>Phone No</th>\n                  <th>Date</th>\n                  <th>Route</th>\n                  <th>Action</th>\n                </thead>\n                <tbody>\n                  <tr *ngFor=\"let booking of bookingList\">\n                    <td>{{booking.name}}</td>\n                    <td>{{booking.program}}</td>\n                    <td>{{booking.phoneNo}}</td>\n                    <td>{{changeDateFormat(booking.date)}}</td>\n                    <td>{{booking.from}} - {{booking.to}} </td>\n                    <td>\n                      <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                      <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                    </td>\n                  </tr>\n                  <!-- <h3>{{history_data.length}}</h3> -->\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Booking Report</h4>\n            <p class=\"card-category\">Choose the time you want to see</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\">\n              <div class=\"row\">\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Shuttle Type\" formControlName=\"type\">\n                      <mat-option value=\"All\">All</mat-option>\n                      <mat-option value=\"Operational\">Operational</mat-option>\n                      <mat-option value=\"Shuttle Bus\">Shuttle Bus</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('type')\">Please choose the shuttle type</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-3\" *ngIf=\"this.form.value.type == 'Shuttle Bus'\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"assemblyPoint\">\n                      <mat-option *ngFor=\"let shuttlePoint of pointsObservable | async\" value=\"{{shuttlePoint.name}}\">{{shuttlePoint.name}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('assemblyPoint')\">Please choose an assembly point</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-3\" *ngIf=\"this.form.value.type == 'Operational'\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Assembly Point\" formControlName=\"assemblyPoint\">\n                      <mat-option value=\"Wisma Asia\" sele>Wisma Asia</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('assemblyPoint')\">Please choose an assembly point</mat-error>\n                  </mat-form-field>\n                </div>\n                <!-- <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Month\" formControlName=\"month\">\n                      <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('month')\">Please choose a Month</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Year\" formControlName=\"year\">\n                      <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('year')\">Please choose a year</mat-error>\n                  </mat-form-field>\n                </div> -->\n                <div class=\"col-md-3\">\n                  <mat-form-field>\n                    <input type=\"text\" matInput [matDatepickerFilter]=\"myFilter\" [max]=\"maxDate\" [matDatepicker]=\"picker\" placeholder=\"Date\"\n                      (dateChange)=\"update($event.value)\" (dateInput)=\"update($event.value)\"  (focus)=\"picker.open()\" \n                      (click)=\"picker.open()\" formControlName = \"date\" disabled>\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker disabled=\"false\"></mat-datepicker>\n                    <mat-error *ngIf=\"!date.valid\">Please choose a date</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-2\"></div>\n                <div class=\"col-md-2\">\n                  <button mat-raised-button class=\"btn btn-danger\" (click)=\"filter()\" [disabled]=\"!form.valid\">See\n                    Report</button>\n                    <!-- <button mat-raised-button class=\"btn btn-danger\" (click)=\"download()\" [disabled]=\"!form.valid\">Download</button> -->\n                </div>\n              </div>\n\n              <div class=\"clearfix\"></div>\n            </form>\n            \n            <div class=\"table-responsive\" [hidden]=\"bookingListLength==0\">\n              <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->\n              <div style=\"display: flex\">\n                <i class=\"material-icons\" style=\"align-items: center; display: flex; padding-right: 10px;\">search</i>\n                <mat-form-field>\n                    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search by name or NIP\">\n                </mat-form-field>\n              </div>\n              <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                <ng-container matColumnDef=\"position\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\">No. </th>\n                    <td mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"name\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Name </th>\n                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"nip\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> NIP </th>\n                    <td mat-cell *matCellDef=\"let element\"> {{element.nip}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"program\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Program </th>\n                    <td mat-cell *matCellDef=\"let element\"> {{element.program}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"phoneNo\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Phone No</th>\n                    <td mat-cell *matCellDef=\"let element\"> {{element.phoneNo}} </td>\n                </ng-container>\n                <ng-container matColumnDef=\"action\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Action </th>\n                    <td mat-cell *matCellDef=\"let element\">\n                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(element, element.name)\"\n                            *ngIf=\"processing != true\">Delete</button>\n                        <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                    </td>\n                </ng-container>\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n              </table>\n              <mat-paginator [pageSize]=\"20\" [pageSizeOptions]=\"[10, 50, 100]\" showFirstLastButtons></mat-paginator>\n              <!-- <table class=\"table\">\n                <thead class=\" text-primary\">\n                  <th>Name</th>\n                  <th>Program</th>\n                  <th>Phone No</th>\n                  <th>Date</th>\n                  <th>Route</th>\n                  <th>Action</th>\n                </thead>\n                <tbody>\n                  <tr *ngFor=\"let booking of bookingList\">\n                    <td>{{booking.name}}</td>\n                    <td>{{booking.program}}</td>\n                    <td>{{booking.phoneNo}}</td>\n                    <td>{{changeDateFormat(booking.date)}}</td>\n                    <td>{{booking.from}} - {{booking.to}} </td>\n                    <td>\n                      <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                      <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                    </td>\n                  </tr>\n                </tbody>\n              </table> -->\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -58659,7 +58762,7 @@ module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "table {\n  width: 100%; }\n\n.mat-form-field {\n  font-size: 0.875rem;\n  width: 100%; }\n\nth {\n  font-size: 0.95rem;\n  font-weight: 500;\n  border-top-width: 0;\n  border-bottom-width: 1px; }\n\n.mat-cell {\n  font-size: 0.875rem;\n  color: #333333; }\n\ntd, th {\n  padding: 12px 8px !important;\n  vertical-align: middle; }\n"
 
 /***/ }),
 
@@ -58681,6 +58784,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 /* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/excel.service */ "./src/app/services/excel.service.ts");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58697,19 +58802,34 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var BookingReportComponent = /** @class */ (function () {
-    function BookingReportComponent(http, fb, db, toastrService, excelServ, spinner) {
+    function BookingReportComponent(http, fb, db, toastrService, excelServ, spinner, dialog) {
         this.http = http;
         this.fb = fb;
         this.db = db;
         this.toastrService = toastrService;
         this.excelServ = excelServ;
         this.spinner = spinner;
+        this.dialog = dialog;
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         this.years = ["2018"];
+        this.displayedColumns = ['position', 'name', 'nip', 'program', 'phoneNo', 'action'];
+        this.todayDate = new Date();
+        this.maxDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 20 - this.todayDate.getDay());
+        this.myFilter = function (d) {
+            var day = d.getDay();
+            // Prevent Saturday and Sunday from being selected.
+            return day !== 0 && day !== 6;
+        };
+        this.date = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](new Date());
+        this.dateValue = this.date.value;
         this.filterData = {
             type: '',
             assemblyPoint: '',
+            date: '',
             month: '',
             year: ''
         };
@@ -58720,19 +58840,29 @@ var BookingReportComponent = /** @class */ (function () {
         this.bookingListLength = 0;
         this.processing = false;
     }
+    BookingReportComponent.prototype.update = function (dateInput) {
+        this.dateValue = dateInput;
+    };
+    BookingReportComponent.prototype.applyFilter = function (filterValue) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    };
     BookingReportComponent.prototype.filter = function () {
         var _this = this;
         this.filterData = {
             type: this.form.value.type,
             assemblyPoint: this.form.value.assemblyPoint,
-            month: this.form.value.month,
-            year: this.form.value.year
+            date: this.form.value.date.getDate(),
+            month: this.months[this.form.value.date.getMonth()],
+            year: this.form.value.date.getFullYear()
         };
         this.spinner.show();
+        console.log("data filter: " + this.filterData);
         this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
             // this.testVar = res;
-            console.log('show booking ' + (res.json()));
+            console.log('show booking ' + JSON.stringify(res.json()));
             _this.bookingList = res.json();
+            _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTableDataSource"](_this.bookingList);
+            _this.dataSource.paginator = _this.paginator;
             _this.bookingListLength = _this.bookingList.length;
             if (_this.bookingListLength == 0) {
                 _this.toastrService.warning("There's no Booking History");
@@ -58748,51 +58878,40 @@ var BookingReportComponent = /** @class */ (function () {
         this.form = this.fb.group({
             type: ['Shuttle Bus', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             assemblyPoint: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            month: [this.months[new Date().getMonth()], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            year: [new Date().getFullYear().toString(), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            date: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
         });
-    };
-    BookingReportComponent.prototype.download = function () {
-        var _this = this;
-        if (this.bookingListLength != 0) {
-            this.excelServ.exportAsExcelFile(this.bookingList, 'Shuttle Report ' + this.form.value.month + " " + this.form.value.year);
-        }
-        else {
-            this.filterData = {
-                type: this.form.value.type,
-                assemblyPoint: this.form.value.assemblyPoint,
-                month: this.form.value.month,
-                year: this.form.value.year
-            };
-            // this.db.list('/booking-report/Shuttle Bus/' + this.filterData.year + '/' + this.filterData.month).valueChanges().subscribe(bookingReportList => {
-            //   this.bookingReportList = bookingReportList;
-            //   console.log(bookingReportList);
-            //   this.excelServ.exportAsExcelFile(this.bookingReportList, 'Booking Report ' + this.form.value.month + ' ' + this.form.value.year);
-            // });
-            this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
-                console.log('show booking ' + (res.json()));
-                _this.bookingList = res.json();
-                _this.excelServ.exportAsExcelFile(_this.bookingList, 'Booking Report ' + _this.form.value.month + ' ' + _this.form.value.year);
-            });
-            this.formSubmitAttempt = true;
-        }
+        this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTableDataSource"]();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = function (data, filter) {
+            return data.name.toLowerCase().includes(filter) || data.nip.toLowerCase().includes(filter);
+        };
     };
     BookingReportComponent.prototype.changeDateFormat = function (date) {
         var newDate = date.split("-");
         return newDate[0] + " " + this.months[+newDate[1] - 1] + " " + newDate[2];
     };
-    BookingReportComponent.prototype.cancelBooking = function (bookingObj) {
+    BookingReportComponent.prototype.cancelBooking = function (bookingObj, userName) {
         var _this = this;
-        this.processing = true;
-        this.http.post('/cancel-booking', bookingObj).subscribe(function (data) {
-            var index = _this.bookingList.findIndex(function (booking) { return booking.key === JSON.parse(JSON.stringify(bookingObj)).key; });
-            _this.bookingList.splice(index, 1);
-            _this.bookingListLength = _this.bookingList.length;
-            _this.toastrService.success('This booking has been canceled', 'Cancel Success');
-            _this.processing = false;
-        }, function (error) {
-            _this.toastrService.error('Lost Connection!');
-            _this.processing = false;
+        var dialogRef = this.dialog.open(_confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_8__["ConfirmationDialogComponent"], {
+            width: '350px',
+            data: { msg: "Are you sure to cancel " + userName + "'s booking?" }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result == true) {
+                _this.processing = true;
+                _this.http.post('/cancel-booking', bookingObj).subscribe(function (data) {
+                    var index = _this.bookingList.findIndex(function (booking) { return booking.key === JSON.parse(JSON.stringify(bookingObj)).key; });
+                    _this.bookingList.splice(index, 1);
+                    _this.bookingListLength = _this.bookingList.length;
+                    _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTableDataSource"](_this.bookingList);
+                    _this.dataSource.paginator = _this.paginator;
+                    _this.toastrService.success('This booking has been canceled', 'Cancel Success');
+                    _this.processing = false;
+                }, function (error) {
+                    _this.toastrService.error('Lost Connection!');
+                    _this.processing = false;
+                });
+            }
         });
     };
     BookingReportComponent.prototype.isFieldInvalid = function (field) {
@@ -58801,6 +58920,10 @@ var BookingReportComponent = /** @class */ (function () {
     };
     BookingReportComponent.prototype.getReport = function () {
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_7__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatPaginator"])
+    ], BookingReportComponent.prototype, "paginator", void 0);
     BookingReportComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-booking-report',
@@ -58812,7 +58935,8 @@ var BookingReportComponent = /** @class */ (function () {
             angularfire2_database__WEBPACK_IMPORTED_MODULE_3__["AngularFireDatabase"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
             _services_excel_service__WEBPACK_IMPORTED_MODULE_5__["ExcelService"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatDialog"]])
     ], BookingReportComponent);
     return BookingReportComponent;
 }());
@@ -59209,10 +59333,10 @@ var ConfirmationDialogComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/dashboard/dashboard.component.css":
-/*!***************************************************!*\
-  !*** ./src/app/dashboard/dashboard.component.css ***!
-  \***************************************************/
+/***/ "./src/app/dashboard-template/dashboard.component.css":
+/*!************************************************************!*\
+  !*** ./src/app/dashboard-template/dashboard.component.css ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -59220,10 +59344,10 @@ module.exports = ""
 
 /***/ }),
 
-/***/ "./src/app/dashboard/dashboard.component.html":
-/*!****************************************************!*\
-  !*** ./src/app/dashboard/dashboard.component.html ***!
-  \****************************************************/
+/***/ "./src/app/dashboard-template/dashboard.component.html":
+/*!*************************************************************!*\
+  !*** ./src/app/dashboard-template/dashboard.component.html ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -59231,10 +59355,10 @@ module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\"
 
 /***/ }),
 
-/***/ "./src/app/dashboard/dashboard.component.ts":
-/*!**************************************************!*\
-  !*** ./src/app/dashboard/dashboard.component.ts ***!
-  \**************************************************/
+/***/ "./src/app/dashboard-template/dashboard.component.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/dashboard-template/dashboard.component.ts ***!
+  \***********************************************************/
 /*! exports provided: DashboardComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -59381,8 +59505,8 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-dashboard',
-            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/dashboard/dashboard.component.html"),
-            styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/dashboard/dashboard.component.css")]
+            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/dashboard-template/dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/dashboard-template/dashboard.component.css")]
         }),
         __metadata("design:paramtypes", [])
     ], DashboardComponent);
@@ -59400,7 +59524,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Booking Report</h4>\n            <p class=\"card-category\">Choose the time you want to see</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"download()\">\n              <div class=\"row\">\n                <div class=\"col-md-5\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Month\" formControlName=\"month\">\n                      <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('month')\">Please choose a Month</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-3\">\n                  <mat-form-field>\n                    <mat-select placeholder=\"Year\" formControlName=\"year\">\n                      <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('year')\">Please choose a year</mat-error>\n                  </mat-form-field>\n                </div>\n                \n              </div>\n              \n              <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Download</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              \n            \n\n              <div class=\"clearfix\"></div>\n            </form>\n            \n            <div class=\"table-responsive\" *ngIf=\"bookingListLength!=0\">\n              <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->\n              <table class=\"table\">\n                <thead class=\" text-primary\">\n                  <th>Name</th>\n                  <th>Program</th>\n                  <th>Phone No</th>\n                  <th>Date</th>\n                  <th>Route</th>\n                  <th>Action</th>\n                </thead>\n                <tbody>\n                  <tr *ngFor=\"let booking of bookingList\">\n                    <td>{{booking.name}}</td>\n                    <td>{{booking.program}}</td>\n                    <td>{{booking.phoneNo}}</td>\n                    <td>{{changeDateFormat(booking.date)}}</td>\n                    <td>{{booking.from}} - {{booking.to}} </td>\n                    <td>\n                      <button mat-raised-button class=\"btn btn-danger\" (click)=\"cancelBooking(booking)\" *ngIf=\"processing != true\">Cancel</button>\n                      <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                    </td>\n                  </tr>\n                  <!-- <h3>{{history_data.length}}</h3> -->\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Download Report</h4>\n            <p class=\"card-category\">Choose the time you want to download</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"download()\">\n              <div class=\"row\">\n                <div class=\"col-md-5\">\n\n                  <mat-form-field>\n                    <mat-select placeholder=\"Month\" formControlName=\"month\">\n                      <mat-option *ngFor=\"let monthName of months\" value=\"{{monthName}}\">{{monthName}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('month')\">Please choose a Month</mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-4\">\n\n                  <mat-form-field>\n                    <mat-select placeholder=\"Year\" formControlName=\"year\">\n                      <mat-option *ngFor=\"let year of years\" value=\"{{year}}\">{{year}}</mat-option>\n                    </mat-select>\n                    <mat-error *ngIf=\"isFieldInvalid('year')\">Please choose a year</mat-error>\n                  </mat-form-field>\n\n                </div>\n                <div class=\"col-md-3\">\n                  <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\" [disabled]=\"!form.valid\"\n                    *ngIf=\"processing != true\">Download</button>\n                  <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n                  <div class=\"clearfix\"></div>\n                </div>\n              </div>\n\n\n            </form>\n\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -59472,34 +59596,9 @@ var DownloadReportComponent = /** @class */ (function () {
         this.bookingListLength = 0;
         this.processing = false;
     }
-    DownloadReportComponent.prototype.filter = function () {
-        var _this = this;
-        this.filterData = {
-            type: this.form.value.type,
-            assemblyPoint: this.form.value.assemblyPoint,
-            month: this.form.value.month,
-            year: this.form.value.year
-        };
-        this.spinner.show();
-        this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
-            // this.testVar = res;
-            console.log('show booking ' + (res.json()));
-            _this.bookingList = res.json();
-            _this.bookingListLength = _this.bookingList.length;
-            if (_this.bookingListLength == 0) {
-                _this.toastrService.warning("There's no Booking History");
-            }
-            _this.spinner.hide();
-            // console.log('show booking ' + this.testVar.json());
-            // console.log('show booking ' + JSON.stringify(res.json()));
-        });
-        this.formSubmitAttempt = true;
-    };
     DownloadReportComponent.prototype.ngOnInit = function () {
         this.pointsObservable = this.db.list('/shuttle-points').valueChanges();
         this.form = this.fb.group({
-            type: ['Shuttle Bus', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            assemblyPoint: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             month: [this.months[new Date().getMonth()], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             year: [new Date().getFullYear().toString(), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
         });
@@ -59513,12 +59612,7 @@ var DownloadReportComponent = /** @class */ (function () {
             month: this.form.value.month,
             year: this.form.value.year
         };
-        // this.db.list('/booking-report/Shuttle Bus/' + this.filterData.year + '/' + this.filterData.month).valueChanges().subscribe(bookingReportList => {
-        //   this.bookingReportList = bookingReportList;
-        //   console.log(bookingReportList);
-        //   this.excelServ.exportAsExcelFile(this.bookingReportList, 'Booking Report ' + this.form.value.month + ' ' + this.form.value.year);
-        // });
-        this.http.post('/show-booking-report', this.filterData).subscribe(function (res) {
+        this.http.post('/download-booking-report', this.filterData).subscribe(function (res) {
             console.log('show booking ' + (res.json()));
             _this.bookingList = res.json();
             _this.excelServ.exportAsExcelFile(_this.bookingList, 'Booking Report ' + _this.form.value.month + ' ' + _this.form.value.year);
@@ -59528,10 +59622,6 @@ var DownloadReportComponent = /** @class */ (function () {
             _this.processing = false;
         });
         this.formSubmitAttempt = true;
-    };
-    DownloadReportComponent.prototype.changeDateFormat = function (date) {
-        var newDate = date.split("-");
-        return newDate[0] + " " + this.months[+newDate[1] - 1] + " " + newDate[2];
     };
     DownloadReportComponent.prototype.isFieldInvalid = function (field) {
         return ((!this.form.get(field).valid && this.form.get(field).touched) ||
@@ -59637,7 +59727,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin-layout.routing */ "./src/app/layouts/admin-layout/admin-layout.routing.ts");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var _dashboard_template_dashboard_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../dashboard-template/dashboard.component */ "./src/app/dashboard-template/dashboard.component.ts");
 /* harmony import */ var _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../user-profile/user-profile.component */ "./src/app/user-profile/user-profile.component.ts");
 /* harmony import */ var _table_list_table_list_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../table-list/table-list.component */ "./src/app/table-list/table-list.component.ts");
 /* harmony import */ var _typography_typography_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../typography/typography.component */ "./src/app/typography/typography.component.ts");
@@ -59660,24 +59750,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
 /* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
 /* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_30__);
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_31__);
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_30__);
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_32__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -59725,59 +59817,59 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_34__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_35__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_35__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_36__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_37__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                angularfire2__WEBPACK_IMPORTED_MODULE_29__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_28__["environment"].firebase),
-                angularfire2_database__WEBPACK_IMPORTED_MODULE_30__["AngularFireDatabaseModule"],
-                angularfire2_auth__WEBPACK_IMPORTED_MODULE_31__["AngularFireAuthModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_32__["NgxSpinnerModule"]
+                angularfire2__WEBPACK_IMPORTED_MODULE_30__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_29__["environment"].firebase),
+                angularfire2_database__WEBPACK_IMPORTED_MODULE_31__["AngularFireDatabaseModule"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_32__["AngularFireAuthModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_33__["NgxSpinnerModule"]
             ],
             entryComponents: [
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"]
             ],
             declarations: [
-                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
+                _dashboard_template_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
                 _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_6__["UserProfileComponent"],
                 _table_list_table_list_component__WEBPACK_IMPORTED_MODULE_7__["TableListComponent"],
                 _typography_typography_component__WEBPACK_IMPORTED_MODULE_8__["TypographyComponent"],
@@ -59799,10 +59891,11 @@ var AdminLayoutModule = /** @class */ (function () {
                 _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_24__["ManageUserComponent"],
                 _report_report_component__WEBPACK_IMPORTED_MODULE_25__["ReportComponent"],
                 _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_26__["DownloadReportComponent"],
-                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"]
+                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
+                _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__["AdminDashboardComponent"]
                 // EditShuttlePointComponent,
             ],
-            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_33__["ExcelService"]]
+            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_34__["ExcelService"]]
         })
     ], AdminLayoutModule);
     return AdminLayoutModule;
@@ -59836,6 +59929,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
 /* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
 /* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
+/* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
+
 
 
 
@@ -59916,6 +60011,7 @@ var AdminLayoutRoutes = [
     { path: 'manage-user', component: _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_11__["ManageUserComponent"] },
     { path: 'download-booking-report/:month/:year', component: _report_report_component__WEBPACK_IMPORTED_MODULE_12__["ReportComponent"] },
     { path: 'download-report', component: _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_13__["DownloadReportComponent"] },
+    { path: 'admin-dashboard', component: _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["AdminDashboardComponent"] },
 ];
 
 
@@ -59928,7 +60024,7 @@ var AdminLayoutRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <mat-form-field>\n                            <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search by name or NIP\">\n                        </mat-form-field>\n                        <div class=\"table-responsive\">\n                            <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                                <ng-container matColumnDef=\"position\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\">No. </th>\n                                    <td mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"name\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Name </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"nip\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> NIP </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.nip}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"program\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Program </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.program}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"email\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Email </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.email}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"action\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Action </th>\n                                    <td mat-cell *matCellDef=\"let element\">\n                                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(element, element.name)\"\n                                            *ngIf=\"processing != true\">Delete</button>\n                                        <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                    </td>\n                                </ng-container>\n                                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n                            </table>\n                            <mat-paginator [pageSize]=\"20\" [pageSizeOptions]=\"[10, 50, 100]\" showFirstLastButtons></mat-paginator>\n                            <!-- <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Name\n                                    </th>\n                                    <th>\n                                        NIP\n                                    </th>\n                                    <th>\n                                        Program\n                                    </th>\n                                    <th>\n                                        Email\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n\n                                    <tr *ngFor=\"let user of userList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{user.name}}\n                                        </td>\n                                        <td>\n                                            {{user.nip}}\n                                        </td>\n                                        <td>\n                                            {{user.program}}\n                                        </td>\n                                        <td>\n                                            {{user.email}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user, user.name)\"\n                                                *ngIf=\"processing != true\">Delete</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                        </td>\n                                    </tr>\n\n                                </tbody>\n                            </table> -->\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div style=\"display: flex\">\n                            <i class=\"material-icons\" style=\"align-items: center; display: flex; padding-right: 10px;\">search</i>\n                            <mat-form-field>\n                                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search by name or NIP\">\n                            </mat-form-field>\n                        </div>\n                        <div class=\"table-responsive\">\n                            <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                                <ng-container matColumnDef=\"position\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\">No. </th>\n                                    <td mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"name\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Name </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"nip\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> NIP </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.nip}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"program\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Program </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.program}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"email\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Email </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.email}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"action\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Action </th>\n                                    <td mat-cell *matCellDef=\"let element\">\n                                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(element, element.name)\"\n                                            *ngIf=\"processing != true\">Delete</button>\n                                        <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                    </td>\n                                </ng-container>\n                                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n                            </table>\n                            <mat-paginator [pageSize]=\"20\" [pageSizeOptions]=\"[10, 50, 100]\" showFirstLastButtons></mat-paginator>\n                            <!-- <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Name\n                                    </th>\n                                    <th>\n                                        NIP\n                                    </th>\n                                    <th>\n                                        Program\n                                    </th>\n                                    <th>\n                                        Email\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n\n                                    <tr *ngFor=\"let user of userList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{user.name}}\n                                        </td>\n                                        <td>\n                                            {{user.nip}}\n                                        </td>\n                                        <td>\n                                            {{user.program}}\n                                        </td>\n                                        <td>\n                                            {{user.email}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user, user.name)\"\n                                                *ngIf=\"processing != true\">Delete</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                        </td>\n                                    </tr>\n\n                                </tbody>\n                            </table> -->\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -60340,7 +60436,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup] = \"form\" (ngSubmit)=\"registerUser()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"name\">\n                    <input matInput placeholder=\"Name\" formControlName = \"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      Name is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"nip\">\n                    <input matInput placeholder=\"NIP\" formControlName = \"nip\">\n                    <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                      NIP is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"program\">\n                    <input matInput placeholder=\"Program\" formControlName = \"program\">\n                    <mat-error *ngIf=\"isFieldInvalid('program')\">\n                      Program is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"phoneNo\">\n                    <input matInput placeholder=\"Phone Number\" formControlName = \"phoneNo\">\n                    <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n                      Phone is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"email\">\n                    <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Register User</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-4\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                    <input type=\"file\" style=\"display: inline-block;\" (change)=\"incomingfile($event)\" placeholder=\"Upload file\" accept=\".xlsx\">\n                      \n                    <!-- <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error> -->\n                </div>\n              </div>\n              \n              <button mat-raised-button type=\"button\"  class=\"btn btn-danger pull-right\" (click)=\"Upload()\" *ngIf=\"uploadProcessing == false\">Upload File</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"uploadProcessing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Complete a user data</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup] = \"form\" (ngSubmit)=\"registerUser()\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"name\">\n                    <input matInput placeholder=\"Name\" formControlName = \"name\">\n                    <mat-error *ngIf=\"isFieldInvalid('name')\">\n                      Name is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"nip\">\n                    <input matInput placeholder=\"NIP\" formControlName = \"nip\">\n                    <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                      NIP is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n                <div class=\"col-md-6\">\n                  <mat-form-field class=\"program\">\n                    <input matInput placeholder=\"Program\" formControlName = \"program\">\n                    <mat-error *ngIf=\"isFieldInvalid('program')\">\n                      Program is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"phoneNo\">\n                    <input matInput placeholder=\"Phone Number\" formControlName = \"phoneNo\">\n                    <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n                      Phone is <strong>required</strong>\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"email\">\n                    <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Register User</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-4\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Register User</h4>\n            <p class=\"card-category\">Upload an Excel file</p>\n          </div>\n          <div class=\"card-body\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                    <input type=\"file\" style=\"display: inline-block;\" (change)=\"incomingfile($event)\" placeholder=\"Upload file\" accept=\".xlsx\">\n                      \n                    <!-- <input matInput placeholder=\"Email\" formControlName = \"email\">\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please enter a valid email address\n                    </mat-error> -->\n                </div>\n              </div>\n              \n              <button mat-raised-button type=\"button\"  class=\"btn btn-danger pull-right\" (click)=\"Upload()\" *ngIf=\"uploadProcessing == false\">Upload File</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"uploadProcessing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -60853,38 +60949,24 @@ var ExcelService = /** @class */ (function () {
         this.keys = [];
     }
     ExcelService.prototype.exportAsExcelFile = function (json, excelFileName) {
-        console.log(json);
-        // var workbook: XLSX.WorkBook;
-        var worksheet = [];
+        var workbook = {
+            Sheets: {},
+            SheetNames: []
+        };
+        var worksheet;
         for (var i = 0; i < json.length; i++) {
-            worksheet.push(xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].json_to_sheet(json[i]));
-            // workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            this.sheetNames = json[i][0].from;
+            worksheet = xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].json_to_sheet(json[i]);
+            workbook.SheetNames.push(this.sheetNames);
+            workbook.Sheets[this.sheetNames] = worksheet;
         }
         ;
-        var workbook = {
-            Sheets: {
-                'Alam Sutera': worksheet[0],
-                'Bekasi': worksheet[1],
-                'Bogor': worksheet[2],
-                'Kelapa Gading': worksheet[3],
-                'Pondok Indah': worksheet[4],
-                'Wisma Asia': worksheet[5],
-            },
-            SheetNames: [
-                'Alam Sutera',
-                'Bekasi',
-                'Bogor',
-                'Kelapa Gading',
-                'Pondok Indah',
-                'Wisma Asia',
-            ]
-        };
         var excelBuffer = xlsx__WEBPACK_IMPORTED_MODULE_2__["write"](workbook, { bookType: 'xlsx', type: 'array' });
         this.saveAsExcelFile(excelBuffer, excelFileName);
     };
     ExcelService.prototype.saveAsExcelFile = function (buffer, fileName) {
         var data = new Blob([buffer], { type: EXCEL_TYPE });
-        file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"](data, fileName + '_export_' + new Date().getMonth() + EXCEL_EXTENSION);
+        file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"](data, fileName + EXCEL_EXTENSION);
     };
     ExcelService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),

@@ -42,8 +42,8 @@ export class AddBookingComponent implements OnInit {
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
   todayDate = new Date();
-  minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 8 - this.todayDate.getDay());
-  maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 5);
+  minDate;
+  maxDate;
   shuttlePoints = SHUTTLE_POINTS;
   defaultOption = new FormControl(this.shuttlePoints[2]);
   from = '';
@@ -115,9 +115,12 @@ export class AddBookingComponent implements OnInit {
   dates: any[] = [];
   pointsObservable: Observable<any[]>;
   ngOnInit() {
-    console.log(this.minDate, this.minDate.getDate());
-    console.log(this.maxDate, this.maxDate.getDate());
-    
+    if(this.todayDate.getDay() == 0){
+      this.minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 8 - this.todayDate.getDay());
+    } else {
+      this.minDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 15 - this.todayDate.getDay());
+    }
+    this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate() + 5);    
     
     this.form = this.fb.group({
       from: ['', Validators.required],

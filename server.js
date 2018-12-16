@@ -36,17 +36,21 @@ app.get('*', (req, res) => {
 // });
 
 var transporter = nodemailer.createTransport({
-    host: "smtp.goglemail.com",
-    secureConnection: false,
-    port: 587,
-    tls: {
-        chipers: "SSLv3"
-    },
-    domains: ["gmail.com", "googlemail.com"],
-    service: 'gmail',
+    // secureConnection: false,
+    // port: 587,
+    // tls: {
+    //     chipers: "SSLv3"
+    // },
+    // service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-        user: "shuttle.management.bca@gmail.com",
-        pass: "pedj04ng.Ejhail"
+        // user: "shuttle.management.bca@gmail.com",
+        // pass: "pedj04ng.Ejhail"
+        type: "OAuth2",
+        clientId: "276715020350-lge2fi68gnqjhjsbsk4rhj60re6h1tqi.apps.googleusercontent.com",
+        clientSecret: "icb3rbDLIecqw3977RMYwaVg"
     }
 });
 
@@ -91,7 +95,6 @@ app.post("/change-phone-no", function (req, res) {
         console.log('[e-Shuttle][post/change-email][Error][sign-in][' + error + ']');
         res.status(500).json({ message: 'auth failed' });
     });
-
 });
 
 app.post("/change-email", function (req, res) {
@@ -163,7 +166,7 @@ app.post("/push-booking", function (req, res) {
                 // var program = snapshot.val().program;
                 // var phone = snapshot.val().phone;
                 
-                var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(date[2]).child(month[date[1] - 1]).child(date[0]).child(req.body.from).child(firebase.auth.currentUser.uid).set({
+                var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.from).child(date[2]).child(month[date[1] - 1]).child(date[0]).child(firebase.auth.currentUser.uid).set({
                 // var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
                     userID: firebase.auth.currentUser.uid,
                     type: 'Shuttle Bus',
@@ -237,7 +240,7 @@ app.post("/push-booking-admin", function (req, res) {
     // var phone = snapshot.val().phone;
     console.log(req.body);
 
-    var bookingCode = firebase.database.ref('booking-report').child(req.body.type).child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
+    var bookingCode = firebase.database.ref('booking-report').child(req.body.type).child(req.body.from).child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.date.split("-")[0]).push({
         from: req.body.from,
         type: req.body.type,
         to: req.body.to,
@@ -298,6 +301,12 @@ app.post("/send-booking-detail", function (req, res) {
             'Jam Kepulangan : 17.00\n' +
             // '<img src = "https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/verification/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2"> <br><br>' +
             'Terima kasih \n\nHormat kami, \nBCA Learning Institute',
+        auth: {
+            user: 'shuttle.management.bca@gmail.com',
+            refreshToken: '1/uIVDhGILtXHZaP-j9fXh9dwQdNh0kxR2A7qqpE0F234',
+            accessToken: 'ya29.Glt0BocQw2COTigEM4KDNcDWf6eof659Y44BUFniDNe7BDzfbNlRDXfBKOm1x5NFvswl-kHxKp7C8wLQX4yzo6xMnN6h9er2L2PpN7yQEm_MgcwKOq1sieinONEc',
+            expires: 1484314697598
+        }
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -316,24 +325,25 @@ app.post("/cancel-booking", function (req, res) {
     if (req.body.userID != undefined) {
         userID = req.body.userID;
     }
-    firebase.database.ref('user').child(userID).child('booking-history').child(req.body.key).remove().then(function (snapshot) {
-        var bookingDate = req.body.date.split("-");
-        var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        var bookingMonth = month[bookingDate[1] - 1];
-        console.log(bookingMonth + bookingDate);
-        console.log(req.body.type);
 
-        firebase.database.ref('booking-report').child(req.body.type).child(bookingDate[2]).child(bookingMonth).child(bookingDate[0]).child(req.body.from).child(userID).remove().then(function (snapshot) {
+    var bookingDate = req.body.date.split("-");
+    var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var bookingMonth = month[bookingDate[1] - 1];
+    userBookingListKey = bookingDate[2]+bookingDate[1]+bookingDate[0];
+    
+    firebase.database.ref('user').child(userID).child('booking-history').child(userBookingListKey).remove().then(function (snapshot) {
+        firebase.database.ref('booking-report').child(req.body.type).child(req.body.from).child(bookingDate[2]).child(bookingMonth).child(bookingDate[0]).child(userID).remove().then(function (snapshot) {
             console.log('[e-Shuttle][post/cancel][Success cancel]');
-            res.send(req.body);
+            res.status(200).send('cancel success');
         }).catch(function (error) {
             console.log('[e-Shuttle][post/cancel][Error][' + error + ']');
+            res.status(500).send('cancel at booking-report failed');
         });
     }).catch(function (error) {
         console.log('[e-Shuttle][post/cancel][Error][' + error + ']');
+        res.status(500).send('cancel at user/booking-history failed');
     });
 });
-
 
 app.post("/register-success", function (req, res) {
     // console.log("sendmail");
@@ -432,66 +442,128 @@ app.post("/show-booking-report", function (req, res) {
     // console.log("req "+req.body.month);
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
+    
+    firebase.database.ref('booking-report').child(req.body.type).child(req.body.assemblyPoint).child(req.body.year).child(req.body.month).child(req.body.date).once('value').then(function (snapshot) {
+        snapshot.forEach(item => {
+            bookingData.push({
+                "key": item.key,
+                "userID": item.val().userID,
+                "name": item.val().name,
+                "nip": item.val().nip,
+                "program": item.val().program,
+                "phoneNo": item.val().phoneNo,
+                "date": item.val().date,
+                "from": item.val().from,
+                "to": item.val().to,
+                "departure": item.val().departure,
+                "type": item.val().type
+            });
+        });
+        console.log('aaab');
+        console.log('aaa'+bookingData);
+        res.send(bookingData);
+    });
+});
+
+app.post('/get-passenger-count', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    var passengerList = []
+    var passengerCount = new Array(5).fill(0);
+    firebase.database.ref('booking-report/Shuttle Bus').once('value').then(function (snapshot) {
+        snapshot.forEach(item => {
+            if(item.val()['2018']['December']['17'] != null){
+                passengerCount[0] = Object.keys(item.val()['2018']['December']['17']).length;
+            }
+            if(item.val()['2018']['December']['18'] != null){
+                passengerCount[1] = Object.keys(item.val()['2018']['December']['18']).length;
+            }
+            if(item.val()['2018']['December']['19'] != null){
+                passengerCount[2] = Object.keys(item.val()['2018']['December']['19']).length;
+            }
+            if(item.val()['2018']['December']['20'] != null){
+                passengerCount[3] = Object.keys(item.val()['2018']['December']['20']).length;
+            }
+            if(item.val()['2018']['December']['21'] != null){
+                passengerCount[4] = Object.keys(item.val()['2018']['December']['21']).length;
+            }
+            passengerList.push({
+                'assemblyPoint': item.key,
+                'passengerCountDay1': passengerCount[0],
+                'passengerCountDay2': passengerCount[1],
+                'passengerCountDay3': passengerCount[2],
+                'passengerCountDay4': passengerCount[3],
+                'passengerCountDay5': passengerCount[4],
+            });
+        });
+        // console.log("pass count: " + snapshot.numChildren());
+        // passengerList.push({
+        //     'assemblyPoint': 'Wisma Asia',
+        //     'passengerCount': snapshot.numChildren()
+        // });
+        // passengerList.push({
+        //     'assemblyPoint': 'Wisma Asia',
+        //     'passengerCount': snapshot.numChildren()
+        // });
+        // passengerList.push({
+        //     'assemblyPoint': 'Wisma Asia',
+        //     'passengerCount': snapshot.numChildren()
+        // });
+        res.send(passengerList);
+    });
+});
+
+app.post("/download-booking-report", function (req, res) {
+    // console.log("req "+req.body.month);
+    res.setHeader('Content-Type', 'application/json');
+    var bookingData = [];
     var bookingDataPerPoint = [];
     var i = 0;
-    if (req.body.type == 'All') {
-        firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.year).child(req.body.month).once('value').then(function (snapshot) {
-            // console.log('snapshot: ' + JSON.stringify(snapshot));
-            
-            var dataSize = snapshot.numChildren();
-            snapshot.forEach(item => {
-                var wait = true;
-                firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.year).child(req.body.month).child(item.key).once('value').then(function (snapshotData) {
-                    i++;
-                    snapshotData.forEach(itemData => {
+    
+    firebase.database.ref('booking-report').child('Shuttle Bus').once('value').then(function (snapshot) {
+        // console.log('snapshot: ' + JSON.stringify(snapshot));
+        
+        var dataSize = snapshot.numChildren();
+        console.log("data size : " + dataSize);
+        
+        snapshot.forEach(dataByPoint => {
+            var wait = true;
+            dataByMonth = dataByPoint.val()[req.body.year][req.body.month];
+            i++;
+            if(dataByMonth != null){
+                Object.keys(dataByMonth).forEach(function (key) {
+                    dataByDay = dataByMonth[key];
+                    // console.log('bookingData: ' + JSON.stringify(dataBy/Day));
+
+                    Object.keys(dataByDay).forEach(function (key) {
+                        bookingDetail = dataByDay[key];
+                        // console.log('bookingData: ' + JSON.stringify(bookingDetail));
+
                         bookingData.push({
-                            "key": itemData.key,
-                            "userID": itemData.val().userID,
-                            "name": itemData.val().name,
-                            "program": itemData.val().program,
-                            "phoneNo": itemData.val().phoneNo,
-                            "date": itemData.val().date,
-                            "from": itemData.val().from,
-                            "to": itemData.val().to,
-                            "departure": itemData.val().departure,
-                            "type": itemData.val().type
+                            // "key": key,
+                            "userID": bookingDetail.userID,
+                            "name": bookingDetail.name,
+                            "nip": bookingDetail.nip,
+                            "program": bookingDetail.program,
+                            "phoneNo": bookingDetail.phoneNo,
+                            "date": bookingDetail.date,
+                            "from": bookingDetail.from,
+                            // "to": bookingDetail.to,
+                            // "departure": bookingDetail.departure,
+                            // "type": bookingDetail.type
                         });
                     });
-                    bookingDataPerPoint.push(bookingData)
-                    if(i == dataSize){
-                        console.log('bookingDataLast: ' + bookingDataPerPoint);
-                        res.send(bookingDataPerPoint);
-                    } else {
-                        // console.log('bookingData: ' + bookingDataPerPoint);
-                    }
-                    bookingData = [];
                 });
-            });
+            }
+            bookingDataPerPoint.push(bookingData);
+            if(i == dataSize){
+                res.send(bookingDataPerPoint);
+            }
+            bookingData = [];
         });
-    } else {
-        firebase.database.ref('booking-report').child(req.body.type).child(req.body.year).child(req.body.month).child(req.body.assemblyPoint).once('value').then(function (snapshot) {
-            // console.log(snapshot.val());  
-            snapshot.forEach(item => {
-                // console.log(item.key);
-                // item.val()["key"] = item.key;
-
-                bookingData.push({
-                    "key": item.key,
-                    "userID": item.val().userID,
-                    "name": item.val().name,
-                    "program": item.val().program,
-                    "phoneNo": item.val().phoneNo,
-                    "date": item.val().date,
-                    "from": item.val().from,
-                    "to": item.val().to,
-                    "departure": item.val().departure,
-                    "type": item.val().type
-                });
-            });
-            res.send(bookingData);
-        });
-    }
+    });
 });
+
+
 
 app.post("/show-user-list", function (req, res) {
     console.log("req ");

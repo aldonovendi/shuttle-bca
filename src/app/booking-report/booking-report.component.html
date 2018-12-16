@@ -8,7 +8,7 @@
             <p class="card-category">Choose the time you want to see</p>
           </div>
           <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="getReport()">
+            <form [formGroup]="form">
               <div class="row">
                 <div class="col-md-2">
                   <mat-form-field>
@@ -20,7 +20,7 @@
                     <mat-error *ngIf="isFieldInvalid('type')">Please choose the shuttle type</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-2" *ngIf="this.form.value.type == 'Shuttle Bus'">
+                <div class="col-md-3" *ngIf="this.form.value.type == 'Shuttle Bus'">
                   <mat-form-field>
                     <mat-select placeholder="Assembly Point" formControlName="assemblyPoint">
                       <mat-option *ngFor="let shuttlePoint of pointsObservable | async" value="{{shuttlePoint.name}}">{{shuttlePoint.name}}</mat-option>
@@ -28,7 +28,7 @@
                     <mat-error *ngIf="isFieldInvalid('assemblyPoint')">Please choose an assembly point</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-2" *ngIf="this.form.value.type == 'Operational'">
+                <div class="col-md-3" *ngIf="this.form.value.type == 'Operational'">
                   <mat-form-field>
                     <mat-select placeholder="Assembly Point" formControlName="assemblyPoint">
                       <mat-option value="Wisma Asia" sele>Wisma Asia</mat-option>
@@ -36,7 +36,7 @@
                     <mat-error *ngIf="isFieldInvalid('assemblyPoint')">Please choose an assembly point</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                   <mat-form-field>
                     <mat-select placeholder="Month" formControlName="month">
                       <mat-option *ngFor="let monthName of months" value="{{monthName}}">{{monthName}}</mat-option>
@@ -51,20 +51,70 @@
                     </mat-select>
                     <mat-error *ngIf="isFieldInvalid('year')">Please choose a year</mat-error>
                   </mat-form-field>
+                </div> -->
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input type="text" matInput [matDatepickerFilter]="myFilter" [max]="maxDate" [matDatepicker]="picker" placeholder="Date"
+                      (dateChange)="update($event.value)" (dateInput)="update($event.value)"  (focus)="picker.open()" 
+                      (click)="picker.open()" formControlName = "date" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="!date.valid">Please choose a date</mat-error>
+                  </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
                   <button mat-raised-button class="btn btn-danger" (click)="filter()" [disabled]="!form.valid">See
-                    Report</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button mat-raised-button class="btn btn-danger" (click)="download()" [disabled]="!form.valid">Download</button>
+                    Report</button>
+                    <!-- <button mat-raised-button class="btn btn-danger" (click)="download()" [disabled]="!form.valid">Download</button> -->
                 </div>
               </div>
 
               <div class="clearfix"></div>
             </form>
             
-            <div class="table-responsive" *ngIf="bookingListLength!=0">
+            <div class="table-responsive" [hidden]="bookingListLength==0">
               <!-- <h2>Booking Report for {{this.form.value.type}} in {{this.form.value.assemblyPoint}} for {{this.form.value.month}} {{this.form.value.year}}</h2> -->
-              <table class="table">
+              <div style="display: flex">
+                <i class="material-icons" style="align-items: center; display: flex; padding-right: 10px;">search</i>
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by name or NIP">
+                </mat-form-field>
+              </div>
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary">No. </th>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nip">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> NIP </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nip}} </td>
+                </ng-container>
+                <ng-container matColumnDef="program">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Program </th>
+                    <td mat-cell *matCellDef="let element"> {{element.program}} </td>
+                </ng-container>
+                <ng-container matColumnDef="phoneNo">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Phone No</th>
+                    <td mat-cell *matCellDef="let element"> {{element.phoneNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-raised-button class="btn btn-danger" (click)="cancelBooking(element, element.name)"
+                            *ngIf="processing != true">Delete</button>
+                        <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 50, 100]" showFirstLastButtons></mat-paginator>
+              <!-- <table class="table">
                 <thead class=" text-primary">
                   <th>Name</th>
                   <th>Program</th>
@@ -85,9 +135,8 @@
                       <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
                     </td>
                   </tr>
-                  <!-- <h3>{{history_data.length}}</h3> -->
                 </tbody>
-              </table>
+              </table> -->
             </div>
           </div>
         </div>
