@@ -27,7 +27,7 @@ import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
-// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
+import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 import { environment } from '../../../environments/environment'
 import { AngularFireModule } from 'angularfire2';
@@ -132,7 +132,8 @@ import { AgmCoreModule } from '@agm/core';
     NgxSpinnerModule
   ],
   entryComponents: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    EditShuttlePointComponent,
   ],
   declarations: [
     DashboardComponent,
@@ -158,8 +159,8 @@ import { AgmCoreModule } from '@agm/core';
     ReportComponent,
     DownloadReportComponent,
     ConfirmationDialogComponent,
-    AdminDashboardComponent
-    // EditShuttlePointComponent,
+    AdminDashboardComponent,
+    EditShuttlePointComponent,
   ],
   providers:[ExcelService]
 })

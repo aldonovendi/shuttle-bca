@@ -19,7 +19,10 @@
                   <div class="card-body">
                     <div style="display:flex">
                       <h4 class="card-title" style="width:100%">{{shuttlePoint.name}}</h4>
-                      <a [routerLink]="['/edit-shuttle-point', shuttlePoint.name]">
+                      <a style="cursor: pointer; color: #999999" (click)="delete(shuttlePoint, shuttlePoint.name)">
+                        <i class="material-icons pull-right">delete</i>
+                      </a>
+                      <a style="cursor: pointer; padding-left: 15px; color: #999999" (click)="edit(shuttlePoint)">
                         <i class="material-icons pull-right">edit</i>
                       </a>
                     </div>

@@ -46,11 +46,14 @@ var transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        // user: "shuttle.management.bca@gmail.com",
-        // pass: "pedj04ng.Ejhail"
-        type: "OAuth2",
-        clientId: "276715020350-lge2fi68gnqjhjsbsk4rhj60re6h1tqi.apps.googleusercontent.com",
-        clientSecret: "icb3rbDLIecqw3977RMYwaVg"
+        // type: "OAuth2",
+        user: "shuttle.management.bca@gmail.com",
+        pass: "pedj04ng.Ejhail"
+        // clientId: "276715020350-lge2fi68gnqjhjsbsk4rhj60re6h1tqi.apps.googleusercontent.com",
+        // clientSecret: "72HWnrwhKzLnVr3TH-_K0Nvn",
+        // refreshToken: '1/uIVDhGILtXHZaP-j9fXh9dwQdNh0kxR2A7qqpE0F234',
+        // accessToken: 'ya29.Glt0BocQw2COTigEM4KDNcDWf6eof659Y44BUFniDNe7BDzfbNlRDXfBKOm1x5NFvswl-kHxKp7C8wLQX4yzo6xMnN6h9er2L2PpN7yQEm_MgcwKOq1sieinONEc',
+        // expires: 1484314697598
     }
 });
 
@@ -86,7 +89,7 @@ app.post("/change-phone-no", function (req, res) {
                 firebase.database.ref().child("user").child(user.uid + "/phoneNo").set(req.body.phoneNo).then(function () {
                     console.log('[e-Shuttle][post/change-email][Phone No changed]')
                 }).catch(function (error) {
-                    console.log('[e-Shuttle][post/change-email][Error][update-database][' + error + ']');                        
+                    console.log('[e-Shuttle][post/change-email][Error][update-database][' + error + ']');
                 });
             }
             res.send(req.body);
@@ -154,9 +157,9 @@ app.post("/push-booking", function (req, res) {
     console.log(req.body.date.split("-"));
     console.log(firebase.auth.currentUser.uid);
     var date = req.body.date.split("-");
-    var dateKey = date[2]+date[1]+date[0];
+    var dateKey = date[2] + date[1] + date[0];
     firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').child(dateKey).once('value').then(function (snapshot) {
-        if(snapshot.exists()){
+        if (snapshot.exists()) {
             res.status(500).json({ message: 'booking already exist' });
         } else {
             firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value').then(function (snapshot) {
@@ -165,9 +168,9 @@ app.post("/push-booking", function (req, res) {
                 // var division = snapshot.val().division;
                 // var program = snapshot.val().program;
                 // var phone = snapshot.val().phone;
-                
+
                 var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.from).child(date[2]).child(month[date[1] - 1]).child(date[0]).child(firebase.auth.currentUser.uid).set({
-                // var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
+                    // var bookingCode = firebase.database.ref('booking-report').child('Shuttle Bus').child(req.body.date.split("-")[2]).child(month[req.body.date.split("-")[1] - 1]).child(req.body.from).push({
                     userID: firebase.auth.currentUser.uid,
                     type: 'Shuttle Bus',
                     from: req.body.from,
@@ -205,7 +208,7 @@ app.post("/push-booking", function (req, res) {
                         // '<img src = "https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/verification/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2"> <br><br>' +
                         'Terima kasih \n\nHormat kami, \nBCA Learning Institute',
                 };
-        
+
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) console.log("send email error " + error);
                     // else console.log("Message sent successfully: " + info.response);
@@ -220,8 +223,8 @@ app.post("/push-booking", function (req, res) {
     }).catch(function () {
         console.log("Promise Rejected b");
     });
-    
-    
+
+
 });
 
 app.post("/push-booking-admin", function (req, res) {
@@ -284,11 +287,11 @@ app.post("/send-booking-detail", function (req, res) {
     // console.log("sendmail");
     // res.send("hehe")
     console.log(req.body);
-    console.log(req.body.key);
+    console.log(firebase.auth.currentUser.email);
     // console.log(bookingCode);
     var mailOptions = {
         from: "'Shuttle Management' <shuttle.management.bca@gmail.com>",
-        to: req.body.email,
+        to: firebase.auth.currentUser.email,
         subject: "Konfirmasi Pemesanan Shuttle",
         text: 'Halo ' + req.body.name + ',\n' +
             'Terima kasih sudah menggunakan layanan e-Shuttle.\n' +
@@ -301,12 +304,12 @@ app.post("/send-booking-detail", function (req, res) {
             'Jam Kepulangan : 17.00\n' +
             // '<img src = "https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/verification/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2"> <br><br>' +
             'Terima kasih \n\nHormat kami, \nBCA Learning Institute',
-        auth: {
-            user: 'shuttle.management.bca@gmail.com',
-            refreshToken: '1/uIVDhGILtXHZaP-j9fXh9dwQdNh0kxR2A7qqpE0F234',
-            accessToken: 'ya29.Glt0BocQw2COTigEM4KDNcDWf6eof659Y44BUFniDNe7BDzfbNlRDXfBKOm1x5NFvswl-kHxKp7C8wLQX4yzo6xMnN6h9er2L2PpN7yQEm_MgcwKOq1sieinONEc',
-            expires: 1484314697598
-        }
+        // auth: {
+        //     user: 'shuttle.management.bca@gmail.com',
+        //     refreshToken: '1/uIVDhGILtXHZaP-j9fXh9dwQdNh0kxR2A7qqpE0F234',
+        //     accessToken: 'ya29.Glt0BocQw2COTigEM4KDNcDWf6eof659Y44BUFniDNe7BDzfbNlRDXfBKOm1x5NFvswl-kHxKp7C8wLQX4yzo6xMnN6h9er2L2PpN7yQEm_MgcwKOq1sieinONEc',
+        //     expires: 1484314697598
+        // }
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -329,8 +332,8 @@ app.post("/cancel-booking", function (req, res) {
     var bookingDate = req.body.date.split("-");
     var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     var bookingMonth = month[bookingDate[1] - 1];
-    userBookingListKey = bookingDate[2]+bookingDate[1]+bookingDate[0];
-    
+    userBookingListKey = bookingDate[2] + bookingDate[1] + bookingDate[0];
+
     firebase.database.ref('user').child(userID).child('booking-history').child(userBookingListKey).remove().then(function (snapshot) {
         firebase.database.ref('booking-report').child(req.body.type).child(req.body.from).child(bookingDate[2]).child(bookingMonth).child(bookingDate[0]).child(userID).remove().then(function (snapshot) {
             console.log('[e-Shuttle][post/cancel][Success cancel]');
@@ -355,39 +358,39 @@ app.post("/register-success", function (req, res) {
         password: password
     }).then(function (user) {
         // firebase.auth.onAuthStateChanged(function (user) {
-            if (user) {
-                console.log('uid di reg user: ' + user.uid);
-                firebase.database.ref('user').child(user.uid).set({
-                    email: req.body.email,
-                    name: req.body.name,
-                    nip: req.body.nip,
-                    program: req.body.program,
-                    phoneNo: req.body.phoneNo
-                }).catch(function () {
-                    console.log("Data Invalid");
-                });
-                var mailOptions = {
-                    from: "'Shuttle Management' <shuttle.management.bca@gmail.com>",
-                    to: req.body.email,
-                    subject: "Pendaftaran Akun Shuttle",
-                    text: 'Halo ' + req.body.name + ',\n' +
-                        'Selamat datang di BCA Learning Institute,\n' +
-                        'Berikut data login Anda untuk mengakses https://e-shuttle.com agar bisa memesan shuttle:\n\n' +
-                        'email : ' + req.body.email + '\n' +
-                        'password : ' + password + '\n\n' +
-                        'Terima kasih \n\nHormat kami, \nBCA Learning Institute'
-                };
+        if (user) {
+            console.log('uid di reg user: ' + user.uid);
+            firebase.database.ref('user').child(user.uid).set({
+                email: req.body.email,
+                name: req.body.name,
+                nip: req.body.nip,
+                program: req.body.program,
+                phoneNo: req.body.phoneNo
+            }).catch(function () {
+                console.log("Data Invalid");
+            });
+            var mailOptions = {
+                from: "'Shuttle Management' <shuttle.management.bca@gmail.com>",
+                to: req.body.email,
+                subject: "Pendaftaran Akun Shuttle",
+                text: 'Halo ' + req.body.name + ',\n' +
+                    'Selamat datang di BCA Learning Institute,\n' +
+                    'Berikut data login Anda untuk mengakses https://e-shuttle.com agar bisa memesan shuttle:\n\n' +
+                    'email : ' + req.body.email + '\n' +
+                    'password : ' + password + '\n\n' +
+                    'Terima kasih \n\nHormat kami, \nBCA Learning Institute'
+            };
 
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error){
-                        console.log("send email error " + error);
-                        res.status(500).send("register failed");
-                    } else {
-                        console.log("Message sent successfully"+info);
-                        res.status(200).send("register success");
-                    }
-                });
-            }
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log("send email error " + error);
+                    res.status(500).send("register failed");
+                } else {
+                    console.log("Message sent successfully" + info);
+                    res.status(200).send("register success");
+                }
+            });
+        }
         // });
     }).catch(function (error) {
         console.log('[e-Shuttle][login][Error][Code:' + error.code + '][' + error.message + ']');
@@ -400,10 +403,13 @@ app.post("/register-success", function (req, res) {
 });
 
 app.post("/add-shuttle-point", function (req, res) {
+    console.log(JSON.stringify(req.body));
+    var imgName = req.body.name.toLowerCase().replace(" ", "-");
+    
     firebase.database.ref('shuttle-points').child(req.body.name).set({
         name: req.body.name,
         departure: req.body.departure,
-        img: '../assets/img/maps/' + req.body.name + '.jpg',
+        img: '../assets/img/maps/' + imgName + '.jpg',
         lat: req.body.lat,
         lng: req.body.lng,
         position: req.body.position,
@@ -411,18 +417,28 @@ app.post("/add-shuttle-point", function (req, res) {
     res.send(req.body);
 });
 
+app.post("/delete-shuttle-point", function (req, res) {
+    firebase.database.ref('shuttle-points').child(req.body.name).remove().then(function (snapshot) {
+        console.log('[e-Shuttle][post/delete][Success delete]');
+        res.status(200).send('delete shuttle point success');
+    }).catch(function (error) {
+        console.log('[e-Shuttle][post/delete][Error][' + error + ']');
+        res.status(500).send('delete shuttle point failed');
+    });
+});
+
 app.post("/show-booking-list", function (req, res) {
     console.log("req ");
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
     var today = new Date();
-    var todayKey = today.getFullYear()+""+(today.getMonth()+1)+""+today.getDate()+"";
+    var todayKey = today.getFullYear() + "" + (today.getMonth() + 1) + "" + today.getDate() + "";
     firebase.database.ref('user').child(firebase.auth.currentUser.uid).child('booking-history').orderByKey().limitToLast(10).once('value').then(function (snapshot) {
         // console.log(snapshot.val());  
         snapshot.forEach(item => {
             // console.log(item.key);
             // item.val()["key"] = item.key;
-            if(+item.key >= +todayKey){
+            if (+item.key >= +todayKey) {
                 bookingData.push({
                     "key": item.key,
                     "date": item.val().date,
@@ -442,7 +458,7 @@ app.post("/show-booking-report", function (req, res) {
     // console.log("req "+req.body.month);
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
-    
+
     firebase.database.ref('booking-report').child(req.body.type).child(req.body.assemblyPoint).child(req.body.year).child(req.body.month).child(req.body.date).once('value').then(function (snapshot) {
         snapshot.forEach(item => {
             bookingData.push({
@@ -460,7 +476,7 @@ app.post("/show-booking-report", function (req, res) {
             });
         });
         console.log('aaab');
-        console.log('aaa'+bookingData);
+        console.log('aaa' + bookingData);
         res.send(bookingData);
     });
 });
@@ -471,19 +487,19 @@ app.post('/get-passenger-count', (req, res) => {
     var passengerCount = new Array(5).fill(0);
     firebase.database.ref('booking-report/Shuttle Bus').once('value').then(function (snapshot) {
         snapshot.forEach(item => {
-            if(item.val()['2018']['December']['17'] != null){
+            if (item.val()['2018']['December']['17'] != null) {
                 passengerCount[0] = Object.keys(item.val()['2018']['December']['17']).length;
             }
-            if(item.val()['2018']['December']['18'] != null){
+            if (item.val()['2018']['December']['18'] != null) {
                 passengerCount[1] = Object.keys(item.val()['2018']['December']['18']).length;
             }
-            if(item.val()['2018']['December']['19'] != null){
+            if (item.val()['2018']['December']['19'] != null) {
                 passengerCount[2] = Object.keys(item.val()['2018']['December']['19']).length;
             }
-            if(item.val()['2018']['December']['20'] != null){
+            if (item.val()['2018']['December']['20'] != null) {
                 passengerCount[3] = Object.keys(item.val()['2018']['December']['20']).length;
             }
-            if(item.val()['2018']['December']['21'] != null){
+            if (item.val()['2018']['December']['21'] != null) {
                 passengerCount[4] = Object.keys(item.val()['2018']['December']['21']).length;
             }
             passengerList.push({
@@ -509,6 +525,9 @@ app.post('/get-passenger-count', (req, res) => {
         //     'passengerCount': snapshot.numChildren()
         // });
         res.send(passengerList);
+    }).catch(function (error) {
+        console.log('[e-Shuttle][post/get-count][Error][' + error + ']');
+        res.status(500).send("get passenger count error");
     });
 });
 
@@ -518,18 +537,18 @@ app.post("/download-booking-report", function (req, res) {
     var bookingData = [];
     var bookingDataPerPoint = [];
     var i = 0;
-    
+
     firebase.database.ref('booking-report').child('Shuttle Bus').once('value').then(function (snapshot) {
         // console.log('snapshot: ' + JSON.stringify(snapshot));
-        
+
         var dataSize = snapshot.numChildren();
         console.log("data size : " + dataSize);
-        
+
         snapshot.forEach(dataByPoint => {
             var wait = true;
             dataByMonth = dataByPoint.val()[req.body.year][req.body.month];
             i++;
-            if(dataByMonth != null){
+            if (dataByMonth != null) {
                 Object.keys(dataByMonth).forEach(function (key) {
                     dataByDay = dataByMonth[key];
                     // console.log('bookingData: ' + JSON.stringify(dataBy/Day));
@@ -555,7 +574,7 @@ app.post("/download-booking-report", function (req, res) {
                 });
             }
             bookingDataPerPoint.push(bookingData);
-            if(i == dataSize){
+            if (i == dataSize) {
                 res.send(bookingDataPerPoint);
             }
             bookingData = [];
@@ -611,7 +630,7 @@ app.post("/forgot-password", function (req, res) {
 app.post("/get-shuttle-point-detail", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     var bookingData = [];
-    firebase.database.ref('shuttle-points').child(req.body.shuttleName).once('value').then(function (snapshot) {      
+    firebase.database.ref('shuttle-points').child(req.body.shuttleName).once('value').then(function (snapshot) {
         res.send(snapshot.val());
     });
 });

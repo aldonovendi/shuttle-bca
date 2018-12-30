@@ -23,7 +23,7 @@ import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
 import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
-// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
+import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -91,5 +91,4 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'download-booking-report/:month/:year', component: ReportComponent },
     { path: 'download-report', component: DownloadReportComponent },
     { path: 'admin-dashboard', component: AdminDashboardComponent },
-    // { path: 'edit-shuttle-point/:name', component: EditShuttlePointComponent },
 ];

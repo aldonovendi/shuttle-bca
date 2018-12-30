@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 
 @Component({
   selector: 'app-edit-shuttle-point',
@@ -17,6 +19,14 @@ export class EditShuttlePointComponent implements OnInit {
     private fb: FormBuilder,
     private toastrService: ToastrService,
     private route: ActivatedRoute,
+    public dialogRef: MatDialogRef<EditShuttlePointComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      name: '',
+      lat: '',
+      lng: '',
+      position: '',
+      departure: '',
+    }
   ) { }
   private filter = {
     shuttleName: ''
@@ -27,21 +37,20 @@ export class EditShuttlePointComponent implements OnInit {
     //   shuttleName: this.route.snapshot.paramMap.get('name')
     // };
     // this.http.post('/get-shuttle-point-detail', this.filter).subscribe(res => {
-      this.form = this.fb.group({
-        name: ['', Validators.required],
-        lat: ['', Validators.required],
-        lng: ['', Validators.required],
-        position: ['', Validators.required],
-        departure: ['', Validators.required],
-      });
+    this.form = this.fb.group({
+      name: [{ value: this.data.name, disabled: true }, Validators.required],
+      lat: [this.data.lat, Validators.required],
+      lng: [this.data.lng, Validators.required],
+      position: [this.data.position, Validators.required],
+      departure: [this.data.departure, Validators.required],
+    });
     //   console.log('tesssss' + res.json());
     //   this.processing = false;
     // }, error => {
     //   this.toastrService.error('Lost Connection!');
     //   this.processing = false;
     // });
-    console.log('hahaha');
-    
+
   }
   isFieldInvalid(field: string) {
     return (
@@ -51,25 +60,33 @@ export class EditShuttlePointComponent implements OnInit {
   }
 
   onSubmit() {
+
     var shuttlePointObj = {
-      name: this.form.value.name,
+      name: this.form.getRawValue().name,
       departure: this.form.value.departure,
-      img: '../assets/img/maps/' + this.form.value.name + '.jpg',
       lat: this.form.value.lat,
       lng: this.form.value.lng,
       position: this.form.value.position,
     }
+
     this.processing = true;
     this.http.post('/add-shuttle-point', shuttlePointObj).subscribe(data => {
       console.log('tesssss' + data);
-      this.toastrService.success('Submitted succesfully, check your email', 'Add Booking');
+      this.toastrService.success('You have edit ' + shuttlePointObj.name + "'s point", 'Edit Success');
       this.form.reset();
       this.processing = false;
+      this.dialogRef.close();
+
     }, error => {
       this.toastrService.error('Lost Connection!');
       this.processing = false;
+
     });
     this.formSubmitAttempt = true;
   }
-  
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

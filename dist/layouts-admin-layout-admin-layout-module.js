@@ -58615,63 +58615,6 @@ var BookingListComponent = /** @class */ (function () {
             }
         });
     };
-    BookingListComponent.prototype.changePage = function (event) {
-        if (event.target.text >= 1 && event.target.text <= this.numberOfPaginators) {
-            this.activePage = +event.target.text;
-            this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-            this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-        }
-    };
-    BookingListComponent.prototype.nextPage = function (event) {
-        if (this.pages.last.nativeElement.classList.contains('active')) {
-            if ((this.numberOfPaginators - this.numberOfVisiblePaginators) >= this.lastVisiblePaginator) {
-                this.firstVisiblePaginator += this.numberOfVisiblePaginators;
-                this.lastVisiblePaginator += this.numberOfVisiblePaginators;
-            }
-            else {
-                this.firstVisiblePaginator += this.numberOfVisiblePaginators;
-                this.lastVisiblePaginator = this.numberOfPaginators;
-            }
-        }
-        this.activePage += 1;
-        this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-        this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-    };
-    BookingListComponent.prototype.previousPage = function (event) {
-        if (this.pages.first.nativeElement.classList.contains('active')) {
-            if ((this.lastVisiblePaginator - this.firstVisiblePaginator) === this.numberOfVisiblePaginators) {
-                this.firstVisiblePaginator -= this.numberOfVisiblePaginators;
-                this.lastVisiblePaginator -= this.numberOfVisiblePaginators;
-            }
-            else {
-                this.firstVisiblePaginator -= this.numberOfVisiblePaginators;
-                this.lastVisiblePaginator -= (this.numberOfPaginators % this.numberOfVisiblePaginators);
-            }
-        }
-        this.activePage -= 1;
-        this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-        this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-    };
-    BookingListComponent.prototype.firstPage = function () {
-        this.activePage = 1;
-        this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-        this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-        this.firstVisiblePaginator = 0;
-        this.lastVisiblePaginator = this.numberOfVisiblePaginators;
-    };
-    BookingListComponent.prototype.lastPage = function () {
-        this.activePage = this.numberOfPaginators;
-        this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-        this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-        if (this.numberOfPaginators % this.numberOfVisiblePaginators === 0) {
-            this.firstVisiblePaginator = this.numberOfPaginators - this.numberOfVisiblePaginators;
-            this.lastVisiblePaginator = this.numberOfPaginators;
-        }
-        else {
-            this.lastVisiblePaginator = this.numberOfPaginators;
-            this.firstVisiblePaginator = this.lastVisiblePaginator - (this.numberOfPaginators % this.numberOfVisiblePaginators);
-        }
-    };
     BookingListComponent.prototype.ngOnInit = function () {
         var _this = this;
         // this.bookingList = this.db.list('/user').snapshotChanges().map(changes => {
@@ -59649,6 +59592,143 @@ var DownloadReportComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/edit-shuttle-point/edit-shuttle-point.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/edit-shuttle-point/edit-shuttle-point.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h4>Edit {{data.name}}'s Detail</h4>\n<form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field>\n        <input matInput placeholder=\"Shuttle Point Name\" formControlName=\"name\">\n        <mat-error *ngIf=\"isFieldInvalid('name')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <mat-form-field>\n        <input matInput placeholder=\"Latitude\" formControlName=\"lat\">\n        <mat-error *ngIf=\"isFieldInvalid('lat')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n    <div class=\"col-md-6\">\n      <mat-form-field>\n        <input matInput placeholder=\"Longitude\" formControlName=\"lng\">\n        <mat-error *ngIf=\"isFieldInvalid('lng')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field>\n        <input matInput placeholder=\"Position Description (near ...)\" formControlName=\"position\">\n        <mat-error *ngIf=\"isFieldInvalid('position')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field>\n        <input matInput placeholder=\"Departure Time\" formControlName=\"departure\">\n        <mat-error *ngIf=\"isFieldInvalid('departure')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div mat-dialog-actions class=\"pull-right\">\n\n    <button type=\"button\" mat-raised-button class=\"btn\" (click)=\"onNoClick()\">Cancel</button>\n    <button type=\"submit\" mat-raised-button class=\"btn btn-danger\" cdkFocusInitial [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Done</button>\n    <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n  </div>\n  <div class=\"clearfix\"></div>\n</form>"
+
+/***/ }),
+
+/***/ "./src/app/edit-shuttle-point/edit-shuttle-point.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/edit-shuttle-point/edit-shuttle-point.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/edit-shuttle-point/edit-shuttle-point.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/edit-shuttle-point/edit-shuttle-point.component.ts ***!
+  \********************************************************************/
+/*! exports provided: EditShuttlePointComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditShuttlePointComponent", function() { return EditShuttlePointComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+
+var EditShuttlePointComponent = /** @class */ (function () {
+    function EditShuttlePointComponent(http, fb, toastrService, route, dialogRef, data) {
+        this.http = http;
+        this.fb = fb;
+        this.toastrService = toastrService;
+        this.route = route;
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.filter = {
+            shuttleName: ''
+        };
+        this.processing = false;
+    }
+    EditShuttlePointComponent.prototype.ngOnInit = function () {
+        // this.filter = {
+        //   shuttleName: this.route.snapshot.paramMap.get('name')
+        // };
+        // this.http.post('/get-shuttle-point-detail', this.filter).subscribe(res => {
+        this.form = this.fb.group({
+            name: [{ value: this.data.name, disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            lat: [this.data.lat, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            lng: [this.data.lng, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            position: [this.data.position, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            departure: [this.data.departure, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+        });
+        //   console.log('tesssss' + res.json());
+        //   this.processing = false;
+        // }, error => {
+        //   this.toastrService.error('Lost Connection!');
+        //   this.processing = false;
+        // });
+    };
+    EditShuttlePointComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.form.get(field).valid && this.form.get(field).touched) ||
+            (this.form.get(field).untouched && this.formSubmitAttempt));
+    };
+    EditShuttlePointComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var shuttlePointObj = {
+            name: this.form.getRawValue().name,
+            departure: this.form.value.departure,
+            lat: this.form.value.lat,
+            lng: this.form.value.lng,
+            position: this.form.value.position,
+        };
+        this.processing = true;
+        this.http.post('/add-shuttle-point', shuttlePointObj).subscribe(function (data) {
+            console.log('tesssss' + data);
+            _this.toastrService.success('You have edit ' + shuttlePointObj.name + "'s point", 'Edit Success');
+            _this.form.reset();
+            _this.processing = false;
+            _this.dialogRef.close();
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.processing = false;
+        });
+        this.formSubmitAttempt = true;
+    };
+    EditShuttlePointComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
+    EditShuttlePointComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-edit-shuttle-point',
+            template: __webpack_require__(/*! ./edit-shuttle-point.component.html */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.html"),
+            styles: [__webpack_require__(/*! ./edit-shuttle-point.component.scss */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.scss")]
+        }),
+        __param(5, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_5__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogRef"], Object])
+    ], EditShuttlePointComponent);
+    return EditShuttlePointComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/icons/icons.component.css":
 /*!*******************************************!*\
   !*** ./src/app/icons/icons.component.css ***!
@@ -59751,18 +59831,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
 /* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
 /* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_30__);
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_31__);
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_32__);
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../edit-shuttle-point/edit-shuttle-point.component */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_32__);
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_33__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59798,7 +59879,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
+
 
 
 
@@ -59817,56 +59898,57 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_35__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_36__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_36__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_37__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_38__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                angularfire2__WEBPACK_IMPORTED_MODULE_30__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_29__["environment"].firebase),
-                angularfire2_database__WEBPACK_IMPORTED_MODULE_31__["AngularFireDatabaseModule"],
-                angularfire2_auth__WEBPACK_IMPORTED_MODULE_32__["AngularFireAuthModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_33__["NgxSpinnerModule"]
+                angularfire2__WEBPACK_IMPORTED_MODULE_31__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_30__["environment"].firebase),
+                angularfire2_database__WEBPACK_IMPORTED_MODULE_32__["AngularFireDatabaseModule"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_33__["AngularFireAuthModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_34__["NgxSpinnerModule"]
             ],
             entryComponents: [
-                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"]
+                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
+                _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__["EditShuttlePointComponent"],
             ],
             declarations: [
                 _dashboard_template_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
@@ -59892,10 +59974,10 @@ var AdminLayoutModule = /** @class */ (function () {
                 _report_report_component__WEBPACK_IMPORTED_MODULE_25__["ReportComponent"],
                 _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_26__["DownloadReportComponent"],
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
-                _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__["AdminDashboardComponent"]
-                // EditShuttlePointComponent,
+                _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__["AdminDashboardComponent"],
+                _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__["EditShuttlePointComponent"],
             ],
-            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_34__["ExcelService"]]
+            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_35__["ExcelService"]]
         })
     ], AdminLayoutModule);
     return AdminLayoutModule;
@@ -59945,7 +60027,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 var AdminLayoutRoutes = [
     // {
     //   path: '',
@@ -60986,7 +61067,7 @@ var ExcelService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of shuttlePoints\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                    <div style=\"display:flex\">\n                      <h4 class=\"card-title\" style=\"width:100%\">{{shuttlePoint.name}}</h4>\n                      <a [routerLink]=\"['/edit-shuttle-point', shuttlePoint.name]\">\n                        <i class=\"material-icons pull-right\">edit</i>\n                      </a>\n                    </div>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of shuttlePoints\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                    <div style=\"display:flex\">\n                      <h4 class=\"card-title\" style=\"width:100%\">{{shuttlePoint.name}}</h4>\n                      <a style=\"cursor: pointer;\" (click)=\"delete(shuttlePoint, shuttlePoint.name)\">\n                        <i class=\"material-icons pull-right\">delete</i>\n                      </a>\n                      <a style=\"cursor: pointer;\" (click)=\"edit(shuttlePoint)\">\n                        <i class=\"material-icons pull-right\">edit</i>\n                      </a>\n                    </div>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
 
 /***/ }),
 
@@ -61016,7 +61097,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
 /* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var rxjs_add_operator_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/add/operator/map */ "./node_modules/rxjs-compat/_esm5/add/operator/map.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../edit-shuttle-point/edit-shuttle-point.component */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.ts");
+/* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var rxjs_add_operator_map__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/add/operator/map */ "./node_modules/rxjs-compat/_esm5/add/operator/map.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61026,6 +61112,11 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
+
+
+
 
 
 
@@ -61040,9 +61131,12 @@ var SHUTTLE_POINTS = [
     { name: "Wisma Asia", lat: -6.189851, lng: 106.79775, img: "../assets/img/maps/wisma-asia.jpg" },
 ];
 var ShuttlePointsAdminComponent = /** @class */ (function () {
-    function ShuttlePointsAdminComponent(db, spinner) {
+    function ShuttlePointsAdminComponent(http, db, spinner, dialog, toastrService) {
+        this.http = http;
         this.db = db;
         this.spinner = spinner;
+        this.dialog = dialog;
+        this.toastrService = toastrService;
         this.zoom = 20;
         // collection: AngularFirestoreCollection<> = db.collection
         // db.list('/shuttle-points').valueChanges()
@@ -61066,14 +61160,39 @@ var ShuttlePointsAdminComponent = /** @class */ (function () {
         //   return this.db.list(listPath).valueChanges();
         // }
     };
+    ShuttlePointsAdminComponent.prototype.edit = function (shuttlePoint) {
+        var dialogRef = this.dialog.open(_edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_4__["EditShuttlePointComponent"], {
+            width: '750px',
+            data: shuttlePoint
+        });
+    };
+    ShuttlePointsAdminComponent.prototype.delete = function (shuttlePoint, shuttlePointName) {
+        var _this = this;
+        var dialogRef = this.dialog.open(_confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationDialogComponent"], {
+            width: '350px',
+            data: { msg: "Are you sure to delete " + shuttlePointName + "'s point?" }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result == true) {
+                _this.http.post('/delete-shuttle-point', shuttlePoint).subscribe(function (data) {
+                    _this.toastrService.success(shuttlePointName + "'s point has been deleted", 'Delete Success');
+                }, function (error) {
+                    _this.toastrService.error('Lost Connection!');
+                });
+            }
+        });
+    };
     ShuttlePointsAdminComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-shuttle-points-admin',
             template: __webpack_require__(/*! ./shuttle-points-admin.component.html */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.html"),
             styles: [__webpack_require__(/*! ./shuttle-points-admin.component.scss */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.scss")]
         }),
-        __metadata("design:paramtypes", [angularfire2_database__WEBPACK_IMPORTED_MODULE_1__["AngularFireDatabase"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_6__["Http"],
+            angularfire2_database__WEBPACK_IMPORTED_MODULE_1__["AngularFireDatabase"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"]])
     ], ShuttlePointsAdminComponent);
     return ShuttlePointsAdminComponent;
 }());

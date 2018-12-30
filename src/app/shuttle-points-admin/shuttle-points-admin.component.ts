@@ -3,9 +3,15 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireDatabase } from 'angularfire2/database'
 import { Observable } from 'rxjs/Observable';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatDialog } from '@angular/material';
+import { EditShuttlePointComponent } from '../edit-shuttle-point/edit-shuttle-point.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { Http } from '@angular/http';
+import { ToastrService } from 'ngx-toastr';
+
 import 'rxjs/add/operator/map'
 
-interface AssemblyPoint{
+interface AssemblyPoint {
   name: string;
   lat: number;
   lng: number;
@@ -49,16 +55,19 @@ export class ShuttlePointsAdminComponent implements OnInit {
   shuttlePoints: any[];
 
   constructor(
+    private http: Http,
     private db: AngularFireDatabase,
-    private spinner: NgxSpinnerService
-  ) { 
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog,
+    private toastrService: ToastrService,
+  ) {
     // collection: AngularFirestoreCollection<> = db.collection
     // db.list('/shuttle-points').valueChanges()
     //     .subscribe(shuttlePoints => {
     //         this.shuttlePoints = shuttlePoints;
     //         console.log(shuttlePoints);
     //     })
-}
+  }
 
   ngOnInit() {
     // this.pointsCollection = this.db.collection('points')
@@ -67,15 +76,38 @@ export class ShuttlePointsAdminComponent implements OnInit {
     this.spinner.show();
     this.db.list('/shuttle-points').valueChanges().subscribe(shuttlePoints => {
       this.shuttlePoints = shuttlePoints;
-            console.log(shuttlePoints);
+      console.log(shuttlePoints);
       this.spinner.hide();
     });
-    
-    
+
+
 
     // getShuttlePoints(listPath): Observable<any[]> {
     //   return this.db.list(listPath).valueChanges();
     // }
+  }
+
+  edit(shuttlePoint: Object){
+    const dialogRef = this.dialog.open(EditShuttlePointComponent, {
+      width: '750px',
+      data: shuttlePoint
+    });
+  }
+
+  delete(shuttlePoint: Object, shuttlePointName: String){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {msg: "Are you sure to delete "+ shuttlePointName +"'s point?"}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+        this.http.post('/delete-shuttle-point', shuttlePoint).subscribe(data => {
+          this.toastrService.success(shuttlePointName + "'s point has been deleted", 'Delete Success');
+        }, error => {
+          this.toastrService.error('Lost Connection!');
+        });
+      }
+    });
   }
 
 }
