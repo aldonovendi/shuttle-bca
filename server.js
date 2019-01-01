@@ -406,7 +406,7 @@ app.post("/register-success", function (req, res) {
 app.post("/add-shuttle-point", function (req, res) {
     console.log(JSON.stringify(req.body));
     var imgName = req.body.name.toLowerCase().replace(" ", "-");
-    
+
     firebase.database.ref('shuttle-points').child(req.body.name).set({
         name: req.body.name,
         departure: req.body.departure,
@@ -484,25 +484,41 @@ app.post("/show-booking-report", function (req, res) {
 
 app.post('/get-passenger-count', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
+    var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
     var passengerList = []
     var passengerCount = new Array(5).fill(0);
+
+    var passengerCountYear = new Array(5);
+    var passengerCountMonth = new Array(5);
+    var passengerCountDate = new Array(5);
+    var todayDate = new Date();
+    var firstDay;
+    var addIdx;
+    if (todayDate.getDay() == 0) {
+        addIdx = 1;
+    } else {
+        addIdx = 8 - todayDate.getDay();
+    }
+    
+    for (let i = 0; i < passengerCountDate.length; i++) {
+        
+        firstDay = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() + addIdx + i);
+        passengerCountYear[i] = firstDay.getFullYear();
+        passengerCountMonth[i] = month[firstDay.getMonth()];
+        passengerCountDate[i] = firstDay.getDate();
+    }
+
     firebase.database.ref('booking-report/Shuttle Bus').once('value').then(function (snapshot) {
         snapshot.forEach(item => {
-            if (item.val()['2018']['December']['17'] != null) {
-                passengerCount[0] = Object.keys(item.val()['2018']['December']['17']).length;
+            for (let i = 0; i < passengerCount.length; i++) {
+                if (item.val()[passengerCountYear[i]][passengerCountMonth[i]][passengerCountDate[i]] != null) {
+                    passengerCount[i] = Object.keys(item.val()[passengerCountYear[i]][passengerCountMonth[i]][passengerCountDate[i]]).length;
+                } else {
+                    passengerCount[i] = 0;
+                }
             }
-            if (item.val()['2018']['December']['18'] != null) {
-                passengerCount[1] = Object.keys(item.val()['2018']['December']['18']).length;
-            }
-            if (item.val()['2018']['December']['19'] != null) {
-                passengerCount[2] = Object.keys(item.val()['2018']['December']['19']).length;
-            }
-            if (item.val()['2018']['December']['20'] != null) {
-                passengerCount[3] = Object.keys(item.val()['2018']['December']['20']).length;
-            }
-            if (item.val()['2018']['December']['21'] != null) {
-                passengerCount[4] = Object.keys(item.val()['2018']['December']['21']).length;
-            }
+
             passengerList.push({
                 'assemblyPoint': item.key,
                 'passengerCountDay1': passengerCount[0],
@@ -512,20 +528,31 @@ app.post('/get-passenger-count', (req, res) => {
                 'passengerCountDay5': passengerCount[4],
             });
         });
-        // console.log("pass count: " + snapshot.numChildren());
-        // passengerList.push({
-        //     'assemblyPoint': 'Wisma Asia',
-        //     'passengerCount': snapshot.numChildren()
-        // });
-        // passengerList.push({
-        //     'assemblyPoint': 'Wisma Asia',
-        //     'passengerCount': snapshot.numChildren()
-        // });
-        // passengerList.push({
-        //     'assemblyPoint': 'Wisma Asia',
-        //     'passengerCount': snapshot.numChildren()
-        // });
-        res.send(passengerList);
+        firebase.database.ref('booking-report/Operational').once('value').then(function (snapshot) {
+            snapshot.forEach(item => {
+                for (let i = 0; i < passengerCount.length; i++) {
+                    if (item.val()[passengerCountYear[i]][passengerCountMonth[i]][passengerCountDate[i]] != null) {
+                        passengerCount[i] = Object.keys(item.val()[passengerCountYear[i]][passengerCountMonth[i]][passengerCountDate[i]]).length;
+                    } else {
+                        passengerCount[i] = 0;
+                    }
+                }
+    
+                passengerList.push({
+                    'assemblyPoint': "Operational (" + item.key + ")",
+                    'passengerCountDay1': passengerCount[0],
+                    'passengerCountDay2': passengerCount[1],
+                    'passengerCountDay3': passengerCount[2],
+                    'passengerCountDay4': passengerCount[3],
+                    'passengerCountDay5': passengerCount[4],
+                });
+                
+            });
+            res.send(passengerList);
+        }).catch(function (error) {
+            console.log('[e-Shuttle][post/get-count][Error][' + error + ']');
+            res.status(500).send("get passenger count error");
+        });
     }).catch(function (error) {
         console.log('[e-Shuttle][post/get-count][Error][' + error + ']');
         res.status(500).send("get passenger count error");
@@ -663,23 +690,23 @@ app.post("/edit-user-data", function (req, res) {
     admin.auth().updateUser(req.body.key, {
         email: req.body.email
     }).then(userRecord => {
-        console.log("heii"+JSON.stringify(userRecord));
-        
+        console.log("heii" + JSON.stringify(userRecord));
+
         firebase.database.ref('user').child(req.body.key).update({
             name: req.body.name,
             nip: req.body.nip,
             program: req.body.program,
             phoneNo: req.body.phoneNo,
             email: req.body.email
-        }).then(function(){
+        }).then(function () {
             res.status(200).send('edit user success');
         }).catch(error => {
             res.status(500).send('lost connection');
         });
     }).catch(error => {
-        console.log("error disini: "+error.code);
-        console.log("error disini: "+error.message);
-        
+        console.log("error disini: " + error.code);
+        console.log("error disini: " + error.message);
+
         if (error.code == 'auth/email-already-in-use') {
             res.status(501).send('Email already in use');
         } else {
@@ -692,16 +719,16 @@ app.post("/edit-admin-data", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     console.log(JSON.stringify(req.body));
 
-        firebase.database.ref('user').child(firebase.auth.currentUser.uid).update({
-            name: req.body.name,
-            nip: req.body.nip,
-            program: req.body.program,
-            phoneNo: req.body.phoneNo            
-        }).then(function(){
-            res.status(200).send('edit user success');
-        }).catch(error => {
-            res.status(500).send('lost connection');
-        });
+    firebase.database.ref('user').child(firebase.auth.currentUser.uid).update({
+        name: req.body.name,
+        nip: req.body.nip,
+        program: req.body.program,
+        phoneNo: req.body.phoneNo
+    }).then(function () {
+        res.status(200).send('edit user success');
+    }).catch(error => {
+        res.status(500).send('lost connection');
+    });
 });
 
 app.listen(port, () => {

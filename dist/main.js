@@ -764,18 +764,18 @@ var ROUTES = [
     // { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/add-booking', title: 'Add Booking', icon: 'add', class: '' },
     { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
-    { path: '/user-profile-admin', title: 'User Profile Admin', icon: 'person', class: '' },
     { path: '/shuttle-points', title: 'Shuttle Points', icon: 'location_on', class: '' },
+    { path: '/booking-list', title: 'My Upcoming Booking', icon: 'history', class: '' },
+    { path: '/admin-dashboard', title: 'Admin Dashboard', icon: 'dashboard', class: '' },
+    { path: '/user-profile-admin', title: 'User Profile Admin', icon: 'person', class: '' },
     { path: '/shuttle-points-admin', title: 'Shuttle Points Admin', icon: 'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/booking-list', title: 'My Booking History', icon: 'history', class: '' },
     { path: '/register-user', title: 'Register User', icon: 'person_add', class: '' },
     { path: '/add-booking-admin', title: 'Add Booking to User', icon: 'add_circle', class: '' },
     { path: '/add-shuttle-point', title: 'Add Shuttle Point', icon: 'add_location', class: '' },
     { path: '/booking-report', title: 'Booking Report', icon: 'library_books', class: '' },
     { path: '/download-report', title: 'Download Report', icon: 'save_alt', class: '' },
     { path: '/manage-user', title: 'Manage User', icon: 'people', class: '' },
-    { path: '/admin-dashboard', title: 'Admin Dashboard', icon: 'dashboard', class: '' },
 ];
 var SidebarComponent = /** @class */ (function () {
     function SidebarComponent() {
@@ -1095,7 +1095,7 @@ var LoginLayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"signin-content\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Login</h4>\n            <p class=\"card-category\">Please login to continue</p>\n          </div>\n          <div class=\"card-body\">\n            <!-- <div class=\"signin-content\"> -->\n              <!-- <mat-card>\n                <mat-card-content> -->\n                  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput placeholder=\"Email\" formControlName=\"email\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('email')\">\n                        Please inform your user name\n                      </mat-error>\n                    </mat-form-field>\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('password')\">\n                        Please inform your password\n                      </mat-error>\n                    </mat-form-field>\n                    <a [routerLink]=\"['/forgot-password']\">Forgot password?</a><br>\n                    <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!form.valid\">Login</button>\n                  </form>\n                <!-- </mat-card-content>\n              </mat-card> -->\n            <!-- </div> -->\n            \n          </div>\n        </div>\n      </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"signin-content\">\n          <div class=\"card\">\n            <div class=\"card-header card-header-danger\">\n              <h4 class=\"card-title\">Login</h4>\n              <p class=\"card-category\">Please login to continue</p>\n            </div>\n            <div class=\"card-body\">\n              <!-- <div class=\"signin-content\"> -->\n              <!-- <mat-card>\n                <mat-card-content> -->\n              <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n                <mat-form-field class=\"full-width-input\">\n                  <input matInput placeholder=\"Email\" formControlName=\"email\" required>\n                  <mat-error *ngIf=\"isFieldInvalid('email')\">\n                    Please inform your user name\n                  </mat-error>\n                </mat-form-field>\n                <mat-form-field class=\"full-width-input\">\n                  <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                  <mat-error *ngIf=\"isFieldInvalid('password')\">\n                    Please inform your password\n                  </mat-error>\n                </mat-form-field>\n                <div class=\"row\" style=\"margin-bottom: 10px;\">\n                  <div class=\"col-md-12\">\n                    <button mat-raised-button class=\"btn btn-danger\" type=\"submit\" [disabled]=\"!form.valid\" style=\"width: 100%\">Login</button>\n                  </div>\n                </div>\n                <a [routerLink]=\"['/forgot-password']\" style=\"color: #f44336;\"><u>Forgot password?</u></a>\n\n              </form>\n              <!-- </mat-card-content>\n              </mat-card> -->\n              <!-- </div> -->\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
