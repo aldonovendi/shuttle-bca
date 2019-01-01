@@ -688,6 +688,22 @@ app.post("/edit-user-data", function (req, res) {
     });
 });
 
+app.post("/edit-admin-data", function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    console.log(JSON.stringify(req.body));
+
+        firebase.database.ref('user').child(firebase.auth.currentUser.uid).update({
+            name: req.body.name,
+            nip: req.body.nip,
+            program: req.body.program,
+            phoneNo: req.body.phoneNo            
+        }).then(function(){
+            res.status(200).send('edit user success');
+        }).catch(error => {
+            res.status(500).send('lost connection');
+        });
+});
+
 app.listen(port, () => {
     // console.log(`Server running at http://${hostname}:${port}/`);
     //   console.log(new Date());

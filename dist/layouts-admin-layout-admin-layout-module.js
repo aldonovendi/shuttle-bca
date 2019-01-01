@@ -59985,24 +59985,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
 /* harmony import */ var _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../edit-shuttle-point/edit-shuttle-point.component */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.ts");
 /* harmony import */ var _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../edit-user-profile/edit-user-profile.component */ "./src/app/edit-user-profile/edit-user-profile.component.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_32__);
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_33__);
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_34__);
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _user_profile_admin_user_profile_admin_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../../user-profile-admin/user-profile-admin.component */ "./src/app/user-profile-admin/user-profile-admin.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_33__);
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_34__);
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_35__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -60052,53 +60054,53 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_37__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_38__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_39__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_39__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_40__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                angularfire2__WEBPACK_IMPORTED_MODULE_32__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_31__["environment"].firebase),
-                angularfire2_database__WEBPACK_IMPORTED_MODULE_33__["AngularFireDatabaseModule"],
-                angularfire2_auth__WEBPACK_IMPORTED_MODULE_34__["AngularFireAuthModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_35__["NgxSpinnerModule"]
+                angularfire2__WEBPACK_IMPORTED_MODULE_33__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_32__["environment"].firebase),
+                angularfire2_database__WEBPACK_IMPORTED_MODULE_34__["AngularFireDatabaseModule"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_35__["AngularFireAuthModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_36__["NgxSpinnerModule"]
             ],
             entryComponents: [
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
@@ -60134,9 +60136,10 @@ var AdminLayoutModule = /** @class */ (function () {
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
                 _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__["AdminDashboardComponent"],
                 _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__["EditShuttlePointComponent"],
-                _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_30__["EditUserProfileComponent"]
+                _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_30__["EditUserProfileComponent"],
+                _user_profile_admin_user_profile_admin_component__WEBPACK_IMPORTED_MODULE_31__["UserProfileAdminComponent"]
             ],
-            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_36__["ExcelService"]]
+            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_37__["ExcelService"]]
         })
     ], AdminLayoutModule);
     return AdminLayoutModule;
@@ -60169,6 +60172,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
 /* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
 /* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
+/* harmony import */ var _user_profile_admin_user_profile_admin_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../user-profile-admin/user-profile-admin.component */ "./src/app/user-profile-admin/user-profile-admin.component.ts");
+
 
 
 
@@ -60227,6 +60232,7 @@ var AdminLayoutRoutes = [
     // }
     // { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile', component: _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_0__["UserProfileComponent"] },
+    { path: 'user-profile-admin', component: _user_profile_admin_user_profile_admin_component__WEBPACK_IMPORTED_MODULE_13__["UserProfileAdminComponent"] },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
@@ -61558,6 +61564,183 @@ var UpgradeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/user-profile-admin/user-profile-admin.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/user-profile-admin/user-profile-admin.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-7\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title\">Personal Information</h4>\n                        <p class=\"card-category\">Update your personal information</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n                            <div class=\"row\">\n                              <div class=\"col-md-12\">\n                                <mat-form-field>\n                                  <input matInput placeholder=\"Name\" formControlName=\"name\">\n                                  <mat-error *ngIf=\"isFieldInvalid('name')\">\n                                    This field is <strong>required</strong>\n                                  </mat-error>\n                                </mat-form-field>\n                              </div>\n                            </div>\n                            <div class=\"row\">\n                              <div class=\"col-md-6\">\n                                <mat-form-field>\n                                  <input matInput placeholder=\"NIP\" formControlName=\"nip\">\n                                  <mat-error *ngIf=\"isFieldInvalid('nip')\">\n                                    This field is <strong>required</strong>\n                                  </mat-error>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"col-md-6\">\n                                <mat-form-field>\n                                  <input matInput placeholder=\"Program\" formControlName=\"program\">\n                                  <mat-error *ngIf=\"isFieldInvalid('program')\">\n                                    This field is <strong>required</strong>\n                                  </mat-error>\n                                </mat-form-field>\n                              </div>\n                            </div>\n                            <div class=\"row\">\n                              <div class=\"col-md-12\">\n                                <mat-form-field>\n                                  <input matInput placeholder=\"Phone No\" formControlName=\"phoneNo\">\n                                  <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n                                    This field is <strong>required</strong>\n                                  </mat-error>\n                                </mat-form-field>\n                              </div>\n                            </div>\n                            <div mat-dialog-actions class=\"pull-right\">\n                          \n                              <button type=\"button\" mat-raised-button class=\"btn\" (click)=\"resetForm()\">Reset</button>\n                              <button type=\"submit\" mat-raised-button class=\"btn btn-danger\" cdkFocusInitial [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Done</button>\n                              <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                            </div>\n                            <div class=\"clearfix\"></div>\n                          </form>\n                        <!-- <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Name</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.name}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">NIP</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.nip}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Program</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.program}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Phone No</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.phoneNo}}</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePhoneNo()\">edit</i>\n                            </div>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-5\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title\">Security Information</h4>\n                        <p class=\"card-category\">Update your security information</p>\n                    </div>\n                    <div class=\"card-body\">\n                        \n                        <div class=\"row\">\n                            <div class=\"col-md-3 profile-label\">Email</div>\n                            <div class=\"col-md-7\">\n                                <p>{{userData.email}}</p>\n                            </div>\n                            <div class=\"col-md-2 edit-icon-container\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changeEmail()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-3 profile-label\">Password</div>\n                            <div class=\"col-md-7\">\n                                <p>&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;</p>\n                            </div>\n                            <div class=\"col-md-2 edit-icon-container\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePassword()\">edit</i>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+
+/***/ }),
+
+/***/ "./src/app/user-profile-admin/user-profile-admin.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/user-profile-admin/user-profile-admin.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".edit-icon, .profile-icon, .profile-label {\n  color: #999999; }\n\n.edit-icon {\n  cursor: pointer; }\n\n@media screen and (max-width: 767px) {\n  .edit-icon {\n    right: 20px;\n    position: absolute; }\n  .edit-icon-container {\n    position: absolute; } }\n"
+
+/***/ }),
+
+/***/ "./src/app/user-profile-admin/user-profile-admin.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/user-profile-admin/user-profile-admin.component.ts ***!
+  \********************************************************************/
+/*! exports provided: UserProfileAdminComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileAdminComponent", function() { return UserProfileAdminComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
+/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var UserProfileAdminComponent = /** @class */ (function () {
+    function UserProfileAdminComponent(http, fb, toastrService, spinner, dialog) {
+        this.http = http;
+        this.fb = fb;
+        this.toastrService = toastrService;
+        this.spinner = spinner;
+        this.dialog = dialog;
+        this.processing = false;
+    }
+    UserProfileAdminComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.spinner.show();
+        this.http.post('/get-user-detail', {}).subscribe(function (data) {
+            _this.userData = data.json();
+            console.log(JSON.stringify(_this.userData));
+            _this.form = _this.fb.group({
+                name: [_this.userData.name, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                nip: [_this.userData.nip, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                program: [_this.userData.program, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                phoneNo: [_this.userData.phoneNo, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            });
+            _this.spinner.hide();
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.spinner.hide();
+        });
+        this.form = this.fb.group({
+            name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            nip: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            program: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            phoneNo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+        });
+        this.userData = {
+            name: '',
+            nip: '',
+            program: '',
+            phoneNo: '',
+            email: '',
+        };
+    };
+    UserProfileAdminComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.form.get(field).valid && this.form.get(field).touched) ||
+            (this.form.get(field).untouched && this.formSubmitAttempt));
+    };
+    UserProfileAdminComponent.prototype.changeEmail = function () {
+        var _this = this;
+        this.dialog.open(_change_email_change_email_component__WEBPACK_IMPORTED_MODULE_6__["ChangeEmailComponent"], {
+            width: '500px'
+        }).afterClosed().subscribe(function (res) {
+            if (res != null) {
+                _this.userData.email = res;
+            }
+        });
+    };
+    UserProfileAdminComponent.prototype.changePassword = function () {
+        this.dialog.open(_change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__["ChangePasswordComponent"], {
+            width: '500px'
+        });
+    };
+    UserProfileAdminComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var userData = {
+            name: this.form.value.name,
+            nip: this.form.value.nip,
+            program: this.form.value.program,
+            phoneNo: this.form.value.phoneNo,
+        };
+        this.processing = true;
+        this.http.post('/edit-admin-data', userData).subscribe(function (data) {
+            console.log('tesssss' + data);
+            _this.toastrService.success('You have edit your personal information', 'Edit Success');
+            _this.processing = false;
+        }, function (error) {
+            if (error.status == 501) {
+                _this.toastrService.error('Email already in use');
+            }
+            else {
+                _this.toastrService.error('Lost Connection');
+            }
+            _this.processing = false;
+        });
+        this.formSubmitAttempt = true;
+    };
+    UserProfileAdminComponent.prototype.resetForm = function () {
+        var _this = this;
+        this.spinner.show();
+        this.http.post('/get-user-detail', {}).subscribe(function (data) {
+            _this.userData = data.json();
+            console.log(JSON.stringify(_this.userData));
+            _this.form = _this.fb.group({
+                name: [_this.userData.name, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                nip: [_this.userData.nip, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                program: [_this.userData.program, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                phoneNo: [_this.userData.phoneNo, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            });
+            _this.spinner.hide();
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.spinner.hide();
+        });
+    };
+    UserProfileAdminComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-user-profile-admin',
+            template: __webpack_require__(/*! ./user-profile-admin.component.html */ "./src/app/user-profile-admin/user-profile-admin.component.html"),
+            styles: [__webpack_require__(/*! ./user-profile-admin.component.scss */ "./src/app/user-profile-admin/user-profile-admin.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_5__["NgxSpinnerService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"]])
+    ], UserProfileAdminComponent);
+    return UserProfileAdminComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/user-profile/user-profile.component.html":
 /*!**********************************************************!*\
   !*** ./src/app/user-profile/user-profile.component.html ***!
@@ -61565,7 +61748,7 @@ var UpgradeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-8\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title\">Edit Profile</h4>\n                        <p class=\"card-category\">Update your account information</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Name</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.name}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">NIP</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.nip}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Program</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.program}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Phone No</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.phoneNo}}</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePhoneNo()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Email</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.email}}</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changeEmail()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Password</div>\n                            <div class=\"col-md-9\">\n                                <p>&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePassword()\">edit</i>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            \n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-8\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title\">Edit Profile</h4>\n                        <p class=\"card-category\">Update your account information</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"row  data-row\">\n                            <div class=\"col-md-2 profile-label\">Name</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.name}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row data-row\">\n                            <div class=\"col-md-2 profile-label\">NIP</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.nip}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row data-row\">\n                            <div class=\"col-md-2 profile-label\">Program</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.program}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row data-row\">\n                            <div class=\"col-md-2 profile-label\">Phone No</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.phoneNo}}</p>\n                            </div>\n                            <div class=\"col-md-1 edit-icon-container\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePhoneNo()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row data-row\">\n                            <div class=\"col-md-2 profile-label\">Email</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.email}}</p>\n                            </div>\n                            <div class=\"col-md-1 edit-icon-container\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changeEmail()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row data-row\">\n                            <div class=\"col-md-2 profile-label\">Password</div>\n                            <div class=\"col-md-9\">\n                                <p>&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;</p>\n                            </div>\n                            <div class=\"col-md-1 edit-icon-container\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePassword()\">edit</i>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            \n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -61576,7 +61759,7 @@ module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".edit-icon, .profile-icon, .profile-label {\n  color: #999999; }\n\n.edit-icon {\n  cursor: pointer; }\n\n.profile-label {\n  margin-bottom: 1.5rem; }\n"
+module.exports = ".edit-icon, .profile-icon, .profile-label {\n  color: #999999; }\n\n.edit-icon {\n  cursor: pointer; }\n\n@media screen and (max-width: 767px) {\n  .edit-icon {\n    right: 20px;\n    position: absolute; }\n  .edit-icon-container {\n    position: absolute; } }\n"
 
 /***/ }),
 

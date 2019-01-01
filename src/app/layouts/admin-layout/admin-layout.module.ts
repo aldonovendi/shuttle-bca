@@ -29,6 +29,7 @@ import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmat
 import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
 import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 import { EditUserProfileComponent } from '../../edit-user-profile/edit-user-profile.component';
+import { UserProfileAdminComponent } from '../../user-profile-admin/user-profile-admin.component';
 
 import { environment } from '../../../environments/environment'
 import { AngularFireModule } from 'angularfire2';
@@ -166,7 +167,8 @@ import { AgmCoreModule } from '@agm/core';
     ConfirmationDialogComponent,
     AdminDashboardComponent,
     EditShuttlePointComponent,
-    EditUserProfileComponent
+    EditUserProfileComponent,
+    UserProfileAdminComponent
   ],
   providers:[ExcelService]
 })

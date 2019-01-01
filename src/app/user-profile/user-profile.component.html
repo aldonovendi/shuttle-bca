@@ -8,50 +8,53 @@
                         <p class="card-category">Update your account information</p>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row  data-row">
                             <div class="col-md-2 profile-label">Name</div>
                             <div class="col-md-9">
                                 <p>{{userData.name}}</p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row data-row">
                             <div class="col-md-2 profile-label">NIP</div>
                             <div class="col-md-9">
                                 <p>{{userData.nip}}</p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row data-row">
                             <div class="col-md-2 profile-label">Program</div>
                             <div class="col-md-9">
                                 <p>{{userData.program}}</p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row data-row">
                             <div class="col-md-2 profile-label">Phone No</div>
                             <div class="col-md-9">
                                 <p>{{userData.phoneNo}}</p>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 edit-icon-container">
                                 <i class="material-icons edit-icon" (click)="changePhoneNo()">edit</i>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row data-row">
                             <div class="col-md-2 profile-label">Email</div>
                             <div class="col-md-9">
                                 <p>{{userData.email}}</p>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 edit-icon-container">
                                 <i class="material-icons edit-icon" (click)="changeEmail()">edit</i>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row data-row">
                             <div class="col-md-2 profile-label">Password</div>
                             <div class="col-md-9">
                                 <p>&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;</p>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 edit-icon-container">
                                 <i class="material-icons edit-icon" (click)="changePassword()">edit</i>
                             </div>
+                        </div>
+                        <div class="row">
+                            Please contact our Admin to update your name, NIP, and Program
                         </div>
                     </div>
                 </div>

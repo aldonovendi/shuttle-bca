@@ -20,6 +20,7 @@ import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
 import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
+import { UserProfileAdminComponent } from '../../user-profile-admin/user-profile-admin.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -66,6 +67,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     // { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'user-profile-admin',   component: UserProfileAdminComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },

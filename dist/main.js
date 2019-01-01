@@ -764,6 +764,7 @@ var ROUTES = [
     // { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/add-booking', title: 'Add Booking', icon: 'add', class: '' },
     { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
+    { path: '/user-profile-admin', title: 'User Profile Admin', icon: 'person', class: '' },
     { path: '/shuttle-points', title: 'Shuttle Points', icon: 'location_on', class: '' },
     { path: '/shuttle-points-admin', title: 'Shuttle Points Admin', icon: 'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
