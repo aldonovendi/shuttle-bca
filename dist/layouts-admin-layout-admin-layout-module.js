@@ -58895,7 +58895,7 @@ var BookingReportComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Change Email</h4>\n            <p class=\"card-category\">Insert your new email</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"changeEmail()\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"full-width-input email\">\n                    <input matInput name=\"email\" placeholder=\"New Email\" formControlName=\"email\" required email>\n                    <mat-error *ngIf=\"isFieldInvalid('email')\">\n                      Please fill with correct email address\n                    </mat-error>\n                  </mat-form-field>\n                  \n                  <mat-form-field class=\"full-width-input\">\n                    <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                    <mat-error>\n                      <div *ngIf=\"authFailed\">Incorrect password</div>\n                      <div *ngIf=\"isFieldInvalid('password')\">Please inform your password</div>\n                    </mat-error>\n                    \n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Change Email</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    \n  </div>\n</div>"
+module.exports = "<h4>Change Email</h4>\n<form [formGroup]=\"form\" (ngSubmit)=\"changeEmail()\">\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field class=\"full-width-input email\">\n        <input matInput name=\"email\" placeholder=\"New Email\" formControlName=\"email\" required email>\n        <mat-error *ngIf=\"isFieldInvalid('email')\">\n          Please fill with correct email address\n        </mat-error>\n      </mat-form-field>\n\n      <mat-form-field class=\"full-width-input\">\n        <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n        <mat-error>\n          <div *ngIf=\"authFailed\">Incorrect password</div>\n          <div *ngIf=\"isFieldInvalid('password')\">Please inform your password</div>\n        </mat-error>\n\n      </mat-form-field>\n    </div>\n  </div>\n  <div mat-dialog-actions class=\"pull-right\">\n    <button type=\"button\" mat-raised-button class=\"btn\" (click)=\"onNoClick()\">Cancel</button>\n\n\n    <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Done</button>\n    <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n  </div>\n  <div class=\"clearfix\"></div>\n</form>"
 
 /***/ }),
 
@@ -58924,6 +58924,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58937,11 +58938,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ChangeEmailComponent = /** @class */ (function () {
-    function ChangeEmailComponent(fb, http, toastrService) {
+    function ChangeEmailComponent(fb, http, toastrService, dialogRef) {
         this.fb = fb;
         this.http = http;
         this.toastrService = toastrService;
+        this.dialogRef = dialogRef;
         this.processing = false;
         this.authFailed = false;
     }
@@ -58963,6 +58966,7 @@ var ChangeEmailComponent = /** @class */ (function () {
         this.http.post('change-email', this.form.value).subscribe(function (data) {
             _this.toastrService.success('An email has been set to ' + _this.newEmail, 'Change Email Success');
             _this.processing = false;
+            _this.dialogRef.close(_this.form.value.email);
             _this.form.reset();
         }, function (error) {
             if (error.status = 500) {
@@ -58975,6 +58979,9 @@ var ChangeEmailComponent = /** @class */ (function () {
             _this.processing = false;
         });
     };
+    ChangeEmailComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('form'),
         __metadata("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"])
@@ -58985,7 +58992,10 @@ var ChangeEmailComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./change-email.component.html */ "./src/app/change-email/change-email.component.html"),
             styles: [__webpack_require__(/*! ./change-email.component.scss */ "./src/app/change-email/change-email.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"], _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"]])
     ], ChangeEmailComponent);
     return ChangeEmailComponent;
 }());
@@ -59001,7 +59011,7 @@ var ChangeEmailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-8\">\n          <div class=\"card\">\n            <div class=\"card-header card-header-danger\">\n              <h4 class=\"card-title\">Change Password</h4>\n              <p class=\"card-category\">Update your pasword</p>\n            </div>\n            <div class=\"card-body\">\n              <form [formGroup]=\"form\" (ngSubmit)=\"changePassword()\">\n                \n                <div class=\"row\">\n                  <div class=\"col-md-12\">\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Old Password\" formControlName=\"oldPassword\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('oldPassword')\">\n                        Please inform your password\n                      </mat-error>\n                    </mat-form-field>\n                    \n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"New Password\" formControlName=\"newPassword\" required>\n                      <mat-error *ngIf=\"isFieldInvalid('newPassword')\">\n                        Please inform your password\n                      </mat-error>  \n                    </mat-form-field>\n\n                    <mat-form-field class=\"full-width-input\">\n                      <input matInput type=\"password\" placeholder=\"Confirm New Password\" formControlName=\"confirmNewPassword\" required>\n                      <mat-error *ngIf=\"isPasswordInvalid()\">\n                        Password doesn't match\n                      </mat-error>\n                    </mat-form-field>\n                    <!-- <h3>{{isPasswordInvalid()}}</h3> -->\n                  </div>\n                </div>\n  \n                <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Change Password</button>\n                <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n                <div class=\"clearfix\"></div>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n  </div>\n</div>"
+module.exports = "<h4>Change Password</h4>\n<form [formGroup]=\"form\" (ngSubmit)=\"changePassword()\">\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field class=\"full-width-input\">\n        <input matInput type=\"password\" placeholder=\"Old Password\" formControlName=\"oldPassword\" required>\n        <mat-error *ngIf=\"isFieldInvalid('oldPassword')\">\n          Please inform your password\n        </mat-error>\n      </mat-form-field>\n\n      <mat-form-field class=\"full-width-input\">\n        <input matInput type=\"password\" placeholder=\"New Password\" formControlName=\"newPassword\" required>\n        <mat-error *ngIf=\"isFieldInvalid('newPassword')\">\n          Please inform your password\n        </mat-error>\n      </mat-form-field>\n\n      <mat-form-field class=\"full-width-input\">\n        <input matInput type=\"password\" placeholder=\"Confirm New Password\" formControlName=\"confirmNewPassword\"\n          required>\n        <mat-error *ngIf=\"isPasswordInvalid()\">\n          Password doesn't match\n        </mat-error>\n      </mat-form-field>\n      <!-- <h3>{{isPasswordInvalid()}}</h3> -->\n    </div>\n  </div>\n  <div mat-dialog-actions class=\"pull-right\">\n    <button type=\"button\" mat-raised-button class=\"btn\" (click)=\"onNoClick()\">Cancel</button>\n\n\n    <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Done</button>\n    <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n  </div>\n  <div class=\"clearfix\"></div>\n</form>"
 
 /***/ }),
 
@@ -59030,6 +59040,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59043,11 +59054,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ChangePasswordComponent = /** @class */ (function () {
-    function ChangePasswordComponent(fb, http, toastrService) {
+    function ChangePasswordComponent(fb, http, toastrService, dialogRef) {
         this.fb = fb;
         this.http = http;
         this.toastrService = toastrService;
+        this.dialogRef = dialogRef;
         this.processing = false;
     }
     ChangePasswordComponent.prototype.ngOnInit = function () {
@@ -59070,6 +59083,7 @@ var ChangePasswordComponent = /** @class */ (function () {
         this.http.post('change-password', this.form.value).subscribe(function (data) {
             _this.toastrService.success('Your password has been updated', 'Change Password Success');
             _this.processing = false;
+            _this.dialogRef.close();
             _this.form.reset();
         }, function (error) {
             if (error.status = 500) {
@@ -59081,13 +59095,19 @@ var ChangePasswordComponent = /** @class */ (function () {
             _this.processing = false;
         });
     };
+    ChangePasswordComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
     ChangePasswordComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-change-password',
             template: __webpack_require__(/*! ./change-password.component.html */ "./src/app/change-password/change-password.component.html"),
             styles: [__webpack_require__(/*! ./change-password.component.scss */ "./src/app/change-password/change-password.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"], _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"]])
     ], ChangePasswordComponent);
     return ChangePasswordComponent;
 }());
@@ -59103,7 +59123,7 @@ var ChangePasswordComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <div class=\"card\">\n          <div class=\"card-header card-header-danger\">\n            <h4 class=\"card-title\">Change Email</h4>\n            <p class=\"card-category\">Insert your new email</p>\n          </div>\n          <div class=\"card-body\">\n            <form [formGroup]=\"form\" (ngSubmit)=\"changePhoneNo()\">\n              \n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <mat-form-field class=\"full-width-input\">\n                    <input matInput name=\"phoneNo\" placeholder=\"New Phone No\" formControlName=\"phoneNo\" required>\n                    <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n                      Please fill with correct phone number\n                    </mat-error>\n                  </mat-form-field>\n                  \n                  <mat-form-field class=\"full-width-input\">\n                    <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n                    <mat-error>\n                      <div *ngIf=\"authFailed\">Incorrect password</div>\n                      <div *ngIf=\"isFieldInvalid('password')\">Please inform your password</div>\n                    </mat-error>\n                    \n                  </mat-form-field>\n                </div>\n              </div>\n\n              <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger pull-right\" *ngIf=\"processing != true\">Change Email</button>\n              <button mat-raised-button class=\"btn btn-danger pull-right\" disabled *ngIf=\"processing == true\">Processing...</button>\n              <div class=\"clearfix\"></div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    \n  </div>\n</div>"
+module.exports = "<h4>Change Phone No</h4>\n<form [formGroup]=\"form\" (ngSubmit)=\"changePhoneNo()\">\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field class=\"full-width-input\">\n        <input matInput name=\"phoneNo\" placeholder=\"New Phone No\" formControlName=\"phoneNo\" required>\n        <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n          Please fill with correct phone number\n        </mat-error>\n      </mat-form-field>\n\n      <mat-form-field class=\"full-width-input\">\n        <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\n        <mat-error>\n          <div *ngIf=\"authFailed\">Incorrect password</div>\n          <div *ngIf=\"isFieldInvalid('password')\">Please inform your password</div>\n        </mat-error>\n\n      </mat-form-field>\n    </div>\n  </div>\n  <div mat-dialog-actions class=\"pull-right\">\n    <button type=\"button\" mat-raised-button class=\"btn\" (click)=\"onNoClick()\">Cancel</button>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!form.valid\" class=\"btn btn-danger\" *ngIf=\"processing != true\">Done</button>\n    <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n    \n  </div>\n  <div class=\"clearfix\"></div>\n</form>"
 
 /***/ }),
 
@@ -59132,6 +59152,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59145,11 +59166,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ChangePhoneNoComponent = /** @class */ (function () {
-    function ChangePhoneNoComponent(fb, http, toastrService) {
+    function ChangePhoneNoComponent(fb, http, toastrService, dialogRef) {
         this.fb = fb;
         this.http = http;
         this.toastrService = toastrService;
+        this.dialogRef = dialogRef;
         this.processing = false;
         this.authFailed = false;
     }
@@ -59171,6 +59194,7 @@ var ChangePhoneNoComponent = /** @class */ (function () {
         this.http.post('change-phone-no', this.form.value).subscribe(function (data) {
             _this.toastrService.success('Your Phone Number has been set to ' + _this.newPhoneNo, 'Change Phone Number Success');
             _this.processing = false;
+            _this.dialogRef.close(_this.form.value.phoneNo);
             _this.form.reset();
         }, function (error) {
             if (error.status = 500) {
@@ -59183,6 +59207,9 @@ var ChangePhoneNoComponent = /** @class */ (function () {
             _this.processing = false;
         });
     };
+    ChangePhoneNoComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('form'),
         __metadata("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"])
@@ -59193,7 +59220,10 @@ var ChangePhoneNoComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./change-phone-no.component.html */ "./src/app/change-phone-no/change-phone-no.component.html"),
             styles: [__webpack_require__(/*! ./change-phone-no.component.scss */ "./src/app/change-phone-no/change-phone-no.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"], _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"]])
     ], ChangePhoneNoComponent);
     return ChangePhoneNoComponent;
 }());
@@ -59628,8 +59658,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59647,13 +59676,11 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
-
 var EditShuttlePointComponent = /** @class */ (function () {
-    function EditShuttlePointComponent(http, fb, toastrService, route, dialogRef, data) {
+    function EditShuttlePointComponent(http, fb, toastrService, dialogRef, data) {
         this.http = http;
         this.fb = fb;
         this.toastrService = toastrService;
-        this.route = route;
         this.dialogRef = dialogRef;
         this.data = data;
         this.filter = {
@@ -59715,12 +59742,11 @@ var EditShuttlePointComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./edit-shuttle-point.component.html */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.html"),
             styles: [__webpack_require__(/*! ./edit-shuttle-point.component.scss */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.scss")]
         }),
-        __param(5, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_5__["MAT_DIALOG_DATA"])),
+        __param(4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogRef"], Object])
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"], Object])
     ], EditShuttlePointComponent);
     return EditShuttlePointComponent;
 }());
@@ -59949,6 +59975,9 @@ var AdminLayoutModule = /** @class */ (function () {
             entryComponents: [
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
                 _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__["EditShuttlePointComponent"],
+                _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_18__["ChangePhoneNoComponent"],
+                _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_19__["ChangeEmailComponent"],
+                _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_20__["ChangePasswordComponent"],
             ],
             declarations: [
                 _dashboard_template_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
@@ -59997,23 +60026,19 @@ var AdminLayoutModule = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminLayoutRoutes", function() { return AdminLayoutRoutes; });
-/* harmony import */ var _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../add-booking/add-booking.component */ "./src/app/add-booking/add-booking.component.ts");
-/* harmony import */ var _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../schedule/schedule.component */ "./src/app/schedule/schedule.component.ts");
-/* harmony import */ var _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shuttle-points-admin/shuttle-points-admin.component */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.ts");
-/* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
-/* harmony import */ var _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../booking-list/booking-list.component */ "./src/app/booking-list/booking-list.component.ts");
-/* harmony import */ var _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../change-phone-no/change-phone-no.component */ "./src/app/change-phone-no/change-phone-no.component.ts");
-/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
-/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
-/* harmony import */ var _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../add-booking-admin/add-booking-admin.component */ "./src/app/add-booking-admin/add-booking-admin.component.ts");
-/* harmony import */ var _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../add-shuttle-point/add-shuttle-point.component */ "./src/app/add-shuttle-point/add-shuttle-point.component.ts");
-/* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
-/* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
-/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
-/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
-/* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
-
-
+/* harmony import */ var _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../user-profile/user-profile.component */ "./src/app/user-profile/user-profile.component.ts");
+/* harmony import */ var _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../add-booking/add-booking.component */ "./src/app/add-booking/add-booking.component.ts");
+/* harmony import */ var _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../schedule/schedule.component */ "./src/app/schedule/schedule.component.ts");
+/* harmony import */ var _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shuttle-points-admin/shuttle-points-admin.component */ "./src/app/shuttle-points-admin/shuttle-points-admin.component.ts");
+/* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
+/* harmony import */ var _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../booking-list/booking-list.component */ "./src/app/booking-list/booking-list.component.ts");
+/* harmony import */ var _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../add-booking-admin/add-booking-admin.component */ "./src/app/add-booking-admin/add-booking-admin.component.ts");
+/* harmony import */ var _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../add-shuttle-point/add-shuttle-point.component */ "./src/app/add-shuttle-point/add-shuttle-point.component.ts");
+/* harmony import */ var _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../booking-report/booking-report.component */ "./src/app/booking-report/booking-report.component.ts");
+/* harmony import */ var _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../manage-user/manage-user.component */ "./src/app/manage-user/manage-user.component.ts");
+/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../report/report.component */ "./src/app/report/report.component.ts");
+/* harmony import */ var _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../download-report/download-report.component */ "./src/app/download-report/download-report.component.ts");
+/* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
 
 
 
@@ -60071,28 +60096,25 @@ var AdminLayoutRoutes = [
     //     }]
     // }
     // { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'user-profile', component: _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_0__["UserProfileComponent"] },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
     // { path: 'maps',           component: MapsComponent },
     // { path: 'notifications',  component: NotificationsComponent },
     // { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'add-booking', component: _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_0__["AddBookingComponent"] },
-    { path: 'shuttle-points', component: _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_1__["ScheduleComponent"] },
-    { path: 'shuttle-points-admin', component: _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_2__["ShuttlePointsAdminComponent"] },
-    { path: 'register-user', component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_3__["RegisterUserComponent"] },
-    { path: 'booking-list', component: _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_4__["BookingListComponent"] },
-    { path: 'change-email', component: _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_6__["ChangeEmailComponent"] },
-    { path: 'change-phone-no', component: _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_5__["ChangePhoneNoComponent"] },
-    { path: 'change-password', component: _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__["ChangePasswordComponent"] },
-    { path: 'add-booking-admin', component: _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_8__["AddBookingAdminComponent"] },
-    { path: 'add-shuttle-point', component: _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_9__["AddShuttlePointComponent"] },
-    { path: 'booking-report', component: _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_10__["BookingReportComponent"] },
-    { path: 'manage-user', component: _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_11__["ManageUserComponent"] },
-    { path: 'download-booking-report/:month/:year', component: _report_report_component__WEBPACK_IMPORTED_MODULE_12__["ReportComponent"] },
-    { path: 'download-report', component: _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_13__["DownloadReportComponent"] },
-    { path: 'admin-dashboard', component: _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["AdminDashboardComponent"] },
+    { path: 'add-booking', component: _add_booking_add_booking_component__WEBPACK_IMPORTED_MODULE_1__["AddBookingComponent"] },
+    { path: 'shuttle-points', component: _schedule_schedule_component__WEBPACK_IMPORTED_MODULE_2__["ScheduleComponent"] },
+    { path: 'shuttle-points-admin', component: _shuttle_points_admin_shuttle_points_admin_component__WEBPACK_IMPORTED_MODULE_3__["ShuttlePointsAdminComponent"] },
+    { path: 'register-user', component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_4__["RegisterUserComponent"] },
+    { path: 'booking-list', component: _booking_list_booking_list_component__WEBPACK_IMPORTED_MODULE_5__["BookingListComponent"] },
+    { path: 'add-booking-admin', component: _add_booking_admin_add_booking_admin_component__WEBPACK_IMPORTED_MODULE_6__["AddBookingAdminComponent"] },
+    { path: 'add-shuttle-point', component: _add_shuttle_point_add_shuttle_point_component__WEBPACK_IMPORTED_MODULE_7__["AddShuttlePointComponent"] },
+    { path: 'booking-report', component: _booking_report_booking_report_component__WEBPACK_IMPORTED_MODULE_8__["BookingReportComponent"] },
+    { path: 'manage-user', component: _manage_user_manage_user_component__WEBPACK_IMPORTED_MODULE_9__["ManageUserComponent"] },
+    { path: 'download-booking-report/:month/:year', component: _report_report_component__WEBPACK_IMPORTED_MODULE_10__["ReportComponent"] },
+    { path: 'download-report', component: _download_report_download_report_component__WEBPACK_IMPORTED_MODULE_11__["DownloadReportComponent"] },
+    { path: 'admin-dashboard', component: _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_12__["AdminDashboardComponent"] },
 ];
 
 
@@ -61067,7 +61089,7 @@ var ExcelService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of shuttlePoints\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                    <div style=\"display:flex\">\n                      <h4 class=\"card-title\" style=\"width:100%\">{{shuttlePoint.name}}</h4>\n                      <a style=\"cursor: pointer;\" (click)=\"delete(shuttlePoint, shuttlePoint.name)\">\n                        <i class=\"material-icons pull-right\">delete</i>\n                      </a>\n                      <a style=\"cursor: pointer;\" (click)=\"edit(shuttlePoint)\">\n                        <i class=\"material-icons pull-right\">edit</i>\n                      </a>\n                    </div>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
+module.exports = "<!-- <div *ngFor=\"let point of pointsObservable | async\">\n    <h3>{{point|json}}</h3>\n</div> -->\n\n\n<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-4\" *ngFor = \"let shuttlePoint of shuttlePoints\">\n              <div class=\"card card-chart\">\n                  <div class=\"card-header card-header-warning\">\n                      <!-- <agm-map [zoom]=\"zoom\" [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\">\n                          <agm-marker [latitude]=\"shuttlePoint.lat\" [longitude]=\"shuttlePoint.lng\"></agm-marker>\n                        </agm-map> -->\n                      <a href=\"https://www.google.com/maps/?q={{shuttlePoint.lat}},{{shuttlePoint.lng}}\"rel=\"noopener noreferrer\" target=\"_blank\">\n                      <div class=\"assemblyPoint\" [ngStyle]=\"{'background-image': 'url(' + shuttlePoint.img + ')'}\"></div>\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                    <div style=\"display:flex\">\n                      <h4 class=\"card-title\" style=\"width:100%\">{{shuttlePoint.name}}</h4>\n                      <a style=\"cursor: pointer; color: #999999\" (click)=\"delete(shuttlePoint, shuttlePoint.name)\">\n                        <i class=\"material-icons pull-right\">delete</i>\n                      </a>\n                      <a style=\"cursor: pointer; padding-left: 15px; color: #999999\" (click)=\"edit(shuttlePoint)\">\n                        <i class=\"material-icons pull-right\">edit</i>\n                      </a>\n                    </div>\n                      <p class=\"card-category\">\n                          <!-- <span class=\"text-success\"><i class=\"fa fa-long-arrow-up\"></i> 55% </span> increase in today sales.</p> -->\n                          <span class=\"text-success\"><i class=\"material-icons\">place</i></span> {{shuttlePoint.position}}\n                  </div>\n                  <div class=\"card-footer\">\n                      <div class=\"stats\">\n                          <i class=\"material-icons\">access_time</i> Departure Time : {{shuttlePoint.departure}}\n                      </div>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n<ngx-spinner\nbdColor = \"rgba(51, 51, 51, 0.8)\" size = \"medium\" color = \"#fff\" type = \"ball-atom\"\n></ngx-spinner>"
 
 /***/ }),
 
@@ -61390,17 +61412,6 @@ var UpgradeComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/user-profile/user-profile.component.css":
-/*!*********************************************************!*\
-  !*** ./src/app/user-profile/user-profile.component.css ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
 /***/ "./src/app/user-profile/user-profile.component.html":
 /*!**********************************************************!*\
   !*** ./src/app/user-profile/user-profile.component.html ***!
@@ -61408,7 +61419,18 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n          <div class=\"col-md-8\">\n              <div class=\"card\">\n                  <div class=\"card-header card-header-danger\">\n                      <h4 class=\"card-title\">Edit Profile</h4>\n                      <p class=\"card-category\">Complete your profile</p>\n                  </div>\n                  <div class=\"card-body\">\n                      <form>\n                          <div class=\"row\">\n                              <div class=\"col-md-5\">\n                                <mat-form-field class=\"example-full-width\">\n                                    <input matInput placeholder=\"Company (disabled)\" disabled>\n                                  </mat-form-field>\n                              </div>\n                              <div class=\"col-md-3\">\n                                  <mat-form-field class=\"example-full-width\">\n                                    <input matInput placeholder=\"Username\">\n                                  </mat-form-field>\n                              </div>\n                              <div class=\"col-md-4\">\n                                  <mat-form-field class=\"example-full-width\">\n                                    <input matInput placeholder=\"Email address\" type=\"email\">\n                                  </mat-form-field>\n                              </div>\n                          </div>\n                          <div class=\"row\">\n                              <div class=\"col-md-6\">\n                                <mat-form-field class=\"example-full-width\">\n                                  <input matInput placeholder=\"Fist Name\" type=\"text\">\n                                </mat-form-field>\n                              </div>\n                              <div class=\"col-md-6\">\n                                <mat-form-field class=\"example-full-width\">\n                                  <input matInput placeholder=\"Last Name\" type=\"text\">\n                                </mat-form-field>\n                              </div>\n                          </div>\n                          <div class=\"row\">\n                              <div class=\"col-md-12\">\n                                <mat-form-field class=\"example-full-width\">\n                                  <input matInput placeholder=\"Adress\" type=\"text\">\n                                </mat-form-field>\n                              </div>\n                          </div>\n                          <div class=\"row\">\n                              <div class=\"col-md-4\">\n                                <mat-form-field class=\"example-full-width\">\n                                  <input matInput placeholder=\"City\" type=\"text\">\n                                </mat-form-field>\n                              </div>\n                              <div class=\"col-md-4\">\n                                <mat-form-field class=\"example-full-width\">\n                                  <input matInput placeholder=\"Country\" type=\"text\">\n                                </mat-form-field>\n                              </div>\n                              <div class=\"col-md-4\">\n                                <mat-form-field class=\"example-full-width\">\n                                  <input matInput placeholder=\"Postal Code\" type=\"text\">\n                                </mat-form-field>\n                              </div>\n                          </div>\n                          <div class=\"row\">\n                              <div class=\"col-md-12\">\n                                <label>About Me</label>\n                                <mat-form-field class=\"example-full-width\">\n                                   <textarea matInput placeholder=\"Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.\"></textarea>\n                                 </mat-form-field>\n                                  <!-- <div class=\"form-group\">\n\n                                      <div class=\"form-group\">\n                                          <label class=\"bmd-label-floating\"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>\n                                          <textarea class=\"form-control\" rows=\"5\"></textarea>\n                                      </div>\n                                  </div> -->\n                              </div>\n                          </div>\n                          <button mat-raised-button type=\"submit\" class=\"btn btn-danger pull-right\">Update Profile</button>\n                          <div class=\"clearfix\"></div>\n                      </form>\n                  </div>\n              </div>\n          </div>\n          <div class=\"col-md-4\">\n              <div class=\"card card-profile\">\n                  <div class=\"card-avatar\">\n                      <a href=\"#pablo\">\n                          <img class=\"img\" src=\"../assets/img/faces/marc.jpg\" />\n                      </a>\n                  </div>\n                  <div class=\"card-body\">\n                      <h6 class=\"card-category text-gray\">CEO / Co-Founder</h6>\n                      <h4 class=\"card-title\">Alec Thompson</h4>\n                      <p class=\"card-description\">\n                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...\n                      </p>\n                      <a href=\"#pablo\" class=\"btn btn-danger btn-round\">Follow</a>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-8\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title\">Edit Profile</h4>\n                        <p class=\"card-category\">Update your account information</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Name</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.name}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">NIP</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.nip}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Program</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.program}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Phone No</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.phoneNo}}</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePhoneNo()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Email</div>\n                            <div class=\"col-md-9\">\n                                <p>{{userData.email}}</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changeEmail()\">edit</i>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-md-2 profile-label\">Password</div>\n                            <div class=\"col-md-9\">\n                                <p>&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;&#x25cf;</p>\n                            </div>\n                            <div class=\"col-md-1\">\n                                <i class=\"material-icons edit-icon\" (click)=\"changePassword()\">edit</i>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            \n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+
+/***/ }),
+
+/***/ "./src/app/user-profile/user-profile.component.scss":
+/*!**********************************************************!*\
+  !*** ./src/app/user-profile/user-profile.component.scss ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".edit-icon, .profile-icon, .profile-label {\n  color: #999999; }\n\n.edit-icon {\n  cursor: pointer; }\n\n.profile-label {\n  margin-bottom: 1.5rem; }\n"
 
 /***/ }),
 
@@ -61423,6 +61445,16 @@ module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileComponent", function() { return UserProfileComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../change-email/change-email.component */ "./src/app/change-email/change-email.component.ts");
+/* harmony import */ var _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../change-phone-no/change-phone-no.component */ "./src/app/change-phone-no/change-phone-no.component.ts");
+/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../change-password/change-password.component */ "./src/app/change-password/change-password.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61433,18 +61465,80 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
+
+
+
+
+
 var UserProfileComponent = /** @class */ (function () {
-    function UserProfileComponent() {
+    function UserProfileComponent(http, db, fb, toastrService, spinner, dialog) {
+        this.http = http;
+        this.db = db;
+        this.fb = fb;
+        this.toastrService = toastrService;
+        this.spinner = spinner;
+        this.dialog = dialog;
     }
     UserProfileComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.spinner.show();
+        this.http.post('/get-user-detail', {}).subscribe(function (data) {
+            _this.userData = data.json();
+            console.log(JSON.stringify(_this.userData));
+            _this.spinner.hide();
+        }, function (error) {
+            _this.toastrService.error('Lost Connection!');
+            _this.spinner.hide();
+        });
+        this.userData = {
+            name: '',
+            nip: '',
+            program: '',
+            phoneNo: '',
+            email: ''
+        };
+    };
+    UserProfileComponent.prototype.changeEmail = function () {
+        var _this = this;
+        this.dialog.open(_change_email_change_email_component__WEBPACK_IMPORTED_MODULE_7__["ChangeEmailComponent"], {
+            width: '500px'
+        }).afterClosed().subscribe(function (res) {
+            if (res != null) {
+                _this.userData.email = res;
+            }
+        });
+    };
+    UserProfileComponent.prototype.changePhoneNo = function () {
+        var _this = this;
+        this.dialog.open(_change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_8__["ChangePhoneNoComponent"], {
+            width: '500px'
+        }).afterClosed().subscribe(function (res) {
+            if (res != null) {
+                _this.userData.phoneNo = res;
+            }
+        });
+    };
+    UserProfileComponent.prototype.changePassword = function () {
+        this.dialog.open(_change_password_change_password_component__WEBPACK_IMPORTED_MODULE_9__["ChangePasswordComponent"], {
+            width: '500px'
+        });
     };
     UserProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-user-profile',
             template: __webpack_require__(/*! ./user-profile.component.html */ "./src/app/user-profile/user-profile.component.html"),
-            styles: [__webpack_require__(/*! ./user-profile.component.css */ "./src/app/user-profile/user-profile.component.css")]
+            styles: [__webpack_require__(/*! ./user-profile.component.scss */ "./src/app/user-profile/user-profile.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            angularfire2_database__WEBPACK_IMPORTED_MODULE_4__["AngularFireDatabase"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_5__["NgxSpinnerService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"]])
     ], UserProfileComponent);
     return UserProfileComponent;
 }());

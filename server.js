@@ -107,6 +107,7 @@ app.post("/change-email", function (req, res) {
                 user.updateEmail(req.body.email).then(function () {
                     firebase.database.ref().child("user").child(user.uid + "/email").set(req.body.email).then(function () {
                         console.log('[e-Shuttle][post/change-email][Email changed]')
+                        console.log('current email: ' + firebase.auth.currentUser.email);
                     }).catch(function (error) {
                         console.log('[e-Shuttle][post/change-email][Error][update-database][' + error + ']');
                     });
@@ -633,6 +634,39 @@ app.post("/get-shuttle-point-detail", function (req, res) {
     firebase.database.ref('shuttle-points').child(req.body.shuttleName).once('value').then(function (snapshot) {
         res.send(snapshot.val());
     });
+});
+
+app.post("/get-user-detail", function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    var userData = {
+        name: '',
+        nip: '',
+        program: '',
+        phoneNo: '',
+        email: ''
+    }
+
+    firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value').then(function (snapshot) {
+        userData.name = snapshot.val().name;
+        userData.nip = snapshot.val().nip;
+        userData.program = snapshot.val().program;
+        userData.phoneNo = snapshot.val().phoneNo;
+        userData.email = snapshot.val().email;
+        res.send(userData);
+    });
+});
+
+app.post("/update-user-data", function (req, res) {
+    console.log(JSON.stringify(req.body));
+    
+    firebase.database.ref('user').child(req.body.name).set({
+        name: req.body.name,
+        nip: req.body.nim,
+        program: req.body.program,
+        phoneNo: req.body.phoneNo,
+        email: req.body.email
+    });
+    res.send(req.body);
 });
 
 app.listen(port, () => {

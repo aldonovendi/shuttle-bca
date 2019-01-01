@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-change-password',
@@ -10,7 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
-  constructor(private fb: FormBuilder, private http: Http, private toastrService: ToastrService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private http: Http, 
+    private toastrService: ToastrService,
+    public dialogRef: MatDialogRef<ChangePasswordComponent>,
+  ) { }
   private processing = false;
 
   ngOnInit() {
@@ -40,6 +46,7 @@ export class ChangePasswordComponent implements OnInit {
     this.http.post('change-password', this.form.value).subscribe(data => {
       this.toastrService.success('Your password has been updated', 'Change Password Success');
       this.processing = false;
+      this.dialogRef.close();
       this.form.reset();
     }, error => {
       if(error.status = 500){
@@ -51,4 +58,8 @@ export class ChangePasswordComponent implements OnInit {
     })
   }
 
+  
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

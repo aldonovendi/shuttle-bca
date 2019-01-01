@@ -13,9 +13,6 @@ import { ScheduleComponent } from '../../schedule/schedule.component';
 import { ShuttlePointsAdminComponent } from '../../shuttle-points-admin/shuttle-points-admin.component';
 import { RegisterUserComponent } from '../../register-user/register-user.component'
 import { BookingListComponent } from '../../booking-list/booking-list.component';
-import { ChangePhoneNoComponent } from '../../change-phone-no/change-phone-no.component';
-import { ChangeEmailComponent } from '../../change-email/change-email.component';
-import { ChangePasswordComponent } from '../../change-password/change-password.component';
 import { AddBookingAdminComponent } from '../../add-booking-admin/add-booking-admin.component';
 import { AddShuttlePointComponent } from '../../add-shuttle-point/add-shuttle-point.component';
 import { BookingReportComponent } from '../../booking-report/booking-report.component';
@@ -23,7 +20,6 @@ import { ManageUserComponent } from '../../manage-user/manage-user.component';
 import { ReportComponent } from '../../report/report.component';
 import { DownloadReportComponent } from '../../download-report/download-report.component';
 import { AdminDashboardComponent } from '../../admin-dashboard/admin-dashboard.component';
-import { EditShuttlePointComponent } from '../../edit-shuttle-point/edit-shuttle-point.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -69,7 +65,7 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     // { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'user-profile',   component: UserProfileComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
@@ -81,9 +77,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'shuttle-points-admin', component: ShuttlePointsAdminComponent},
     { path: 'register-user', component: RegisterUserComponent},
     { path: 'booking-list', component: BookingListComponent},
-    { path: 'change-email', component: ChangeEmailComponent},
-    { path: 'change-phone-no', component: ChangePhoneNoComponent},
-    { path: 'change-password', component: ChangePasswordComponent},
     { path: 'add-booking-admin', component: AddBookingAdminComponent},
     { path: 'add-shuttle-point', component: AddShuttlePointComponent},
     { path: 'booking-report', component: BookingReportComponent},

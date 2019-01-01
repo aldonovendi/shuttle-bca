@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
 import { auth } from 'firebase';
+import { MatDialogRef } from '@angular/material';
+
 
 @Component({
   selector: 'app-change-phone-no',
@@ -14,7 +16,12 @@ export class ChangePhoneNoComponent implements OnInit {
   newPhoneNo: String;
   private processing = false;
 
-  constructor(private fb: FormBuilder, private http: Http, private toastrService: ToastrService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private http: Http, 
+    private toastrService: ToastrService,
+    public dialogRef: MatDialogRef<ChangePhoneNoComponent>,
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -40,6 +47,7 @@ export class ChangePhoneNoComponent implements OnInit {
     this.http.post('change-phone-no', this.form.value).subscribe(data => {
       this.toastrService.success('Your Phone Number has been set to ' + this.newPhoneNo, 'Change Phone Number Success');
       this.processing = false;
+      this.dialogRef.close(this.form.value.phoneNo);
       this.form.reset();
     }, error => {
       if(error.status = 500){
@@ -51,5 +59,8 @@ export class ChangePhoneNoComponent implements OnInit {
       this.processing = false;
     })
     
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

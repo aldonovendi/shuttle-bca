@@ -134,6 +134,9 @@ import { AgmCoreModule } from '@agm/core';
   entryComponents: [
     ConfirmationDialogComponent,
     EditShuttlePointComponent,
+    ChangePhoneNoComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent,
   ],
   declarations: [
     DashboardComponent,

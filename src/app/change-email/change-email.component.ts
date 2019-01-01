@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
 import { auth } from 'firebase';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-change-email',
@@ -14,7 +15,12 @@ export class ChangeEmailComponent implements OnInit {
   newEmail: String;
   private processing = false;
 
-  constructor(private fb: FormBuilder, private http: Http, private toastrService: ToastrService) { }
+  constructor(
+    private fb: FormBuilder,
+    private http: Http,
+    private toastrService: ToastrService,
+    public dialogRef: MatDialogRef<ChangeEmailComponent>,
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -40,6 +46,7 @@ export class ChangeEmailComponent implements OnInit {
     this.http.post('change-email', this.form.value).subscribe(data => {
       this.toastrService.success('An email has been set to ' + this.newEmail, 'Change Email Success');
       this.processing = false;
+      this.dialogRef.close(this.form.value.email);
       this.form.reset();
     }, error => {
       if(error.status = 500){
@@ -51,5 +58,8 @@ export class ChangeEmailComponent implements OnInit {
       this.processing = false;
     })
     
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Http } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
@@ -18,7 +17,6 @@ export class EditShuttlePointComponent implements OnInit {
     private http: Http,
     private fb: FormBuilder,
     private toastrService: ToastrService,
-    private route: ActivatedRoute,
     public dialogRef: MatDialogRef<EditShuttlePointComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       name: '',
