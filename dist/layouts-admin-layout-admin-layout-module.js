@@ -59755,6 +59755,132 @@ var EditShuttlePointComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/edit-user-profile/edit-user-profile.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/edit-user-profile/edit-user-profile.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h4>Edit {{data.name}}'s Profile</h4>\n<form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field>\n        <input matInput placeholder=\"Name\" formControlName=\"name\">\n        <mat-error *ngIf=\"isFieldInvalid('name')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <mat-form-field>\n        <input matInput placeholder=\"NIP\" formControlName=\"nip\">\n        <mat-error *ngIf=\"isFieldInvalid('nip')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n    <div class=\"col-md-6\">\n      <mat-form-field>\n        <input matInput placeholder=\"Program\" formControlName=\"program\">\n        <mat-error *ngIf=\"isFieldInvalid('program')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field>\n        <input matInput placeholder=\"Phone No\" formControlName=\"phoneNo\">\n        <mat-error *ngIf=\"isFieldInvalid('phoneNo')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <mat-form-field>\n        <input matInput placeholder=\"Email\" formControlName=\"email\">\n        <mat-error *ngIf=\"isFieldInvalid('email')\">\n          This field is <strong>required</strong>\n        </mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n  <div mat-dialog-actions class=\"pull-right\">\n\n    <button type=\"button\" mat-raised-button class=\"btn\" (click)=\"onNoClick()\">Cancel</button>\n    <button type=\"submit\" mat-raised-button class=\"btn btn-danger\" cdkFocusInitial [disabled]=\"!form.valid\" *ngIf=\"processing != true\">Done</button>\n    <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n  </div>\n  <div class=\"clearfix\"></div>\n</form>"
+
+/***/ }),
+
+/***/ "./src/app/edit-user-profile/edit-user-profile.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/edit-user-profile/edit-user-profile.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/edit-user-profile/edit-user-profile.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/edit-user-profile/edit-user-profile.component.ts ***!
+  \******************************************************************/
+/*! exports provided: EditUserProfileComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditUserProfileComponent", function() { return EditUserProfileComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var EditUserProfileComponent = /** @class */ (function () {
+    function EditUserProfileComponent(http, fb, toastrService, dialogRef, data) {
+        this.http = http;
+        this.fb = fb;
+        this.toastrService = toastrService;
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.processing = false;
+    }
+    EditUserProfileComponent.prototype.ngOnInit = function () {
+        this.form = this.fb.group({
+            name: [this.data.name, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            nip: [this.data.nip, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            program: [this.data.program, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            phoneNo: [this.data.phoneNo, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            email: [this.data.email, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+        });
+    };
+    EditUserProfileComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.form.get(field).valid && this.form.get(field).touched) ||
+            (this.form.get(field).untouched && this.formSubmitAttempt));
+    };
+    EditUserProfileComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var userData = {
+            key: this.data.key,
+            name: this.form.value.name,
+            nip: this.form.value.nip,
+            program: this.form.value.program,
+            phoneNo: this.form.value.phoneNo,
+            email: this.form.value.email,
+        };
+        this.processing = true;
+        this.http.post('/edit-user-data', userData).subscribe(function (data) {
+            console.log('tesssss' + data);
+            _this.toastrService.success('You have edit ' + userData.name + "'s point", 'Edit Success');
+            _this.form.reset();
+            _this.processing = false;
+            _this.dialogRef.close(userData);
+        }, function (error) {
+            if (error.status == 501) {
+                _this.toastrService.error('Email already in use');
+            }
+            else {
+                _this.toastrService.error('Lost Connection');
+            }
+            _this.processing = false;
+        });
+        this.formSubmitAttempt = true;
+    };
+    EditUserProfileComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
+    EditUserProfileComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-edit-user-profile',
+            template: __webpack_require__(/*! ./edit-user-profile.component.html */ "./src/app/edit-user-profile/edit-user-profile.component.html"),
+            styles: [__webpack_require__(/*! ./edit-user-profile.component.scss */ "./src/app/edit-user-profile/edit-user-profile.component.scss")]
+        }),
+        __param(4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"], Object])
+    ], EditUserProfileComponent);
+    return EditUserProfileComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/icons/icons.component.css":
 /*!*******************************************!*\
   !*** ./src/app/icons/icons.component.css ***!
@@ -59858,24 +59984,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
 /* harmony import */ var _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../admin-dashboard/admin-dashboard.component */ "./src/app/admin-dashboard/admin-dashboard.component.ts");
 /* harmony import */ var _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../edit-shuttle-point/edit-shuttle-point.component */ "./src/app/edit-shuttle-point/edit-shuttle-point.component.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
-/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_31__);
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
-/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_32__);
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_33__);
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
-/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../edit-user-profile/edit-user-profile.component */ "./src/app/edit-user-profile/edit-user-profile.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_32__);
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! angularfire2/database */ "./node_modules/angularfire2/database/index.js");
+/* harmony import */ var angularfire2_database__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(angularfire2_database__WEBPACK_IMPORTED_MODULE_33__);
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_34__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ../../services/excel.service */ "./src/app/services/excel.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -59924,53 +60052,53 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_36__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_37__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_admin_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AdminLayoutRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatRippleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatBottomSheetModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatButtonToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatChipsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatDividerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatProgressBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatProgressSpinnerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSliderModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTabsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_37__["MatTreeModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_38__["AgmCoreModule"].forRoot({
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatRippleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatBadgeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatProgressBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSliderModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_38__["MatTreeModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_39__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDncE22SW0ALZq1cuovqN0sPTLwcyoxdnU'
                 }),
-                angularfire2__WEBPACK_IMPORTED_MODULE_31__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_30__["environment"].firebase),
-                angularfire2_database__WEBPACK_IMPORTED_MODULE_32__["AngularFireDatabaseModule"],
-                angularfire2_auth__WEBPACK_IMPORTED_MODULE_33__["AngularFireAuthModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_34__["NgxSpinnerModule"]
+                angularfire2__WEBPACK_IMPORTED_MODULE_32__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_31__["environment"].firebase),
+                angularfire2_database__WEBPACK_IMPORTED_MODULE_33__["AngularFireDatabaseModule"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_34__["AngularFireAuthModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_35__["NgxSpinnerModule"]
             ],
             entryComponents: [
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
@@ -59978,6 +60106,7 @@ var AdminLayoutModule = /** @class */ (function () {
                 _change_phone_no_change_phone_no_component__WEBPACK_IMPORTED_MODULE_18__["ChangePhoneNoComponent"],
                 _change_email_change_email_component__WEBPACK_IMPORTED_MODULE_19__["ChangeEmailComponent"],
                 _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_20__["ChangePasswordComponent"],
+                _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_30__["EditUserProfileComponent"]
             ],
             declarations: [
                 _dashboard_template_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["DashboardComponent"],
@@ -60005,8 +60134,9 @@ var AdminLayoutModule = /** @class */ (function () {
                 _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmationDialogComponent"],
                 _admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_28__["AdminDashboardComponent"],
                 _edit_shuttle_point_edit_shuttle_point_component__WEBPACK_IMPORTED_MODULE_29__["EditShuttlePointComponent"],
+                _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_30__["EditUserProfileComponent"]
             ],
-            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_35__["ExcelService"]]
+            providers: [_services_excel_service__WEBPACK_IMPORTED_MODULE_36__["ExcelService"]]
         })
     ], AdminLayoutModule);
     return AdminLayoutModule;
@@ -60127,7 +60257,7 @@ var AdminLayoutRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div style=\"display: flex\">\n                            <i class=\"material-icons\" style=\"align-items: center; display: flex; padding-right: 10px;\">search</i>\n                            <mat-form-field>\n                                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search by name or NIP\">\n                            </mat-form-field>\n                        </div>\n                        <div class=\"table-responsive\">\n                            <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                                <ng-container matColumnDef=\"position\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\">No. </th>\n                                    <td mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"name\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Name </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"nip\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> NIP </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.nip}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"program\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Program </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.program}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"email\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Email </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.email}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"action\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Action </th>\n                                    <td mat-cell *matCellDef=\"let element\">\n                                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(element, element.name)\"\n                                            *ngIf=\"processing != true\">Delete</button>\n                                        <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                    </td>\n                                </ng-container>\n                                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n                            </table>\n                            <mat-paginator [pageSize]=\"20\" [pageSizeOptions]=\"[10, 50, 100]\" showFirstLastButtons></mat-paginator>\n                            <!-- <table class=\"table\">\n                                <thead class=\" text-primary\">\n                                    <th>\n                                        No\n                                    </th>\n                                    <th>\n                                        Name\n                                    </th>\n                                    <th>\n                                        NIP\n                                    </th>\n                                    <th>\n                                        Program\n                                    </th>\n                                    <th>\n                                        Email\n                                    </th>\n                                    <th>\n                                        Action\n                                    </th>\n                                </thead>\n                                <tbody>\n\n                                    <tr *ngFor=\"let user of userList; let i=index\">\n                                        <td>\n                                            {{i+1}}\n                                        </td>\n                                        <td>\n                                            {{user.name}}\n                                        </td>\n                                        <td>\n                                            {{user.nip}}\n                                        </td>\n                                        <td>\n                                            {{user.program}}\n                                        </td>\n                                        <td>\n                                            {{user.email}}\n                                        </td>\n                                        <td>\n                                            <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(user, user.name)\"\n                                                *ngIf=\"processing != true\">Delete</button>\n                                            <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                        </td>\n                                    </tr>\n\n                                </tbody>\n                            </table> -->\n                            <!-- <div class=\"d-flex justify-content-center\">\n\n                              <nav class=\"my-4 pt-2\">\n                                <ul class=\"pagination pagination-circle pg-purple mb-0\">\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"firstPage()\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\">First</a>\n                                  </li>\n                          \n                                  <li class=\"page-item\" (click)=\"previousPage($event)\" [ngClass]=\"{disabled: activePage == 1}\">\n                                    <a class=\"page-link\" aria-label=\"Previous\">\n                                      <span aria-hidden=\"true\">&laquo;</span>\n                                      <span class=\"sr-only\">Previous</span>\n                                    </a>\n                                  </li>\n                                  <li #pages *ngFor=\"let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index\" class=\"page-item\" [ngClass]=\"{active: i + firstVisiblePaginator + 1 == activePage}\">\n                                      <a class=\"page-link waves-light\" (click)=\"changePage($event)\" mdbWavesEffect>{{page}}</a>\n                                  </li>\n                          \n                          \n                          \n                                  <li class=\"page-item\" (click)=\"nextPage($event)\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\" aria-label=\"Next\">\n                                      <span aria-hidden=\"true\">&raquo;</span>\n                                      <span class=\"sr-only\">Next</span>\n                                    </a>\n                                  </li>\n                          \n                                  <li class=\"page-item clearfix d-none d-md-block\" (click)=\"lastPage()\" [ngClass]=\"{disabled: activePage == numberOfPaginators}\">\n                                    <a class=\"page-link\">Last</a>\n                                  </li>\n                          \n                                </ul>\n                              </nav>\n                          \n                            </div> -->\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h4 class=\"card-title \">Manage User</h4>\n                        <p class=\"card-category\">Registered user, you can delete them</p>\n                    </div>\n                    <div class=\"card-body\">\n                        <div style=\"display: flex\">\n                            <i class=\"material-icons\" style=\"align-items: center; display: flex; padding-right: 10px;\">search</i>\n                            <mat-form-field>\n                                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search by name or NIP\">\n                            </mat-form-field>\n                        </div>\n                        <div class=\"table-responsive\">\n                            <table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n                                <ng-container matColumnDef=\"position\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\">No. </th>\n                                    <td mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"name\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Name </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"nip\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> NIP </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.nip}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"program\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Program </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.program}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"phoneNo\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Phone No </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.phoneNo}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"email\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Email </th>\n                                    <td mat-cell *matCellDef=\"let element\"> {{element.email}} </td>\n                                </ng-container>\n                                <ng-container matColumnDef=\"action\">\n                                    <th mat-header-cell *matHeaderCellDef class=\"text-primary\"> Action </th>\n                                    <td mat-cell *matCellDef=\"let element\">\n                                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"editUser(element)\"\n                                            *ngIf=\"processing != true\">Edit</button>\n                                        <button mat-raised-button class=\"btn btn-danger\" (click)=\"deleteUser(element, element.name)\"\n                                            *ngIf=\"processing != true\">Delete</button>\n                                        <button mat-raised-button class=\"btn btn-danger\" disabled *ngIf=\"processing == true\">Processing...</button>\n                                    </td>\n                                </ng-container>\n                                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n                            </table>\n                            <mat-paginator [pageSize]=\"20\" [pageSizeOptions]=\"[10, 50, 100]\" showFirstLastButtons></mat-paginator>\n                            \n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<ngx-spinner bdColor=\"rgba(51, 51, 51, 0.8)\" size=\"medium\" color=\"#fff\" type=\"ball-atom\"></ngx-spinner>"
 
 /***/ }),
 
@@ -60158,6 +60288,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
+/* harmony import */ var _edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../edit-user-profile/edit-user-profile.component */ "./src/app/edit-user-profile/edit-user-profile.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -60167,6 +60298,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -60187,7 +60319,7 @@ var ManageUserComponent = /** @class */ (function () {
         this.toastrService = toastrService;
         this.spinner = spinner;
         this.dialog = dialog;
-        this.displayedColumns = ['position', 'name', 'nip', 'program', 'email', 'action'];
+        this.displayedColumns = ['position', 'name', 'nip', 'program', 'phoneNo', 'email', 'action'];
         this.processing = false;
     }
     ManageUserComponent.prototype.applyFilter = function (filterValue) {
@@ -60198,7 +60330,7 @@ var ManageUserComponent = /** @class */ (function () {
         // console.log(JSON.stringify(userObj));
         var dialogRef = this.dialog.open(_confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationDialogComponent"], {
             width: '350px',
-            data: { msg: "Are you sure to delete " + userName + "?" }
+            data: { msg: "Are you sure to delete " + JSON.parse(JSON.stringify(userObj)).name + "?" }
         });
         dialogRef.afterClosed().subscribe(function (result) {
             if (result == true) {
@@ -60214,6 +60346,20 @@ var ManageUserComponent = /** @class */ (function () {
                     _this.toastrService.error('Lost Connection!');
                     _this.processing = false;
                 });
+            }
+        });
+    };
+    ManageUserComponent.prototype.editUser = function (userObj) {
+        var _this = this;
+        var dialogRef = this.dialog.open(_edit_user_profile_edit_user_profile_component__WEBPACK_IMPORTED_MODULE_6__["EditUserProfileComponent"], {
+            width: '750px',
+            data: userObj
+        }).afterClosed().subscribe(function (res) {
+            if (res != null) {
+                var index = _this.userList.findIndex(function (user) { return user.key === JSON.parse(JSON.stringify(userObj)).key; });
+                _this.userList[index] = res;
+                _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](_this.userList);
+                _this.dataSource.paginator = _this.paginator;
             }
         });
     };

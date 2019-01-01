@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, PageEvent } from '@angular/material';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { EditUserProfileComponent } from '../edit-user-profile/edit-user-profile.component';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 // export interface userElement {
@@ -37,7 +38,7 @@ export class ManageUserComponent implements OnInit {
   // userElements: userElement[];
   userList: any[];
 
-  displayedColumns: string[] = ['position', 'name', 'nip', 'program', 'email', 'action'];
+  displayedColumns: string[] = ['position', 'name', 'nip', 'program', 'phoneNo', 'email', 'action'];
   dataSource: any;
 
   applyFilter(filterValue: string) {
@@ -56,7 +57,7 @@ export class ManageUserComponent implements OnInit {
     // console.log(JSON.stringify(userObj));
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
-      data: {msg: "Are you sure to delete " + userName + "?"}
+      data: {msg: "Are you sure to delete " + JSON.parse(JSON.stringify(userObj)).name + "?"}
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result == true){
@@ -75,6 +76,24 @@ export class ManageUserComponent implements OnInit {
       }
     });
   }
+
+  editUser(userObj: Object){
+    const dialogRef = this.dialog.open(EditUserProfileComponent, {
+      width: '750px',
+      data: userObj
+    }).afterClosed().subscribe(res => {
+      if(res != null){
+        var index = this.userList.findIndex(user => user.key === JSON.parse(JSON.stringify(userObj)).key);
+        
+        this.userList[index] = res;
+        this.dataSource = new MatTableDataSource(this.userList);
+        this.dataSource.paginator = this.paginator;
+      }
+          
+    });
+    
+  }
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageEvent: PageEvent;
   // @ViewChild(MatPaginator) dataSource: MatTableDataSource<Element>;

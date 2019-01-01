@@ -597,6 +597,7 @@ app.post("/show-user-list", function (req, res) {
                 "name": item.val().name,
                 "nip": item.val().nip,
                 "program": item.val().program,
+                "phoneNo": item.val().phoneNo,
                 "email": item.val().email
             });
         });
@@ -656,17 +657,35 @@ app.post("/get-user-detail", function (req, res) {
     });
 });
 
-app.post("/update-user-data", function (req, res) {
+app.post("/edit-user-data", function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
     console.log(JSON.stringify(req.body));
-    
-    firebase.database.ref('user').child(req.body.name).set({
-        name: req.body.name,
-        nip: req.body.nim,
-        program: req.body.program,
-        phoneNo: req.body.phoneNo,
+    admin.auth().updateUser(req.body.key, {
         email: req.body.email
+    }).then(userRecord => {
+        console.log("heii"+JSON.stringify(userRecord));
+        
+        firebase.database.ref('user').child(req.body.key).update({
+            name: req.body.name,
+            nip: req.body.nip,
+            program: req.body.program,
+            phoneNo: req.body.phoneNo,
+            email: req.body.email
+        }).then(function(){
+            res.status(200).send('edit user success');
+        }).catch(error => {
+            res.status(500).send('lost connection');
+        });
+    }).catch(error => {
+        console.log("error disini: "+error.code);
+        console.log("error disini: "+error.message);
+        
+        if (error.code == 'auth/email-already-in-use') {
+            res.status(501).send('Email already in use');
+        } else {
+            res.status(500).send('lost connection');
+        }
     });
-    res.send(req.body);
 });
 
 app.listen(port, () => {

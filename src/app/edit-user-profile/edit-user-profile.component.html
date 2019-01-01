@@ -1,0 +1,58 @@
+<h4>Edit {{data.name}}'s Profile</h4>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="isFieldInvalid('name')">
+          This field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput placeholder="NIP" formControlName="nip">
+        <mat-error *ngIf="isFieldInvalid('nip')">
+          This field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput placeholder="Program" formControlName="program">
+        <mat-error *ngIf="isFieldInvalid('program')">
+          This field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field>
+        <input matInput placeholder="Phone No" formControlName="phoneNo">
+        <mat-error *ngIf="isFieldInvalid('phoneNo')">
+          This field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="isFieldInvalid('email')">
+          This field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions class="pull-right">
+
+    <button type="button" mat-raised-button class="btn" (click)="onNoClick()">Cancel</button>
+    <button type="submit" mat-raised-button class="btn btn-danger" cdkFocusInitial [disabled]="!form.valid" *ngIf="processing != true">Done</button>
+    <button mat-raised-button class="btn btn-danger" disabled *ngIf="processing == true">Processing...</button>
+  </div>
+  <div class="clearfix"></div>
+</form>
