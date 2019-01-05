@@ -23,8 +23,8 @@ export class ReportComponent implements OnInit {
     'to': '',
   }];
   private keys = [];
-  private year = '';
-  private month = '';
+  year = '';
+  month = '';
   private assemblyPoint= '';
   private filter = {
     assemblyPoint: '',
@@ -32,7 +32,7 @@ export class ReportComponent implements OnInit {
     year: ''
   }
   private bookingList: any[];
-  private bookingListLength;
+  bookingListLength;
   constructor(
     private route: ActivatedRoute,
     private router: Router,

@@ -13,7 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class EditUserProfileComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
-  private processing = false;
+  processing = false;
 
   constructor(
     private http: Http,

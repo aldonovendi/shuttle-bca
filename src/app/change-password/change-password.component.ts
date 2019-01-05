@@ -17,7 +17,7 @@ export class ChangePasswordComponent implements OnInit {
     private toastrService: ToastrService,
     public dialogRef: MatDialogRef<ChangePasswordComponent>,
   ) { }
-  private processing = false;
+  processing = false;
 
   ngOnInit() {
     this.form = this.fb.group({

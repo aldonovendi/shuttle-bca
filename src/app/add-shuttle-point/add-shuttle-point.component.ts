@@ -17,7 +17,7 @@ export class AddShuttlePointComponent implements OnInit {
     private toastrService: ToastrService,
 
   ) { }
-  private processing = false;
+  processing = false;
   ngOnInit() {
 
     this.form = this.fb.group({

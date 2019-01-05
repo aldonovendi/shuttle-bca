@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material';
 export class ChangeEmailComponent implements OnInit {
   form: FormGroup;
   newEmail: String;
-  private processing = false;
+  processing = false;
 
   constructor(
     private fb: FormBuilder,

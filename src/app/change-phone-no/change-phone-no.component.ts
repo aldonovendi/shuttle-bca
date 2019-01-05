@@ -14,7 +14,7 @@ import { MatDialogRef } from '@angular/material';
 export class ChangePhoneNoComponent implements OnInit {
   form: FormGroup;
   newPhoneNo: String;
-  private processing = false;
+  processing = false;
 
   constructor(
     private fb: FormBuilder, 

@@ -29,7 +29,7 @@ export class EditShuttlePointComponent implements OnInit {
   private filter = {
     shuttleName: ''
   }
-  private processing = false;
+  processing = false;
   ngOnInit() {
     // this.filter = {
     //   shuttleName: this.route.snapshot.paramMap.get('name')

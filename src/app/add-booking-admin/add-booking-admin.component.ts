@@ -45,7 +45,7 @@ export class AddBookingAdminComponent implements OnInit {
   defaultOption = new FormControl(this.shuttlePoints[2]);
   from = '';
   to = 'BCA Learning Institute';
-  private processing = false;
+  processing = false;
 
   // fromModel = new NgModel();
   dateValue = this.date.value;

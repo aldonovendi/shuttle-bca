@@ -64,8 +64,8 @@ export class BookingReportComponent implements OnInit {
   assemblyPoint = "";
   type = "";
   private bookingList: any[];
-  private bookingListLength = 0;
-  private processing = false;
+  bookingListLength = 0;
+  processing = false;
   private formSubmitAttempt: boolean;
 
   filter(){

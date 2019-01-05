@@ -16,7 +16,7 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
 export class UserProfileAdminComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
-  private processing = false;
+  processing = false;
 
   userData: {
     name: '',

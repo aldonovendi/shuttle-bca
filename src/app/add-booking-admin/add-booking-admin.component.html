@@ -76,7 +76,7 @@
                     <mat-select placeholder="Assembly Point" formControlName="from">
                       <mat-option *ngFor="let shuttlePoint of pointsObservable | async" [disabled]="this.form.value.type == 'Operational' && shuttlePoint.name != 'Wisma Asia'" value="{{shuttlePoint.name}}+{{shuttlePoint.departure}}">{{shuttlePoint.name}}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="!from.valid">Please choose Your Origin</mat-error>
+                    <mat-error *ngIf="!this.form.value.from.valid">Please choose Your Origin</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">

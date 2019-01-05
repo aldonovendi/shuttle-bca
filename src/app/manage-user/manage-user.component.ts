@@ -45,7 +45,7 @@ export class ManageUserComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  private processing = false;
+  processing = false;
   constructor(
     private http: Http,
     private toastrService: ToastrService,

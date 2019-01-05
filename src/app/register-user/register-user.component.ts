@@ -23,8 +23,8 @@ export class RegisterUserComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   form: FormGroup;
   private formSubmitAttempt: boolean;
-  private processing = false;
-  private uploadProcessing = false;
+  processing = false;
+  uploadProcessing = false;
   constructor(
     private db: AngularFireDatabase,
     private toastrService: ToastrService,

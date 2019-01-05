@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ForgotPasswordComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
-  private processing = false;
+  processing = false;
   constructor(
     private fb: FormBuilder,
     private http: Http,

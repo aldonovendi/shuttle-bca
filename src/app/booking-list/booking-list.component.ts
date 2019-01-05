@@ -28,8 +28,8 @@ export class BookingListComponent implements OnInit {
   bookingList: any[]
   month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  private processing = false;
-  private emailProcessing = false;
+  processing = false;
+  emailProcessing = false;
   constructor(
     private db: AngularFireDatabase,
     private er: ElementRef,
@@ -84,7 +84,7 @@ export class BookingListComponent implements OnInit {
 
   }
 
-  private bookingListLength;
+  bookingListLength;
   private today;
   private todayKey;
   private idx;
