@@ -52,6 +52,7 @@ export class BookingListComponent implements OnInit {
       console.log('tesssss' + data);
       this.emailProcessing = false;
       this.toastrService.success('Please check your email', 'An email has been sent');
+      // made by aldo_novendi_fadly
     }, error => {
       this.emailProcessing = false;
       this.toastrService.error('Lost Connection!');
